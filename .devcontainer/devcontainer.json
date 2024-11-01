@@ -23,17 +23,13 @@
 		"ghcr.io/devcontainers/features/python:1": {
 			"version": "3.12"
 		}
-	}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "docker --version",
-
-	// Configure tool-specific properties.
-	// "customizations": {},
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"postCreateCommand": "/workspaces/kc-connectors/.devcontainer/postCreate.sh",
+	"remoteEnv": {
+		"PATH": "${containerEnv:PATH}:/home/vscode/.pulumi/bin"
+	}
 }
