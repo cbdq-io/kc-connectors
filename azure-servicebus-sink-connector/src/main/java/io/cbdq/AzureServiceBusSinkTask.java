@@ -1,90 +1,76 @@
 package io.cbdq;
 
-import com.azure.core.amqp.AmqpTransportType;
-import com.azure.core.http.netty.NettyAsyncHttpClientBuilder;
-import com.azure.messaging.servicebus.ServiceBusClientBuilder;
-import com.azure.messaging.servicebus.ServiceBusMessage;
-import com.azure.messaging.servicebus.ServiceBusSenderClient;
-
-import io.netty.handler.ssl.SslContext;
-import io.netty.handler.ssl.SslContextBuilder;
-import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
-
-import org.apache.kafka.common.config.types.Password;
-
 import org.apache.kafka.connect.errors.RetriableException;
 import org.apache.kafka.connect.sink.SinkTask;
 import org.apache.kafka.connect.sink.SinkRecord;
 
+import org.apache.qpid.jms.JmsConnectionFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.net.ssl.SSLException;
+import javax.jms.*;
+import java.util.*;
 
 public class AzureServiceBusSinkTask extends SinkTask {
 
     private static final Logger log = LoggerFactory.getLogger(AzureServiceBusSinkTask.class);
 
     private AzureServiceBusSinkConnectorConfig config;
-    private Map<String, ServiceBusSenderClient> senderClients;
+    private Map<String, MessageProducer> jmsProducers;
+    private Connection jmsConnection;
+    private Session jmsSession;
 
     @Override
     public void start(Map<String, String> props) {
-        log.debug("k2sbus - Starting task {}", props);
+        log.info("Starting task with properties: {}", props);
         config = new AzureServiceBusSinkConnectorConfig(props);
 
         // Retrieve the connection string as a Password type
-        Password connectionStringPassword = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG);
-        String connectionString = connectionStringPassword == null ? "" : connectionStringPassword.value();
+        String connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
 
-        // Check if we're using the development emulator
-        boolean useDevelopmentEmulator = connectionString.contains("UseDevelopmentEmulator=true");
+        try {
+            // Parse connection string for JMS parameters
+            String brokerURL = parseBrokerURL(connectionString);
+            String username = parseUsername(connectionString);
+            String password = parsePassword(connectionString);
 
-        ServiceBusClientBuilder clientBuilder = new ServiceBusClientBuilder().connectionString(connectionString);
+            // Create JMS ConnectionFactory
+            JmsConnectionFactory factory = new JmsConnectionFactory(username, password, brokerURL);
 
-        if (useDevelopmentEmulator) {
-            log.warn("k2sbus - UseDevelopmentEmulator=true detected.");
-            clientBuilder = new ServiceBusClientBuilder()
-                .connectionString(connectionString)
-                .customEndpointAddress("https://localhost.localsandbox.sh:5672")
-                .transportType(AmqpTransportType.AMQP);
-        } else {
-            log.info("k2sbus - Using standard SSL verification for Service Bus connection.");
-            clientBuilder = new ServiceBusClientBuilder().connectionString(connectionString);
-        }
+            // Create JMS Connection and Session
+            jmsConnection = factory.createConnection();
+            jmsSession = jmsConnection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-        senderClients = new HashMap<>();
+            jmsProducers = new HashMap<>();
 
-        // Get the list of topics from the configuration
-        String topicsStr = props.get("topics");
-        if (topicsStr != null) {
-            List<String> topicList = Arrays.asList(topicsStr.split(","));
-            for (String topic : topicList) {
-                topic = topic.trim();
-                if (!topic.isEmpty()) {
-                    ServiceBusSenderClient senderClient = clientBuilder
-                            .sender()
-                            .topicName(topic)
-                            .buildClient();
-                    senderClients.put(topic, senderClient);
-                    log.info("k2sbus - Initialized Service Bus sender client for topic: {}", topic);
+            // Get the list of topics from the configuration
+            String topicsStr = props.get("topics");
+            if (topicsStr != null) {
+                List<String> topicList = Arrays.asList(topicsStr.split(","));
+                for (String topic : topicList) {
+                    topic = topic.trim();
+                    if (!topic.isEmpty()) {
+                        Destination destination = jmsSession.createTopic(topic);
+                        MessageProducer producer = jmsSession.createProducer(destination);
+                        jmsProducers.put(topic, producer);
+                        log.info("Initialized JMS producer for topic: {}", topic);
+                    }
                 }
+            } else {
+                log.error("No topics specified in the configuration");
             }
-        } else {
-            log.error("k2sbus - No topics specified in the configuration");
+
+            jmsConnection.start();
+        } catch (JMSException e) {
+            log.error("Failed to initialize JMS client: {}", e.getMessage(), e);
+            throw new RuntimeException("Failed to initialize JMS client", e);
         }
     }
 
     @Override
     public void put(Collection<SinkRecord> records) {
-        log.info("k2sbus - Received {} records", records.size());
+        log.info("Received {} records", records.size());
         for (SinkRecord record : records) {
             processRecord(record);
         }
@@ -92,65 +78,57 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
     private void processRecord(SinkRecord record) {
         String kafkaTopic = record.topic();
-        ServiceBusSenderClient senderClient = senderClients.get(kafkaTopic);
+        MessageProducer producer = jmsProducers.get(kafkaTopic);
 
-        if (senderClient == null) {
-            log.warn("k2sbus - No sender client found for topic {}", kafkaTopic);
+        if (producer == null) {
+            log.warn("No JMS producer found for topic {}", kafkaTopic);
             return;
         }
 
-        log.info("k2sbus - Processing record from topic: {}, partition: {}, offfset: {}",
-                 record.topic(), record.kafkaPartition(), record.kafkaOffset());
-        byte[] messageBody;
+        log.info("Processing record from topic: {}, partition: {}, offset: {}",
+                record.topic(), record.kafkaPartition(), record.kafkaOffset());
 
-        if (record.value() instanceof byte[]) {
-            messageBody = (byte[]) record.value();
-        } else if (record.value() instanceof String) {
-            messageBody = ((String) record.value()).getBytes(StandardCharsets.UTF_8);
-        } else {
-            log.error("k2sbus - Unsupported record value type: {}", record.value().getClass());
-            return;
-        }
+        try {
+            Message message;
 
-        ServiceBusMessage message = new ServiceBusMessage(messageBody);
-
-        int attempts = 0;
-        boolean success = false;
-        int maxRetryAttempts = config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_ATTEMPTS_CONFIG);
-        long retryWaitTimeMs = config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_WAIT_TIME_MS_CONFIG);
-        log.debug("k2sbus - Sending message to Service Bus topic: {}", kafkaTopic);
-
-        while (attempts < maxRetryAttempts && !success) {
-            try {
-                senderClient.sendMessage(message);
-                success = true;
-                log.debug("k2sbus - Successfully sent message to Service Bus topic {}", kafkaTopic);
-            } catch (Exception e) {
-                attempts++;
-                log.error("k2sbus - Failed to send message to Service Bus topic {} on attempt {}: {}", kafkaTopic, attempts, e.getMessage());
-                if (attempts < maxRetryAttempts) {
-                    try {
-                        Thread.sleep(retryWaitTimeMs);
-                    } catch (InterruptedException ie) {
-                        Thread.currentThread().interrupt();
-                        break;
-                    }
-                } else {
-                    throw new RetriableException("Failed to send message after " + maxRetryAttempts + " attempts", e);
-                }
+            if (record.value() instanceof byte[]) {
+                BytesMessage bytesMessage = jmsSession.createBytesMessage();
+                bytesMessage.writeBytes((byte[]) record.value());
+                message = bytesMessage;
+            } else if (record.value() instanceof String) {
+                message = jmsSession.createTextMessage((String) record.value());
+            } else {
+                log.error("Unsupported record value type: {}", record.value().getClass());
+                return;
             }
+
+            producer.send(message);
+            log.debug("Successfully sent message to JMS topic {}", kafkaTopic);
+        } catch (JMSException e) {
+            log.error("Failed to send message to JMS topic {}: {}", kafkaTopic, e.getMessage(), e);
+            throw new RetriableException("Failed to send message to JMS topic " + kafkaTopic, e);
         }
     }
 
     @Override
     public void stop() {
-        log.info("k2sbus - Stopping AzureServiceBusSinkTask");
-        for (Map.Entry<String, ServiceBusSenderClient> entry : senderClients.entrySet()) {
+        log.info("Stopping AzureServiceBusSinkTask");
+
+        if (jmsProducers != null) {
             try {
-                entry.getValue().close();
-                log.info("k2sbus - Closed sender client for topic {}", entry.getKey());
-            } catch (Exception e) {
-                log.error("k2sbus - Error closing sender client for topic {}: {}", entry.getKey(), e.getMessage());
+                for (Map.Entry<String, MessageProducer> entry : jmsProducers.entrySet()) {
+                    entry.getValue().close();
+                    log.info("Closed JMS producer for topic {}", entry.getKey());
+                }
+                if (jmsSession != null) {
+                    jmsSession.close();
+                }
+                if (jmsConnection != null) {
+                    jmsConnection.close();
+                }
+                log.info("Closed JMS connection and session");
+            } catch (JMSException e) {
+                log.error("Error closing JMS resources: {}", e.getMessage(), e);
             }
         }
     }
@@ -158,5 +136,59 @@ public class AzureServiceBusSinkTask extends SinkTask {
     @Override
     public String version() {
         return VersionUtil.getVersion();
+    }
+
+    // Parsing methods for JMS connection parameters
+    private String parseBrokerURL(String connectionString) {
+        String brokerURL = "amqp://artemis:5672"; // Default broker URL
+
+        String[] parts = connectionString.split(";");
+
+        for (String part : parts) {
+            if (part.startsWith("Endpoint=sb://")) {
+                String endpoint = part.substring("Endpoint=sb://".length());
+
+                if (endpoint.endsWith("/")) {
+                    endpoint = endpoint.substring(0, endpoint.length() - 1);
+                }
+
+                brokerURL = "amqps://" + endpoint;
+            }
+
+            if (part.startsWith("Endpoint=amqp://")) {
+                String endpoint = part.substring("Endpoint=amqp://".length());
+
+                if (endpoint.endsWith("/")) {
+                    endpoint = endpoint.substring(0, endpoint.length() - 1);
+                }
+
+                brokerURL = "amqp://" + endpoint;
+            }
+        }
+
+        log.info("Broker URL parsed as '{}'.", brokerURL);
+        return brokerURL;
+    }
+
+    private String parseUsername(String connectionString) {
+        String username = "";
+        String[] parts = connectionString.split(";");
+        for (String part : parts) {
+            if (part.startsWith("SharedAccessKeyName=")) {
+                username = part.substring("SharedAccessKeyName=".length());
+            }
+        }
+        return username;
+    }
+
+    private String parsePassword(String connectionString) {
+        String password = "";
+        String[] parts = connectionString.split(";");
+        for (String part : parts) {
+            if (part.startsWith("SharedAccessKey=")) {
+                password = part.substring("SharedAccessKey=".length());
+            }
+        }
+        return password;
     }
 }

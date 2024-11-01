@@ -1,25 +1,25 @@
 ---
 services:
-  # amqp:
-  #   container_name: amqp
-  #   healthcheck:
-  #     test: /var/lib/artemis-instance/bin/artemis queue create --user=artemis --password=artemis --name=foo --silent --auto-create-address
-  #     interval: 1m30s
-  #     timeout: 30s
-  #     retries: 5
-  #     start_period: 1s
-  #   image: apache/activemq-artemis:2.38.0-alpine
-  #   ports:
-  #     - "5672:5672"
-  #     - "8161:8161"
+  artemis:
+    container_name: amqp
+    healthcheck:
+      test: /var/lib/artemis-instance/bin/artemis queue create --user=artemis --password=artemis --name=foo --silent --auto-create-address
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 1s
+    image: apache/activemq-artemis:2.38.0-alpine
+    ports:
+      - "5672:5672"
+      - "8161:8161"
 
   connect:
     build: .
     container_name: connect
     depends_on:
-      kafka:
+      artemis:
         condition: service_healthy
-      localhost.localsandbox.sh:
+      kafka:
         condition: service_healthy
     environment:
       CONNECT_BOOTSTRAP_SERVERS: kafka:29092
@@ -68,16 +68,6 @@ services:
     image: confluentinc/cp-kafka:7.6.2
     ports:
       - 9092:9092
-
-  localhost.localsandbox.sh:
-    container_name: localhost.localsandbox.sh
-    healthcheck:
-      test: azl servicebus namespace create --name default -g default
-      interval: 1m30s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-    image: localsandbox/localsandbox:1.1.0
 
   sut:
     build: sut
