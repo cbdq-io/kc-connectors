@@ -90,7 +90,7 @@ python-slugify==8.0.4
 pytimeparse==1.1.8
 pytz==2024.1
 PyYAML==6.0.1
-requests==2.31.0
+requests==2.32.2
 requests-oauthlib==2.0.0
 rich==13.7.1
 rich-click==1.8.0
