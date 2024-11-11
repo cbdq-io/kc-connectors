@@ -1,8 +1,15 @@
+.EXPORT_ALL_VARIABLES:
+
+TAG = 0.1.0
+
 all: lint clean build test
 
 build:
 	make -C azure-servicebus-sink-connector build
 	docker compose build connect
+
+changelog:
+	gitchangelog > CHANGELOG.md
 
 clean:
 	make -C azure-servicebus-sink-connector clean
@@ -13,6 +20,9 @@ get-lags:
 
 lint:
 	docker run --rm -i hadolint/hadolint < Dockerfile
+
+tag:
+	@echo $(TAG)
 
 test:
 	docker compose up -d kafka artemis --wait
