@@ -63,49 +63,47 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
             jmsConnection.start();
         } catch (JMSException e) {
-            log.error("Failed to initialize JMS client: {}", e.getMessage(), e);
             throw new RuntimeException("Failed to initialize JMS client", e);
         }
     }
 
     @Override
-    public void put(Collection<SinkRecord> records) {
-        log.info("Received {} records", records.size());
-        for (SinkRecord record : records) {
-            processRecord(record);
+    public void put(Collection<SinkRecord> envelopes) {
+        log.info("Received {} records", envelopes.size());
+        for (SinkRecord envelope : envelopes) {
+            processRecord(envelope);
         }
     }
 
-    private void processRecord(SinkRecord record) {
-        String kafkaTopic = record.topic();
+    private void processRecord(SinkRecord envelope) {
+        String kafkaTopic = envelope.topic();
         MessageProducer producer = jmsProducers.get(kafkaTopic);
 
         if (producer == null) {
             log.warn("No JMS producer found for topic {}", kafkaTopic);
             return;
+        } else if (log.isDebugEnabled()) {
+            log.debug("Processing record from topic: {}, partition: {}, offset: {}",
+                    envelope.topic(), envelope.kafkaPartition(), envelope.kafkaOffset());
         }
-
-        log.info("Processing record from topic: {}, partition: {}, offset: {}",
-                record.topic(), record.kafkaPartition(), record.kafkaOffset());
 
         try {
             Message message;
 
-            if (record.value() instanceof byte[]) {
+            if (envelope.value() instanceof byte[]) {
                 BytesMessage bytesMessage = jmsSession.createBytesMessage();
-                bytesMessage.writeBytes((byte[]) record.value());
+                bytesMessage.writeBytes((byte[]) envelope.value());
                 message = bytesMessage;
-            } else if (record.value() instanceof String) {
-                message = jmsSession.createTextMessage((String) record.value());
+            } else if (envelope.value() instanceof String) {
+                message = jmsSession.createTextMessage((String) envelope.value());
             } else {
-                log.error("Unsupported record value type: {}", record.value().getClass());
+                log.error("Unsupported record value type: {}", envelope.value().getClass());
                 return;
             }
 
             producer.send(message);
             log.debug("Successfully sent message to JMS topic {}", kafkaTopic);
         } catch (JMSException e) {
-            log.error("Failed to send message to JMS topic {}: {}", kafkaTopic, e.getMessage(), e);
             throw new RetriableException("Failed to send message to JMS topic " + kafkaTopic, e);
         }
     }

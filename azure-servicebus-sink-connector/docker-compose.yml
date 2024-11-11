@@ -9,3 +9,11 @@ services:
       - "/tmp/.m2:/root/.m2"
       - ".:/mnt/project"
     working_dir: /mnt/project
+
+  sonar:
+    container_name: sonarqube
+    image: sonarqube:lts-community
+    ports:
+      - "9000:9000"
+    volumes:
+      - ".:/mnt/project"
