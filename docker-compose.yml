@@ -1,0 +1,80 @@
+---
+services:
+  artemis:
+    container_name: amqp
+    healthcheck:
+      test: /var/lib/artemis-instance/bin/artemis queue create --user=artemis --password=artemis --name=foo --silent --auto-create-address
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 1s
+    image: apache/activemq-artemis:2.38.0-alpine
+    ports:
+      - "5672:5672"
+      - "8161:8161"
+
+  connect:
+    build: .
+    container_name: connect
+    depends_on:
+      artemis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: kafka:29092
+      CONNECT_GROUP_ID: external_kafka_connect_docker
+      CONNECT_CONFIG_STORAGE_TOPIC: vault.infra.external.kafka_connect.default.config
+      CONNECT_OFFSET_STORAGE_TOPIC: vault.infra.external.kafka_connect.default.offset
+      CONNECT_STATUS_STORAGE_TOPIC: vault.infra.external.kafka_connect.default.status
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.converters.ByteArrayConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.converters.ByteArrayConverter
+      CONNECT_REST_ADVERTISED_HOST_NAME: "connect"
+      CONNECT_LOG4J_LOGGERS: "org.apache.kafka.connect.runtime.rest=WARN"
+      CONNECT_LOG4J_ROOT_LOGLEVEL: INFO
+      CONNECT_LOG4J_IO_CBDQ_LOGLEVEL: DEBUG
+    healthcheck:
+      test: curl --fail --silent localhost:8083/connectors
+      interval: 1s
+      retries: 30
+    ports:
+      - 8083:8083
+
+  kafka:
+    container_name: kafka
+    environment:
+      CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+      KAFKA_ADVERTISED_LISTENERS: 'INTERNAL://kafka:29092,EXTERNAL://localhost:9092'
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: false
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka:29093'
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'INTERNAL'
+      KAFKA_LISTENERS: 'INTERNAL://kafka:29092,CONTROLLER://kafka:29093,EXTERNAL://0.0.0.0:9092'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_NODE_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      LOG_LEVEL: WARN
+    healthcheck:
+      test: kafka-topics --list --bootstrap-server kafka:9092
+      interval: 1s
+      retries: 30
+    image: confluentinc/cp-kafka:7.6.2
+    ports:
+      - 9092:9092
+
+  sut:
+    build: sut
+    command:
+      - sleep
+      - infinity
+    container_name: sut
+    volumes:
+      - ".:/mnt/work"
+    working_dir: /mnt/work

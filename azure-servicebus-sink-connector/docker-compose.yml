@@ -1,0 +1,11 @@
+---
+services:
+  mvn:
+    entrypoint: ["mvn"]
+    environment:
+      MAVEN_OPTS: "-Dorg.slf4j.simpleLogger.defaultLogLevel=warn"
+    image: maven:3.9.9
+    volumes:
+      - "/tmp/.m2:/root/.m2"
+      - ".:/mnt/project"
+    working_dir: /mnt/project
