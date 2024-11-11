@@ -63,7 +63,6 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
             jmsConnection.start();
         } catch (JMSException e) {
-            log.error("Failed to initialize JMS client: {}", e.getMessage(), e);
             throw new RuntimeException("Failed to initialize JMS client", e);
         }
     }
