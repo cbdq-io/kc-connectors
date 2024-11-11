@@ -105,7 +105,6 @@ public class AzureServiceBusSinkTask extends SinkTask {
             producer.send(message);
             log.debug("Successfully sent message to JMS topic {}", kafkaTopic);
         } catch (JMSException e) {
-            log.error("Failed to send message to JMS topic {}: {}", kafkaTopic, e.getMessage(), e);
             throw new RetriableException("Failed to send message to JMS topic " + kafkaTopic, e);
         }
     }
