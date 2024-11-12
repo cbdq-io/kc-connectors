@@ -18,8 +18,11 @@ public class VersionUtil {
             version = prop.getProperty("version", "unknown");
         } catch (IOException ex) {
             version = "unknown";
-            ex.printStackTrace();
         }
+    }
+
+    private VersionUtil() {
+        throw new IllegalStateException("Utility class");
     }
 
     public static String getVersion() {
