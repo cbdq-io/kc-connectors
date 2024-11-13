@@ -16,8 +16,8 @@ namespace = azure_native.servicebus.Namespace(
     namespace_name=f'{resource_name}-sbus-01',
     resource_group_name=resource_group.name,
     sku={
-        'name': azure_native.servicebus.SkuName.STANDARD,
-        'tier': azure_native.servicebus.SkuTier.STANDARD
+        'name': azure_native.servicebus.SkuName.PREMIUM,
+        'tier': azure_native.servicebus.SkuTier.PREMIUM
     }
 )
 
@@ -33,7 +33,8 @@ for topic_name in topic_names:
         topic_name,
         namespace_name=namespace.name,
         resource_group_name=resource_group.name,
-        topic_name=topic_name
+        topic_name=topic_name,
+        max_message_size_in_kilobytes=4096
     )
 
 subscription = azure_native.servicebus.Subscription(
