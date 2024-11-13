@@ -5,3 +5,4 @@ build:
 
 clean:
 	docker compose run --rm mvn -B clean
+	docker compose down -t 0
