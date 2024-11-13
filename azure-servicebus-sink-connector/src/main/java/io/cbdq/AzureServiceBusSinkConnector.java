@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class AzureServiceBusSinkConnector extends SinkConnector {
 
-    private static final Logger log = LoggerFactory.getLogger(AzureServiceBusSinkTask.class);
+    private static final Logger log = LoggerFactory.getLogger(AzureServiceBusSinkConnector.class);
     private Map<String, String> configProperties;
 
     @Override
