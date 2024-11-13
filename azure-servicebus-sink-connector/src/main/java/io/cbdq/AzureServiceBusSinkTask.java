@@ -1,6 +1,5 @@
 package io.cbdq;
 
-import org.apache.kafka.connect.errors.RetriableException;
 import org.apache.kafka.connect.sink.SinkTask;
 import org.apache.kafka.connect.sink.SinkRecord;
 
@@ -19,11 +18,12 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private Map<String, MessageProducer> jmsProducers;
     private Connection jmsConnection;
     private Session jmsSession;
+    private AzureServiceBusSinkConnectorConfig config;
 
     @Override
     public void start(Map<String, String> props) {
         log.info("Starting task with properties: {}", props);
-        AzureServiceBusSinkConnectorConfig config = new AzureServiceBusSinkConnectorConfig(props);
+        config = new AzureServiceBusSinkConnectorConfig(props);
 
         // Retrieve the connection string as a Password type
         String connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
@@ -74,6 +74,51 @@ public class AzureServiceBusSinkTask extends SinkTask {
         }
     }
 
+    private synchronized void reconnect() {
+        log.warn("Attempting to reconnect to Azure Service Bus...");
+        try {
+            // Close existing resources
+            if (jmsSession != null) {
+                jmsSession.close();
+            }
+            if (jmsConnection != null) {
+                jmsConnection.close();
+            }
+
+            // Reinitialize connection and session
+            String connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
+            String brokerURL = parseBrokerURL(connectionString);
+            String username = parseUsername(connectionString);
+            String password = parsePassword(connectionString);
+
+            JmsConnectionFactory factory = new JmsConnectionFactory(username, password, brokerURL);
+            jmsConnection = factory.createConnection();
+            jmsSession = jmsConnection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+            // Recreate producers
+            jmsProducers.clear();
+            String topicsStr = (String) config.originals().get("topics");
+
+            if (topicsStr != null) {
+                for (String topic : topicsStr.split(",")) {
+                    topic = topic.trim();
+
+                    if (!topic.isEmpty()) {
+                        Destination destination = jmsSession.createTopic(topic);
+                        MessageProducer producer = jmsSession.createProducer(destination);
+                        jmsProducers.put(topic, producer);
+                        log.info("Reconnected and initialized JMS producer for topic: {}", topic);
+                    }
+                }
+            }
+
+            jmsConnection.start();
+            log.info("Reconnection successful.");
+        } catch (Exception e) {
+            throw new RuntimeException("Reconnection failed", e);
+        }
+    }
+
     private void processRecord(SinkRecord envelope) {
         String kafkaTopic = envelope.topic();
         MessageProducer producer = jmsProducers.get(kafkaTopic);
@@ -81,28 +126,45 @@ public class AzureServiceBusSinkTask extends SinkTask {
         if (producer == null) {
             log.warn("No JMS producer found for topic {}", kafkaTopic);
             return;
-        } else if (log.isDebugEnabled()) {
-            log.debug("Processing record from topic: {}, partition: {}, offset: {}",
-                    envelope.topic(), envelope.kafkaPartition(), envelope.kafkaOffset());
         }
 
-        try {
-            Message message;
+        int maxAttempts = config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_ATTEMPTS_CONFIG);
+        int waitTimeMs = config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_WAIT_TIME_MS_CONFIG);
 
-            if (envelope.value() instanceof byte[] data) {
-                BytesMessage bytesMessage = jmsSession.createBytesMessage();
-                bytesMessage.writeBytes(data);
-                message = bytesMessage;
-            } else if (envelope.value() instanceof String string) {
-                message = jmsSession.createTextMessage(string);
-            } else {
-                log.error("Unsupported record value type: {}", envelope.value().getClass());
-                return;
+        int attempt = 0;
+        while (attempt < maxAttempts) {
+            try {
+                Message message;
+                if (envelope.value() instanceof byte[] data) {
+                    BytesMessage bytesMessage = jmsSession.createBytesMessage();
+                    bytesMessage.writeBytes(data);
+                    message = bytesMessage;
+                } else if (envelope.value() instanceof String string) {
+                    message = jmsSession.createTextMessage(string);
+                } else {
+                    log.error("Unsupported record value type: {}", envelope.value().getClass());
+                    return;
+                }
+
+                producer.send(message);
+                return; // Exit on successful send
+
+            } catch (JMSException e) {
+                attempt++;
+                log.warn("Attempt {} failed to send message to topic {}. Retrying in {} ms...", attempt, kafkaTopic, waitTimeMs, e);
+
+                if (attempt >= maxAttempts || e instanceof javax.jms.IllegalStateException) {
+                    log.error("Session or producer error detected. Triggering recovery.");
+                    reconnect();
+                }
+
+                try {
+                    Thread.sleep(waitTimeMs);
+                } catch (InterruptedException interruptedException) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException("Interrupted during backoff wait", interruptedException);
+                }
             }
-
-            producer.send(message);
-        } catch (JMSException e) {
-            throw new RetriableException("Failed to send message to JMS topic " + kafkaTopic, e);
         }
     }
 

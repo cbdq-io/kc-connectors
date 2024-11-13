@@ -20,7 +20,7 @@ public class AzureServiceBusSinkConnector extends SinkConnector {
     public void start(Map<String, String> props) {
         configProperties = props;
         // You can perform any initialization here if necessary
-        log.debug("k2sbus - Starting the connector {}", props);
+        log.debug("Starting the connector {}", props);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class AzureServiceBusSinkConnector extends SinkConnector {
     @Override
     public void stop() {
         // Perform any cleanup if necessary
-        log.info("k2sbus - Stopping the connector.");
+        log.info("Stopping the connector.");
     }
 
     @Override
