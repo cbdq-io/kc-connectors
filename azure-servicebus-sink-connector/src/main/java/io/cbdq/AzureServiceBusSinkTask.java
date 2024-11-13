@@ -90,19 +90,18 @@ public class AzureServiceBusSinkTask extends SinkTask {
         try {
             Message message;
 
-            if (envelope.value() instanceof byte[]) {
+            if (envelope.value() instanceof byte[] data) {
                 BytesMessage bytesMessage = jmsSession.createBytesMessage();
-                bytesMessage.writeBytes((byte[]) envelope.value());
+                bytesMessage.writeBytes(data);
                 message = bytesMessage;
-            } else if (envelope.value() instanceof String) {
-                message = jmsSession.createTextMessage((String) envelope.value());
+            } else if (envelope.value() instanceof String string) {
+                message = jmsSession.createTextMessage(string);
             } else {
                 log.error("Unsupported record value type: {}", envelope.value().getClass());
                 return;
             }
 
             producer.send(message);
-            log.debug("Successfully sent message to JMS topic {}", kafkaTopic);
         } catch (JMSException e) {
             throw new RetriableException("Failed to send message to JMS topic " + kafkaTopic, e);
         }
