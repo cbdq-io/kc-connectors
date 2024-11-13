@@ -137,32 +137,31 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
     // Parsing methods for JMS connection parameters
     private String parseBrokerURL(String connectionString) {
-        String brokerURL = "amqp://artemis:5672"; // Default broker URL
+        String brokerURL;
+        String endpoint = null;
+        String protocol = null;
 
         String[] parts = connectionString.split(";");
 
         for (String part : parts) {
             if (part.startsWith("Endpoint=sb://")) {
-                String endpoint = part.substring("Endpoint=sb://".length());
-
-                if (endpoint.endsWith("/")) {
-                    endpoint = endpoint.substring(0, endpoint.length() - 1);
-                }
-
-                brokerURL = "amqps://" + endpoint;
-            }
-
-            if (part.startsWith("Endpoint=amqp://")) {
-                String endpoint = part.substring("Endpoint=amqp://".length());
-
-                if (endpoint.endsWith("/")) {
-                    endpoint = endpoint.substring(0, endpoint.length() - 1);
-                }
-
-                brokerURL = "amqp://" + endpoint;
+                endpoint = part.substring("Endpoint=sb://".length());
+                protocol = "amqps://";
+            } else if (part.startsWith("Endpoint=amqp://")) {
+                endpoint = part.substring("Endpoint=amqp://".length());
+                protocol = "amqp://";
             }
         }
 
+        if (endpoint == null) {
+            throw new IllegalArgumentException("No endpoint found in the Azure Service Bus connection string.");
+        }
+
+        if (endpoint.endsWith("/")) {
+            endpoint = endpoint.substring(0, endpoint.length() - 1);
+        }
+
+        brokerURL = protocol + endpoint;
         log.info("Broker URL parsed as '{}'.", brokerURL);
         return brokerURL;
     }
