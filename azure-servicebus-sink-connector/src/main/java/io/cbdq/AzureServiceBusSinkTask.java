@@ -16,7 +16,6 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
     private static final Logger log = LoggerFactory.getLogger(AzureServiceBusSinkTask.class);
 
-    private AzureServiceBusSinkConnectorConfig config;
     private Map<String, MessageProducer> jmsProducers;
     private Connection jmsConnection;
     private Session jmsSession;
@@ -24,7 +23,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
     @Override
     public void start(Map<String, String> props) {
         log.info("Starting task with properties: {}", props);
-        config = new AzureServiceBusSinkConnectorConfig(props);
+        AzureServiceBusSinkConnectorConfig config = new AzureServiceBusSinkConnectorConfig(props);
 
         // Retrieve the connection string as a Password type
         String connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
