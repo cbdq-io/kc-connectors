@@ -1,4 +1,4 @@
-# A Sink Connector for Azure Service Bus
+# A Basic Sink Connector for Azure Service Bus
 
 See <https://docs.confluent.io/platform/current/installation/configuration/connect/source-connect-configs.html>
 for the list of default configuration properties for connectors.
