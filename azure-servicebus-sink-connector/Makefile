@@ -1,7 +1,7 @@
 all: build
 
 build:
-	docker compose run --rm mvn -B clean package
+	docker compose run --rm mvn -B -e clean install
 
 clean:
 	docker compose run --rm mvn -B clean

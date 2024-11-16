@@ -20,7 +20,7 @@ public class AzureServiceBusSinkConnector extends SinkConnector {
     public void start(Map<String, String> props) {
         configProperties = props;
         // You can perform any initialization here if necessary
-        log.debug("Starting the connector {}", props);
+        log.info("Starting version {} of the connector.", VersionUtil.getVersion());
     }
 
     @Override

@@ -22,7 +22,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
     @Override
     public void start(Map<String, String> props) {
-        log.info("Starting task with properties: {}", props);
+        log.info("Starting a task in version {} of the connector.", VersionUtil.getVersion());
         config = new AzureServiceBusSinkConnectorConfig(props);
 
         // Retrieve the connection string as a Password type
