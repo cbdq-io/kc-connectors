@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import javax.jms.*;
 import java.util.*;
 
-import io.cbdq.ConnectionStringParser;
 
 public class AzureServiceBusSinkTask extends SinkTask {
 
