@@ -50,9 +50,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-
-        <!-- Additional Dependencies (if needed) -->
-        <!-- Add any other dependencies your project requires -->
     </dependencies>
 
     <!-- Build Configuration -->
@@ -153,7 +150,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <!-- Repository Information (Optional) -->
-    <!-- If you need to specify additional repositories, include them here -->
 </project>
