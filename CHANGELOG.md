@@ -5,6 +5,8 @@
 
 ### New
 
+* Add a contributing guide. [Ben Dalling]
+
 * Add some basic documentation. [Ben Dalling]
 
 * Pulumi scripts to deploy an Azure Service Bus namespace and test topics/subscriptions. [Ben Dalling]
