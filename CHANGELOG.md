@@ -1,9 +1,11 @@
 # Changelog
 
 
-## 0.1.0
+## 0.1.0 (2024-11-17)
 
 ### New
+
+* Add a code of conduct document. [Ben Dalling]
 
 * Add a contributing guide. [Ben Dalling]
 
