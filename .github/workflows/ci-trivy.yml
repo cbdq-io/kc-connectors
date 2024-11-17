@@ -27,9 +27,7 @@ jobs:
 
       # Run Trivy security scan
       - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@v0.28.0
+        uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: kc-connectors:latest
-          format: table
-          exit-code: 1 # Fails the job if vulnerabilities are found
-          severity: HIGH,CRITICAL
+          trivy-config: trivy.yaml
