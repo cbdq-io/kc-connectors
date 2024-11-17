@@ -9,9 +9,9 @@ public class VersionUtil {
     private static String version;
 
     static {
-        try (InputStream input = VersionUtil.class.getClassLoader().getResourceAsStream("version.properties")) {
+        try (InputStream input = VersionUtil.class.getClassLoader().getResourceAsStream("plugin.properties")) {
             if (input == null) {
-                throw new IOException("Version properties file not found");
+                throw new IOException("Plugin properties file not found");
             }
             Properties prop = new Properties();
             prop.load(input);

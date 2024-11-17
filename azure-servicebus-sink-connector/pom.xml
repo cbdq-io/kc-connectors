@@ -2,7 +2,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <!-- Model Version -->
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Project Coordinates -->
@@ -23,40 +22,67 @@
         <qpid-jms-client.version>1.12.0</qpid-jms-client.version>
         <slf4j.version>1.7.36</slf4j.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-        <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
         <maven.shade.plugin.version>3.2.4</maven.shade.plugin.version>
+        <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <!-- Dependencies -->
     <dependencies>
-        <!-- Kafka Connect API -->
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>connect-api</artifactId>
             <version>${kafka.version}</version>
         </dependency>
-
-        <!-- Apache Qpid JMS Client -->
         <dependency>
             <groupId>org.apache.qpid</groupId>
             <artifactId>qpid-jms-client</artifactId>
             <version>${qpid-jms-client.version}</version>
         </dependency>
-
-        <!-- SLF4J API -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
 
-        <!-- Additional Dependencies (if needed) -->
-        <!-- Add any other dependencies your project requires -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.14.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>7.14.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <version>7.14.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <!-- Build Configuration -->
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
         <plugins>
             <!-- Maven Compiler Plugin -->
             <plugin>
@@ -67,30 +93,6 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
-            </plugin>
-
-            <!-- Maven Resource Plugin for filtering -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>${maven.resources.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>filter-resources</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>resources</goal>
-                        </goals>
-                        <configuration>
-                            <filters>
-                                <filter>src/main/resources/version.properties</filter>
-                            </filters>
-                            <delimiters>
-                                <delimiter>@</delimiter> <!-- Use @version@ syntax for substitution -->
-                            </delimiters>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
             <!-- Maven Shade Plugin -->
@@ -110,50 +112,35 @@
                                 <filter>
                                     <artifact>*:*</artifact>
                                     <excludes>
-                                        <!-- Exclude module-info.class -->
                                         <exclude>module-info.class</exclude>
-                                        <!-- Exclude signature files -->
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                        <!-- Exclude additional signature-related files -->
-                                        <exclude>META-INF/SIG-*</exclude>
-                                        <!-- Exclude other unnecessary metadata files -->
-                                        <exclude>META-INF/*.EC</exclude>
-                                        <exclude>META-INF/*.SF*</exclude>
-                                        <exclude>META-INF/*.DSA*</exclude>
-                                        <exclude>META-INF/*.RSA*</exclude>
-                                        <!-- Exclude unnecessary resources causing warnings -->
-                                        <exclude>META-INF/DEPENDENCIES</exclude>
-                                        <exclude>META-INF/LICENSE</exclude>
-                                        <exclude>META-INF/LICENSE.txt</exclude>
-                                        <exclude>META-INF/NOTICE</exclude>
-                                        <exclude>META-INF/NOTICE.txt</exclude>
-                                        <exclude>META-INF/io.netty.versions.properties</exclude>
-                                        <exclude>META-INF/maven/**</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
                             <transformers>
-                                <!-- Merge service files -->
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-                                <!-- Include plugin.properties -->
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
                                     <resource>src/main/resources/plugin.properties</resource>
                                     <file>plugin.properties</file>
-                                </transformer>
-                                <!-- Merge MANIFEST.MF files -->
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>io.cbdq.AzureServiceBusSinkConnector</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Maven Resources Plugin for Filtering -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven.resources.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
-    <!-- Repository Information (Optional) -->
-    <!-- If you need to specify additional repositories, include them here -->
 </project>
