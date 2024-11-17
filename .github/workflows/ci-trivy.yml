@@ -1,5 +1,5 @@
 ---
-name: Build and Trivy Scan
+name: CI Trivy Scan
 
 on:
   pull_request:
@@ -27,7 +27,7 @@ jobs:
 
       # Run Trivy security scan
       - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@v0.11.0
+        uses: aquasecurity/trivy-action@v0.28.0
         with:
           image-ref: kc-connectors:latest
           format: table
