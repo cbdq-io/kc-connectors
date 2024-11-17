@@ -1,0 +1,35 @@
+---
+name: Build and Trivy Scan
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build-and-scan:
+    name: Build and Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      # Build the Docker image
+      - name: Build Docker image
+        run: |
+          make build
+
+      # Run Trivy security scan
+      - name: Run Trivy scan
+        uses: aquasecurity/trivy-action@v0.11.0
+        with:
+          image-ref: kc-connectors:latest
+          format: table
+          exit-code: 1 # Fails the job if vulnerabilities are found
+          severity: HIGH,CRITICAL
