@@ -1,0 +1,19 @@
+---
+services:
+  mvn:
+    entrypoint: ["mvn"]
+    environment:
+      MAVEN_OPTS: "-Dorg.slf4j.simpleLogger.defaultLogLevel=warn"
+    image: maven:3.9.9
+    volumes:
+      - "/tmp/.m2:/root/.m2"
+      - ".:/mnt/project"
+    working_dir: /mnt/project
+
+  sonar:
+    container_name: sonarqube
+    image: sonarqube:lts-community
+    ports:
+      - "9000:9000"
+    volumes:
+      - ".:/mnt/project"
