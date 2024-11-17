@@ -5,6 +5,8 @@
 
 ### New
 
+* Add a code of conduct document. [Ben Dalling]
+
 * Add a contributing guide. [Ben Dalling]
 
 * Add some basic documentation. [Ben Dalling]
