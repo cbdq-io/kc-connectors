@@ -15,6 +15,8 @@
 
 ### Fix
 
+* CVE-2024-3596. [Ben Dalling]
+
 * Ensure the connector is more robust in attempting to reconnect on losing connection. [Ben Dalling]
 
 * Migrate to the Qpid JMS SDK as it supports ASB and ActiveMQ/Artemis as an emulator. [Ben Dalling]
