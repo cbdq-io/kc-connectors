@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import javax.jms.*;
 import java.util.*;
 
+
 public class AzureServiceBusSinkTask extends SinkTask {
 
     private static final Logger log = LoggerFactory.getLogger(AzureServiceBusSinkTask.class);
@@ -19,10 +20,13 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private Connection jmsConnection;
     private Session jmsSession;
     private AzureServiceBusSinkConnectorConfig config;
+    private String brokerURL;
+    private String username;
+    private String password;
 
     @Override
     public void start(Map<String, String> props) {
-        log.info("Starting task with properties: {}", props);
+        log.info("Starting a task in version {} of the connector.", VersionUtil.getVersion());
         config = new AzureServiceBusSinkConnectorConfig(props);
 
         // Retrieve the connection string as a Password type
@@ -30,9 +34,10 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
         try {
             // Parse connection string for JMS parameters
-            String brokerURL = parseBrokerURL(connectionString);
-            String username = parseUsername(connectionString);
-            String password = parsePassword(connectionString);
+            ConnectionStringParser parser = new ConnectionStringParser(connectionString);
+            brokerURL = parser.getBrokerURL();
+            username = parser.getUserName();
+            password = parser.getPassword();
 
             // Create JMS ConnectionFactory
             JmsConnectionFactory factory = new JmsConnectionFactory(username, password, brokerURL);
@@ -86,11 +91,6 @@ public class AzureServiceBusSinkTask extends SinkTask {
             }
 
             // Reinitialize connection and session
-            String connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
-            String brokerURL = parseBrokerURL(connectionString);
-            String username = parseUsername(connectionString);
-            String password = parsePassword(connectionString);
-
             JmsConnectionFactory factory = new JmsConnectionFactory(username, password, brokerURL);
             jmsConnection = factory.createConnection();
             jmsSession = jmsConnection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -194,58 +194,5 @@ public class AzureServiceBusSinkTask extends SinkTask {
     @Override
     public String version() {
         return VersionUtil.getVersion();
-    }
-
-    // Parsing methods for JMS connection parameters
-    private String parseBrokerURL(String connectionString) {
-        String brokerURL;
-        String endpoint = null;
-        String protocol = null;
-
-        String[] parts = connectionString.split(";");
-
-        for (String part : parts) {
-            if (part.startsWith("Endpoint=sb://")) {
-                endpoint = part.substring("Endpoint=sb://".length());
-                protocol = "amqps://";
-            } else if (part.startsWith("Endpoint=amqp://")) {
-                endpoint = part.substring("Endpoint=amqp://".length());
-                protocol = "amqp://";
-            }
-        }
-
-        if (endpoint == null) {
-            throw new IllegalArgumentException("No endpoint found in the Azure Service Bus connection string.");
-        }
-
-        if (endpoint.endsWith("/")) {
-            endpoint = endpoint.substring(0, endpoint.length() - 1);
-        }
-
-        brokerURL = protocol + endpoint;
-        log.info("Broker URL parsed as '{}'.", brokerURL);
-        return brokerURL;
-    }
-
-    private String parseUsername(String connectionString) {
-        String username = "";
-        String[] parts = connectionString.split(";");
-        for (String part : parts) {
-            if (part.startsWith("SharedAccessKeyName=")) {
-                username = part.substring("SharedAccessKeyName=".length());
-            }
-        }
-        return username;
-    }
-
-    private String parsePassword(String connectionString) {
-        String password = "";
-        String[] parts = connectionString.split(";");
-        for (String part : parts) {
-            if (part.startsWith("SharedAccessKey=")) {
-                password = part.substring("SharedAccessKey=".length());
-            }
-        }
-        return password;
     }
 }

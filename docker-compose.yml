@@ -40,6 +40,7 @@ services:
       test: curl --fail --silent localhost:8083/connectors
       interval: 1s
       retries: 30
+    image: kc-connectors:latest
     ports:
       - 8083:8083
 

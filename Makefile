@@ -40,3 +40,9 @@ test:
 	curl -X POST -H "Content-Type: application/json" \
 		--data '{"name": "azure-servicebus-sink-connector", "config": {"azure.servicebus.connection.string": "Endpoint=amqp://artemis/;SharedAccessKeyName=artemis;SharedAccessKey=artemis", "connector.class": "io.cbdq.AzureServiceBusSinkConnector", "tasks.max": "1", "topics": "vault.api.v1.accounts.account.created,vault.api.v1.audit_logs.audit_log.created", "retry.max.attempts": "5", "retry.wait.time.ms": "1000", "value.converter": "org.apache.kafka.connect.converters.ByteArrayConverter", "key.converter": "org.apache.kafka.connect.converters.ByteArrayConverter", "consumer.override.auto.offset.reset": "earliest"}}' \
 		http://localhost:8083/connectors
+
+trivy:
+	trivy image --severity HIGH,CRITICAL --ignore-unfixed kc-connectors:latest
+
+update-trivy-ignore:
+	trivy image --format json --ignore-unfixed --severity HIGH,CRITICAL kc-connectors:latest | jq -r '.Results[1].Vulnerabilities[].VulnerabilityID' | sort -u | tee .trivyignore

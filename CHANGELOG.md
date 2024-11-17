@@ -5,6 +5,8 @@
 
 ### New
 
+* Add a contributing guide. [Ben Dalling]
+
 * Add some basic documentation. [Ben Dalling]
 
 * Pulumi scripts to deploy an Azure Service Bus namespace and test topics/subscriptions. [Ben Dalling]
@@ -12,6 +14,8 @@
 * Initial prototype. [Ben Dalling]
 
 ### Fix
+
+* CVE-2024-3596. [Ben Dalling]
 
 * Ensure the connector is more robust in attempting to reconnect on losing connection. [Ben Dalling]
 
