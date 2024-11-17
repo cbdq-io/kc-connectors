@@ -23,6 +23,33 @@
 
 ### Other
 
+* Build(deps): bump docker/setup-buildx-action from 2 to 3. [dependabot[bot]]
+
+  Bumps [docker/setup-buildx-action](https://github.com/docker/setup-buildx-action) from 2 to 3.
+  - [Release notes](https://github.com/docker/setup-buildx-action/releases)
+  - [Commits](https://github.com/docker/setup-buildx-action/compare/v2...v3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: docker/setup-buildx-action
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+* Build(deps): bump actions/checkout from 3 to 4. [dependabot[bot]]
+
+  Bumps [actions/checkout](https://github.com/actions/checkout) from 3 to 4.
+  - [Release notes](https://github.com/actions/checkout/releases)
+  - [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/actions/checkout/compare/v3...v4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: actions/checkout
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
 * Initial commit. [Ben Dalling]
 
 
