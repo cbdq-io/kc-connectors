@@ -1,6 +1,13 @@
 # Changelog
 
 
+## 0.1.1 (2024-11-17)
+
+### Fix
+
+* Correct container publish pipeline. [Ben Dalling]
+
+
 ## 0.1.0 (2024-11-17)
 
 ### New
