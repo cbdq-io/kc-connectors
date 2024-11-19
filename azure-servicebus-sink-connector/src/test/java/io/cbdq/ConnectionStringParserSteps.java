@@ -26,7 +26,7 @@ public class ConnectionStringParserSteps {
     }
 
     @Given("a connection string {string}")
-    public void aValidConnectionString(String connectionString) {
+    public void aConnectionString(String connectionString) {
         this.connectionString = connectionString;
     }
 
@@ -44,13 +44,11 @@ public class ConnectionStringParserSteps {
 
     @Then("the brokerURL should be {string}")
     public void theBrokerUrlShouldBe(String expectedBrokerURL) {
-        assertNotNull("Parser should not be null", parser);
         assertEquals(expectedBrokerURL, parser.getBrokerURL());
     }
 
     @Then("the userName should be {string}")
     public void theUserNameShouldBe(String expectedUserName) {
-        assertNotNull("Parser should not be null", parser);
         assertEquals(expectedUserName, parser.getUserName());
     }
 
