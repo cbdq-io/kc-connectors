@@ -19,8 +19,9 @@ Feature: Parse Azure Service Bus connection string
     Then an error should be thrown
 
     Examples:
-      | connectionString                                                           |
-      | InvalidConnectionString                                                    |
-      | SharedAccessKeyName=artemis;SharedAccessKey=artemis                        |
-      | Endpoint=amqp://artemis;SharedAccessKey=artemis                            |
-      | Endpoint=sb://example.servicebus.windows.net/;SharedAccessKeyName=keyName; |
+      | connectionString                                                            |
+      | InvalidConnectionString                                                     |
+      | SharedAccessKeyName=artemis;SharedAccessKey=artemis                         |
+      | Endpoint=amqp://artemis;SharedAccessKey=artemis                             |
+      | Endpoint=sb://example.servicebus.windows.net/;SharedAccessKeyName=keyName;  |
+      | Endpoint=foo://artemis/;SharedAccessKeyName=artemis;SharedAccessKey=artemis |
