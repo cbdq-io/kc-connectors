@@ -3,6 +3,15 @@
 
 ## 0.1.1
 
+### New
+
+* Create SECURITY.md. [Ben Dalling]
+
+  Some more work towards #24.
+
+
+## 0.1.1 (2024-11-17)
+
 ### Fix
 
 * Correct container publish pipeline. [Ben Dalling]
