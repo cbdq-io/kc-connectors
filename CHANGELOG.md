@@ -13,6 +13,10 @@
 
 * Bump Kafka Connect from 7.7.1 to 7.8.0. [Ben Dalling]
 
+### Fix
+
+* Resolve CVE-2024-10963. [Ben Dalling]
+
 ### Other
 
 * Build(deps): bump aquasecurity/trivy-action from 0.28.0 to 0.29.0. [dependabot[bot]]
