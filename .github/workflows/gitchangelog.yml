@@ -4,10 +4,10 @@ name: Git Change Log
 on:
   push:
     branches:
-      - '*'
-      - '**'
+      - "*"
+      - "**"
     tags:
-      - '!*'  # This excludes all tags
+      - "!*" # This excludes all tags
 
 jobs:
   GitChangeLog:
