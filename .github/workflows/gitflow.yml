@@ -6,14 +6,14 @@ on:
   # tags).
   pull_request:
     branches:
-      - '*'
-      - '**'
+      - "*"
+      - "**"
   push:
     branches:
-      - '*'
-      - '**'
+      - "*"
+      - "**"
     tags:
-      - '!*'  # This excludes all tags
+      - "!*"  # This excludes all tags
 
 permissions: read-all
 
