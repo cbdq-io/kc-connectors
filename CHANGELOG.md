@@ -15,6 +15,8 @@
 
 ### Fix
 
+* Add health check to the container. [Ben Dalling]
+
 * Resolve CVE-2024-10963. [Ben Dalling]
 
 ### Other
