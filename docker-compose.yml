@@ -3,7 +3,13 @@ services:
   artemis:
     container_name: amqp
     healthcheck:
-      test: /var/lib/artemis-instance/bin/artemis queue create --user=artemis --password=artemis --name=foo --silent --auto-create-address
+      test: |
+        /var/lib/artemis-instance/bin/artemis queue create \
+          --user=artemis \
+          --password=artemis \
+          --name=foo \
+          --silent \
+          --auto-create-address
       interval: 1m30s
       timeout: 30s
       retries: 5
@@ -36,10 +42,6 @@ services:
       CONNECT_LOG4J_LOGGERS: "org.apache.kafka.connect.runtime.rest=WARN"
       CONNECT_LOG4J_ROOT_LOGLEVEL: INFO
       CONNECT_LOG4J_IO_CBDQ_LOGLEVEL: DEBUG
-    healthcheck:
-      test: curl --fail --silent localhost:8083/connectors
-      interval: 1s
-      retries: 30
     image: kc-connectors:latest
     ports:
       - 8083:8083
