@@ -3,12 +3,10 @@ name: OSV-Scanner Scheduled Scan
 
 on:
   schedule:
-    - cron: "30 12 * * 1"
+    - cron: "13 2 * * TUE"
   # Change "main" to your default branch if you use a different name, i.e. "master"
   push:
     branches: [main]
-
-permissions: read-all
 
 permissions:
   # Required to upload SARIF file to CodeQL. See: https://github.com/github/codeql-action/issues/2117
