@@ -45,7 +45,7 @@ class DataGenerator:
         instance = 0
 
         if self.large_message_size:
-            random_large_message = choice(range(1, self.count))
+            random_large_message = choice(range(1, self.count))  # nosec B311
         else:
             random_large_message = 0
 
@@ -65,7 +65,7 @@ class DataGenerator:
                 payload_size = self.size - len(json_record)
 
             payload = ''.join(
-                choice(ascii_uppercase) for i in range(payload_size)
+                choice(ascii_uppercase) for i in range(payload_size)  # nosec B311
             )
             record['payload'] = payload
             print(json.dumps(record))
