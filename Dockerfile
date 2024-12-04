@@ -1,5 +1,7 @@
 FROM confluentinc/cp-kafka-connect:7.8.0
 
+LABEL org.opencontainers.image.description "A Kafka Connect Sink Connecter for Azure Service Bus."
+
 USER root
 
 RUN yum clean all \
