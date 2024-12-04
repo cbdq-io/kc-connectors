@@ -1,6 +1,17 @@
 # Changelog
 
 
+## 0.1.2
+
+### Changes
+
+* Upgrade Kafka Connect API version from 2.8.2 to 3.8.1. [Ben Dalling]
+
+### Fix
+
+* Resolve CVE-2024-47554, CVE-2024-47561 and CVE-2024-7254. [Ben Dalling]
+
+
 ## 0.1.2 (2024-12-04)
 
 ### New

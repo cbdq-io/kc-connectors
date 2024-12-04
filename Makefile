@@ -21,6 +21,9 @@ get-lags:
 lint:
 	docker run --rm -i hadolint/hadolint < Dockerfile
 
+osv:
+	docker run -it -v ${PWD}:/src -w /src ghcr.io/google/osv-scanner:latest scan --config /src/osv-scanner.toml --recursive /src
+
 tag:
 	@echo $(TAG)
 
