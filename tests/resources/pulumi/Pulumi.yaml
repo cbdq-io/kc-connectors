@@ -1,3 +1,4 @@
+---
 name: AzureServiceBusSinkConnector
 description: Deploy Azure Service Bus for testing.
 runtime:
