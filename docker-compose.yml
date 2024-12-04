@@ -3,7 +3,13 @@ services:
   artemis:
     container_name: amqp
     healthcheck:
-      test: /var/lib/artemis-instance/bin/artemis queue create --user=artemis --password=artemis --name=foo --silent --auto-create-address
+      test: |
+        /var/lib/artemis-instance/bin/artemis queue create \
+          --user=artemis \
+          --password=artemis \
+          --name=foo \
+          --silent \
+          --auto-create-address
       interval: 1m30s
       timeout: 30s
       retries: 5
