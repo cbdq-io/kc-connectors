@@ -9,6 +9,8 @@ on:
 env:
   REGISTRY: ghcr.io
 
+permissions: read-all
+
 jobs:
   CD:
     runs-on: ubuntu-latest
