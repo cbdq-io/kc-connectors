@@ -6,7 +6,7 @@ all: lint clean build test
 
 build:
 	make -C azure-servicebus-sink-connector build
-	docker compose pull --quiet
+	docker compose pull --quiet artemis kafka
 	docker compose build --quiet
 
 changelog:
