@@ -9,6 +9,8 @@ on:
     tags:
       - "!*" # This excludes all tags
 
+permissions: read-all
+
 jobs:
   GitChangeLog:
     runs-on: ubuntu-latest
