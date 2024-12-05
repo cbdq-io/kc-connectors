@@ -28,18 +28,12 @@ environment.
 1. Fork the repository from <https://github.com/cbdq-io/kc-connectors/fork>.
 1. Clone your fork (using either HTTPS or SSH):
 
-# Using HTTPS
-
-<https://github.com/YOUR_USERNAME/kc-connectors.git>
+   ```shell
+   # If using HTTPS:
    git clone https://github.com/YOUR_USERNAME/kc-connectors.git
 
-
-   # Using SS<git@github.com>
-
+   # If using SSH:
    git clone git@github.com:YOUR_USERNAME/kc-connectors.git
-
-   ```
-
 
    ```
 
@@ -59,6 +53,7 @@ environment.
 
 1. Open in Visual Code Studio
    Assuming you have the Dev Container extension installed and configured,
+
    ```shell
    make
    ```
@@ -109,13 +104,12 @@ branching model. Here's the summary:
 
 ## Submitting Changes
 
-Please ensure that your commit messages follow our
+1. Please ensure that your commit messages follow our
+   [commit message](#commit-messages) guidelines.
 
-[commit message](#commit-messages) guidelines.
-
-```bash
-git add .
-```
+   ```bash
+   git add .
+   ```
 
 2. Push your branch:
 
@@ -140,6 +134,7 @@ git add .
 - Address any feedback and make necessary changes.
 - Once approved, your changes will be merged.
 
+## Guidelines
 - Follow the coding standards established in the project.
 - Write meaningful commit messages. More on that below.
 - Write tests for new features or changes.
@@ -175,14 +170,12 @@ the correct section:
 
   ```shell
   git commit -m 'new: Add feature X.'
-
+  ```
 
 
 - Recording a Change:
 
   ```shell
-
-
   git commit -m 'chg: Bump base image from 1.1.2 to 1.2.0.'
   ```
 
@@ -226,7 +219,6 @@ repository.
    git checkout develop
    git pull
    git checkout -b release/your-release-name
-
    ```
 
    Now edit `Makefile` and ensure that `TAG` is set to the same
@@ -240,6 +232,7 @@ repository.
 
    ```shell
    make
+   ```
 
    Only progress to the next step when all tests pass.
 3. Push the release branch:
@@ -248,22 +241,20 @@ repository.
    ```shell
    git push origin release/your-release-name
 
-
    ```
 
 4. Create a pull request to merge the release branch onto `main`.
 
-## Usi<http://localhost:9000/>
+## Using SonarQube Locally
 
 In the `azure-servicebus-sink-connector` directory, run the following command:
 
 ```shell
 
 docker compose up -d sonar
-```<http://localhost:9000/>
+```
 
-<http://localhost:9000/>
-Go to http://localhost:9000/ and when SonarQube is started, log in with the
+Go to <http://localhost:9000/> and when SonarQube is started, log in with the
 default credentials of admin/admin. You will be forced to reset the
 password (set it to something basic, this is just local stuff).
 
