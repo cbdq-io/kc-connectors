@@ -6,7 +6,8 @@ all: lint clean build test
 
 build:
 	make -C azure-servicebus-sink-connector build
-	docker compose build connect
+	docker compose pull --quiet
+	docker compose build --quiet
 
 changelog:
 	gitchangelog > CHANGELOG.md
