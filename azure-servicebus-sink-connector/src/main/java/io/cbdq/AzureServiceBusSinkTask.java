@@ -23,11 +23,15 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private String brokerURL;
     private String username;
     private String password;
+    private DestinationTopicName destinationTopicName;
 
     @Override
     public void start(Map<String, String> props) {
         log.info("Starting a task in version {} of the connector.", VersionUtil.getVersion());
         config = new AzureServiceBusSinkConnectorConfig(props);
+        destinationTopicName = new DestinationTopicName(
+            config.getString(AzureServiceBusSinkConnectorConfig.TOPIC_RENAME_FORMAT_CONFIG)
+        );
 
         // Retrieve the connection string as a Password type
         String connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
@@ -54,8 +58,11 @@ public class AzureServiceBusSinkTask extends SinkTask {
                 List<String> topicList = Arrays.asList(topicsStr.split(","));
                 for (String topic : topicList) {
                     topic = topic.trim();
+
                     if (!topic.isEmpty()) {
-                        Destination destination = jmsSession.createTopic(topic);
+                        Destination destination = jmsSession.createTopic(
+                            destinationTopicName.destination_topic_name(topic)
+                        );
                         MessageProducer producer = jmsSession.createProducer(destination);
                         jmsProducers.put(topic, producer);
                         log.info("Initialized JMS producer for topic: {}", topic);
