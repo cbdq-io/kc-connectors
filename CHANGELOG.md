@@ -3,6 +3,10 @@
 
 ## 0.1.2
 
+### New
+
+* Implement topic.rename.format. [Ben Dalling]
+
 ### Changes
 
 * Upgrade Kafka Connect API version from 2.8.2 to 3.8.1. [Ben Dalling]
