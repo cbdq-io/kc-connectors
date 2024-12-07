@@ -9,7 +9,8 @@ on:
     tags:
       - "!*" # This excludes all tags
 
-permissions: read-all
+permissions:
+  contents: write
 
 jobs:
   GitChangeLog:
