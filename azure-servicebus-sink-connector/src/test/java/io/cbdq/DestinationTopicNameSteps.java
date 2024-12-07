@@ -7,7 +7,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
 public class DestinationTopicNameSteps {
-    private DestinationTopicName renamer;
+    private TopicRenameFormat renamer;
     private String sourceTopicName;
 
     @Before
@@ -22,19 +22,19 @@ public class DestinationTopicNameSteps {
     }
 
     @Given("the Kafka topic name {string}")
-    public void the_kafka_topic_name(String string) {
+    public void theKafkaTopicName(String string) {
         sourceTopicName = string;
     }
 
     @When("the topic rename format is {string}")
-    public void the_topic_rename_format_is(String string) {
+    public void theTopicRenameFormatIs(String string) {
         assertNotNull(string);
-        renamer = new DestinationTopicName(string);
+        renamer = new TopicRenameFormat(string);
     }
 
     @Then("the expected desination topic name is {string}")
-    public void the_expected_desination_topic_name_is(String expectedTopicName) {
-        String actualTopicName = renamer.destination_topic_name(sourceTopicName);
+    public void theEpectedDestinattionTopicNameIs(String expectedTopicName) {
+        String actualTopicName = renamer.rename(sourceTopicName);
         assertEquals(expectedTopicName, actualTopicName);
     }
 }
