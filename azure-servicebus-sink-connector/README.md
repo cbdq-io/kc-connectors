@@ -14,10 +14,10 @@ Please note the following:
 - `azure.servicebus.connection.string`: The connection string for the Azure
   Service Bus instance to connect and authenticate with.
 - `retry.max.attempts`: The maximum number of attempts to connect to the ASB
-  instance.  Default is 3.
+  instance. Default is 3.
 - `retry.wait.time.ms`: The time (in milliseconds) to wait between retries to
-  connect to the ASB instance.  Default is 1000.
+  connect to the ASB instance. Default is 1000.
 - `topic.rename.format`: A format string for the topic name in the destination
   cluster, which may contain ${topic} as a placeholder for the originating
   topic name. For example, gb_${topic} for the topic widgets will map to the
-  destination topic name gb_widgets.  Default is "${topic}".
+  destination topic name gb_widgets. Default is "${topic}".
