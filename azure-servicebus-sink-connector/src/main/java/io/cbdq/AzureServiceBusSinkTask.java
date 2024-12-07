@@ -27,7 +27,6 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private String brokerURL;
     private String username;
     private String password;
-    private HTTPServer prometheusServer;
     private Counter prometheusMessageCounter;
 
     @Override
@@ -86,10 +85,10 @@ public class AzureServiceBusSinkTask extends SinkTask {
                 .name("azure_service_bus_sink_task_message_count_total")
                 .help("The number of messages processed.")
                 .register();
-            prometheusServer = HTTPServer.builder()
+            HTTPServer prometheusServer = HTTPServer.builder()
                 .port(prometheusPort)
                 .buildAndStart();
-            log.info("HTTPServer listening on port http://localhost:" + prometheusPort + "/metrics");
+            log.info("HTTPServer listening on port http://localhost:" + prometheusServer.getPort() + "/metrics");
         } catch (JMSException e) {
             throw new AzureServiceBusSinkException("Failed to initialise JMS client", e);
         } catch (java.io.IOException e) {
