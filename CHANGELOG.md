@@ -5,9 +5,13 @@
 
 ### New
 
+* Add Prometheus metrics. [Ben Dalling]
+
 * Implement topic.rename.format. [Ben Dalling]
 
 ### Changes
+
+* Bump qpid-jms-client from 1.12.0 to 2.0.16 (Jakarta). [Ben Dalling]
 
 * Upgrade Kafka Connect API version from 2.8.2 to 3.8.1. [Ben Dalling]
 
