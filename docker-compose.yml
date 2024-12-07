@@ -45,6 +45,7 @@ services:
     image: kc-connectors:latest
     ports:
       - 8083:8083
+      - 9400:9400
 
   kafka:
     container_name: kafka

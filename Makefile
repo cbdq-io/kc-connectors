@@ -45,6 +45,7 @@ test:
 	curl -X POST -H "Content-Type: application/json" \
 		--data '{"name": "azure-servicebus-sink-connector", "config": {"azure.servicebus.connection.string": "Endpoint=amqp://artemis/;SharedAccessKeyName=artemis;SharedAccessKey=artemis", "connector.class": "io.cbdq.AzureServiceBusSinkConnector", "tasks.max": "1", "topic.rename.format": "replicated-${topic}", "topics": "vault.api.v1.accounts.account.created,vault.api.v1.audit_logs.audit_log.created", "retry.max.attempts": "5", "retry.wait.time.ms": "1000", "value.converter": "org.apache.kafka.connect.converters.ByteArrayConverter", "key.converter": "org.apache.kafka.connect.converters.ByteArrayConverter", "consumer.override.auto.offset.reset": "earliest"}}' \
 		http://localhost:8083/connectors
+	tests/resources/poll-until-complete.sh
 
 trivy:
 	trivy image --severity HIGH,CRITICAL --ignore-unfixed kc-connectors:latest
