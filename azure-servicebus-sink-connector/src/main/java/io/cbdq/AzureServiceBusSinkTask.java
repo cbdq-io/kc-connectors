@@ -29,6 +29,10 @@ public class AzureServiceBusSinkTask extends SinkTask {
         log.info("Starting a task in version {} of the connector.", VersionUtil.getVersion());
         config = new AzureServiceBusSinkConnectorConfig(props);
 
+        TopicRenameFormat renamer = new TopicRenameFormat(
+            config.getString(AzureServiceBusSinkConnectorConfig.TOPIC_RENAME_FORMAT_CONFIG)
+        );
+
         // Retrieve the connection string as a Password type
         String connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
 
@@ -54,8 +58,11 @@ public class AzureServiceBusSinkTask extends SinkTask {
                 List<String> topicList = Arrays.asList(topicsStr.split(","));
                 for (String topic : topicList) {
                     topic = topic.trim();
+
                     if (!topic.isEmpty()) {
-                        Destination destination = jmsSession.createTopic(topic);
+                        Destination destination = jmsSession.createTopic(
+                            renamer.rename(topic)
+                        );
                         MessageProducer producer = jmsSession.createProducer(destination);
                         jmsProducers.put(topic, producer);
                         log.info("Initialized JMS producer for topic: {}", topic);
@@ -67,7 +74,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
             jmsConnection.start();
         } catch (JMSException e) {
-            throw new RuntimeException("Failed to initialize JMS client", e);
+            throw new AzureServiceBusSinkException("Failed to initialize JMS client", e);
         }
     }
 
@@ -115,7 +122,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
             jmsConnection.start();
             log.info("Reconnection successful.");
         } catch (Exception e) {
-            throw new RuntimeException("Reconnection failed", e);
+            throw new AzureServiceBusSinkException("Reconnection failed", e);
         }
     }
 
@@ -162,7 +169,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
                     Thread.sleep(waitTimeMs);
                 } catch (InterruptedException interruptedException) {
                     Thread.currentThread().interrupt();
-                    throw new RuntimeException("Interrupted during backoff wait", interruptedException);
+                    throw new AzureServiceBusSinkException("Interrupted during backoff wait", interruptedException);
                 }
             }
         }
