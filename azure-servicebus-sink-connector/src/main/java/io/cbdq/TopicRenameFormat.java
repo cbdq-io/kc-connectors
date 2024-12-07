@@ -5,16 +5,16 @@ import java.util.Map;
 
 import org.apache.commons.text.StringSubstitutor;
 
-public class DestinationTopicName {
+public class TopicRenameFormat {
     private final String pattern;
 
-    public DestinationTopicName(String pattern) {
+    public TopicRenameFormat(String pattern) {
         this.pattern = pattern;
     }
 
-    public String destination_topic_name(String source_topic_name) {
+    public String rename(String kafkaTopicName) {
         Map<String, String> valuesMap = new HashMap<>();
-        valuesMap.put("topic", source_topic_name);
+        valuesMap.put("topic", kafkaTopicName);
         String templateString = pattern;
         StringSubstitutor sub = new StringSubstitutor(valuesMap);
         return sub.replace(templateString);
