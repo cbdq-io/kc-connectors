@@ -8,7 +8,7 @@ import org.apache.qpid.jms.JmsConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jms.*;
+import jakarta.jms.*;
 import java.util.*;
 
 
@@ -160,7 +160,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
                 attempt++;
                 log.warn("Attempt {} failed to send message to topic {}. Retrying in {} ms...", attempt, kafkaTopic, waitTimeMs, e);
 
-                if (attempt >= maxAttempts || e instanceof javax.jms.IllegalStateException) {
+                if (attempt >= maxAttempts || e instanceof jakarta.jms.IllegalStateException) {
                     log.error("Session or producer error detected. Triggering recovery.");
                     reconnect();
                 }
