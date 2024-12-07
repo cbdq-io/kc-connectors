@@ -1,3 +1,0 @@
-[[IgnoredVulns]]
-id = "CVE-2024-47535"
-reason = "Only an issue in Windoze."
