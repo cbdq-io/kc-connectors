@@ -1,5 +1,9 @@
 package io.cbdq;
 
+import io.prometheus.metrics.core.metrics.Counter;
+import io.prometheus.metrics.exporter.httpserver.HTTPServer;
+import io.prometheus.metrics.instrumentation.jvm.JvmMetrics;
+
 import org.apache.kafka.connect.sink.SinkTask;
 import org.apache.kafka.connect.sink.SinkRecord;
 
@@ -8,7 +12,7 @@ import org.apache.qpid.jms.JmsConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jms.*;
+import jakarta.jms.*;
 import java.util.*;
 
 
@@ -23,11 +27,13 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private String brokerURL;
     private String username;
     private String password;
+    private Counter prometheusMessageCounter;
 
     @Override
     public void start(Map<String, String> props) {
         log.info("Starting a task in version {} of the connector.", VersionUtil.getVersion());
         config = new AzureServiceBusSinkConnectorConfig(props);
+        int prometheusPort = config.getInt(AzureServiceBusSinkConnectorConfig.PROMETHEUS_PORT_CONFIG);
 
         TopicRenameFormat renamer = new TopicRenameFormat(
             config.getString(AzureServiceBusSinkConnectorConfig.TOPIC_RENAME_FORMAT_CONFIG)
@@ -73,8 +79,20 @@ public class AzureServiceBusSinkTask extends SinkTask {
             }
 
             jmsConnection.start();
+
+            JvmMetrics.builder().register();  // Initialise the out-of-th-box JVM metrics.
+            prometheusMessageCounter = Counter.builder()
+                .name("azure_service_bus_sink_task_message_count_total")
+                .help("The number of messages processed.")
+                .register();
+            HTTPServer prometheusServer = HTTPServer.builder()
+                .port(prometheusPort)
+                .buildAndStart();
+            log.info("HTTPServer listening on port http://localhost:" + prometheusServer.getPort() + "/metrics");
         } catch (JMSException e) {
-            throw new AzureServiceBusSinkException("Failed to initialize JMS client", e);
+            throw new AzureServiceBusSinkException("Failed to initialise JMS client", e);
+        } catch (java.io.IOException e) {
+            throw new AzureServiceBusSinkException("Failed to initialise the Prometheus client", e);
         }
     }
 
@@ -83,6 +101,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
         log.info("Received {} records", envelopes.size());
         for (SinkRecord envelope : envelopes) {
             processRecord(envelope);
+            prometheusMessageCounter.inc();
         }
     }
 
@@ -160,7 +179,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
                 attempt++;
                 log.warn("Attempt {} failed to send message to topic {}. Retrying in {} ms...", attempt, kafkaTopic, waitTimeMs, e);
 
-                if (attempt >= maxAttempts || e instanceof javax.jms.IllegalStateException) {
+                if (attempt >= maxAttempts || e instanceof jakarta.jms.IllegalStateException) {
                     log.error("Session or producer error detected. Triggering recovery.");
                     reconnect();
                 }
