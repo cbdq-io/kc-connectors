@@ -19,6 +19,21 @@
 
 * Resolve CVE-2024-47554, CVE-2024-47561 and CVE-2024-7254. [Ben Dalling]
 
+### Other
+
+* Build(deps): bump actions/setup-python from 4 to 5. [dependabot[bot]]
+
+  Bumps [actions/setup-python](https://github.com/actions/setup-python) from 4 to 5.
+  - [Release notes](https://github.com/actions/setup-python/releases)
+  - [Commits](https://github.com/actions/setup-python/compare/v4...v5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: actions/setup-python
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
 
 ## 0.1.2 (2024-12-04)
 
