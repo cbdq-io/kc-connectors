@@ -8,7 +8,6 @@ import json
 import logging
 import os
 import sys
-
 from random import choice
 from string import ascii_uppercase
 
