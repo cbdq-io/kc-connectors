@@ -1,6 +1,6 @@
 .EXPORT_ALL_VARIABLES:
 
-TAG = 0.1.2
+TAG = 0.2.0
 
 all: lint clean build test
 
@@ -42,9 +42,7 @@ test:
 	docker compose exec artemis /var/lib/artemis-instance/bin/artemis queue create --user=artemis --password=artemis --name=replicated.vault.api.v1.audit_logs.audit_log.created --silent --auto-create-address
 
 	docker compose up -d connect --wait
-	curl -X POST -H "Content-Type: application/json" \
-		--data '{"name": "azure-servicebus-sink-connector", "config": {"azure.servicebus.connection.string": "Endpoint=amqp://artemis/;SharedAccessKeyName=artemis;SharedAccessKey=artemis", "connector.class": "io.cbdq.AzureServiceBusSinkConnector", "tasks.max": "1", "topic.rename.format": "replicated-${topic}", "topics": "vault.api.v1.accounts.account.created,vault.api.v1.audit_logs.audit_log.created", "retry.max.attempts": "5", "retry.wait.time.ms": "1000", "value.converter": "org.apache.kafka.connect.converters.ByteArrayConverter", "key.converter": "org.apache.kafka.connect.converters.ByteArrayConverter", "consumer.override.auto.offset.reset": "earliest"}}' \
-		http://localhost:8083/connectors
+	docker compose run kccinit
 	tests/resources/poll-until-complete.sh
 
 trivy:

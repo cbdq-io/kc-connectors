@@ -1,9 +1,11 @@
 # Changelog
 
 
-## 0.1.2
+## 0.2.0
 
 ### New
+
+* Add the connector initialiser script to the image. [Ben Dalling]
 
 * Add Prometheus metrics. [Ben Dalling]
 
