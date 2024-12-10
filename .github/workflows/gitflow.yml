@@ -15,7 +15,9 @@ on:
     tags:
       - "!*" # This excludes all tags
 
-permissions: read-all
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   GitFlow:
