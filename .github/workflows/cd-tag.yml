@@ -4,10 +4,13 @@ name: CD Tag
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 env:
   REGISTRY: ghcr.io
+
+permissions:
+  packages: write
 
 jobs:
   CD:

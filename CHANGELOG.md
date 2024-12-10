@@ -1,7 +1,43 @@
 # Changelog
 
 
-## 0.1.2
+## 0.2.0
+
+### New
+
+* Add the connector initialiser script to the image. [Ben Dalling]
+
+* Add Prometheus metrics. [Ben Dalling]
+
+* Implement topic.rename.format. [Ben Dalling]
+
+### Changes
+
+* Bump qpid-jms-client from 1.12.0 to 2.0.16 (Jakarta). [Ben Dalling]
+
+* Upgrade Kafka Connect API version from 2.8.2 to 3.8.1. [Ben Dalling]
+
+### Fix
+
+* Resolve CVE-2024-47554, CVE-2024-47561 and CVE-2024-7254. [Ben Dalling]
+
+### Other
+
+* Build(deps): bump actions/setup-python from 4 to 5. [dependabot[bot]]
+
+  Bumps [actions/setup-python](https://github.com/actions/setup-python) from 4 to 5.
+  - [Release notes](https://github.com/actions/setup-python/releases)
+  - [Commits](https://github.com/actions/setup-python/compare/v4...v5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: actions/setup-python
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+
+## 0.1.2 (2024-12-04)
 
 ### New
 

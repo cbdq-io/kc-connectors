@@ -7,6 +7,8 @@ USER root
 RUN yum clean all \
   && yum upgrade -y krb5-libs pam
 
+COPY --chmod=0755 --chown=root:root kccinit.py /usr/local/bin/kccinit.py
+
 USER appuser
 
 RUN mkdir /home/appuser/connectors

@@ -45,6 +45,7 @@ services:
     image: kc-connectors:latest
     ports:
       - 8083:8083
+      - 9400:9400
 
   kafka:
     container_name: kafka
@@ -75,12 +76,21 @@ services:
     volumes:
       - "./tests/resources/scripts/data-gen.py:/usr/local/bin/data-gen.py"
 
-  sut:
-    build: sut
-    command:
-      - sleep
-      - infinity
-    container_name: sut
-    volumes:
-      - ".:/mnt/work"
-    working_dir: /mnt/work
+  kccinit:
+    build: .
+    depends_on:
+      - connect
+    entrypoint: /usr/local/bin/kccinit.py
+    environment:
+      CONNECTOR_AzureServiceBusSink_AZURE_SERVICEBUS_CONNECTION_STRING: "${CONNECTION_STRING:-Endpoint=amqp://artemis/;SharedAccessKeyName=artemis;SharedAccessKey=artemis}"
+      CONNECTOR_AzureServiceBusSink_CONNECTOR_CLASS: io.cbdq.AzureServiceBusSinkConnector
+      CONNECTOR_AzureServiceBusSink_CONSUMER_OVERRIDE_AUTO_OFFSET_RESET: earliest
+      CONNECTOR_AzureServiceBusSink_KEY_CONVERTER: org.apache.kafka.connect.converters.ByteArrayConverter
+      CONNECTOR_AzureServiceBusSink_RETRY_MAX_ATTEMPTS: "5"
+      CONNECTOR_AzureServiceBusSink_RETRY_WAIT_TIME_MS: "1000"
+      CONNECTOR_AzureServiceBusSink_TASKS_MAX: "1"
+      CONNECTOR_AzureServiceBusSink_TOPIC_RENAME_FORMAT: "replicated-$${topic}"
+      CONNECTOR_AzureServiceBusSink_TOPICS: "vault.api.v1.accounts.account.created,vault.api.v1.audit_logs.audit_log.created"
+      CONNECTOR_AzureServiceBusSink_VALUE_CONVERTER: org.apache.kafka.connect.converters.ByteArrayConverter
+      KAFKA_CONNECT_ENDPOINT: "http://connect:8083"
+      LOG_LEVEL: DEBUG
