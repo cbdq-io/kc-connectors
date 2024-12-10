@@ -18,8 +18,8 @@ import json
 import logging
 import os
 import time
-import urllib.error
-import urllib.request
+
+import requests
 
 logging.basicConfig()
 logger = logging.getLogger('kccinit')
@@ -72,17 +72,16 @@ class ConnectorInitialiser:
             The data payload to be sent to the Kafka Connect endpoint.
         """
         url = f'{self.endpoint()}/connectors'
-        req = urllib.request.Request(
+        req = requests.post(
             url=url,
-            data=json.dumps(data).encode(),
+            data=json.dumps(data),
             headers={
                 'Content-Type': 'application/json'
-            }
+            },
+            timeout=30
         )
 
-        with urllib.request.urlopen(req) as stream:
-            code = stream.getcode()
-            logger.info(f'Got response {code} when initialising {data["name"]}.')
+        logger.info(f'Got response {req.status_code} when initialising {data["name"]}.')
 
     def initialise_connectors(self) -> None:
         """Initialise any connector that has been configured."""
@@ -133,18 +132,17 @@ class ConnectorInitialiser:
     def wait_for_endpoint_to_be_ready(self) -> None:
         """Wait for the endpoint to return a 2XX code."""
         is_ready = False
-        req = urllib.request.Request(url=self.endpoint())
 
         while not is_ready:
             time.sleep(5)
 
             try:
-                with urllib.request.urlopen(req) as stream:
-                    code = stream.getcode()
+                r = requests.get(self.endpoint(), timeout=10)
+                code = r.status_code
 
-                    if code and code >= 200 and code <= 299:
-                        is_ready = True
-            except urllib.error.URLError:
+                if code and code >= 200 and code <= 299:
+                    is_ready = True
+            except requests.exceptions.ConnectTimeout:
                 logger.warning(f'Waiting for "{self.endpoint()}" to return a 2XX code.')
 
         logger.info(f'The Kafka Connect endpoint ("{self.endpoint()}") is ready.')
