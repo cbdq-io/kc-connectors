@@ -5,6 +5,19 @@
 
 ### Other
 
+* Build(deps): bump jinja2 from 3.1.4 to 3.1.5. [dependabot[bot]]
+
+  Bumps [jinja2](https://github.com/pallets/jinja) from 3.1.4 to 3.1.5.
+  - [Release notes](https://github.com/pallets/jinja/releases)
+  - [Changelog](https://github.com/pallets/jinja/blob/main/CHANGES.rst)
+  - [Commits](https://github.com/pallets/jinja/compare/3.1.4...3.1.5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: jinja2
+    dependency-type: direct:production
+  ...
+
 * Build(deps): bump google/osv-scanner-action from 1.9.1 to 1.9.2. [dependabot[bot]]
 
   Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 1.9.1 to 1.9.2.
