@@ -3,6 +3,10 @@
 
 ## 0.2.0
 
+### Fix
+
+* Ensure connection string parser honours UseDevelopmentEmulator. [Ben Dalling]
+
 ### Other
 
 * Build(deps): bump jinja2 from 3.1.4 to 3.1.5. [dependabot[bot]]
