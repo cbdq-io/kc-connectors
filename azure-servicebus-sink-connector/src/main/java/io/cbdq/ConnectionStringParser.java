@@ -43,15 +43,7 @@ public class ConnectionStringParser {
             throw new IllegalArgumentException(message);
         }
 
-        parts = response.split("=");
-
-        if (parts.length != 2) {
-            String message = String.format("Malformed %s found in the Azure Service Bus connection string.", keyName);
-            throw new IllegalArgumentException(message);
-        }
-
-        response = parts[1];
-        return response;
+        return response.substring(prefix.length());
     }
 
     public String getBrokerURL() {
