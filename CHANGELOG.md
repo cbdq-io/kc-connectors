@@ -1,7 +1,61 @@
 # Changelog
 
 
-## 0.2.0
+## 0.2.1
+
+### Changes
+
+* Add CVE-2024-52046 and CVE-2024-53990 to the allowed vulnerabilities. [Ben Dalling]
+
+### Fix
+
+* Ensure passwords ending with "=" are not truncated. [Ben Dalling]
+
+* Ensure connection string parser honours UseDevelopmentEmulator. [Ben Dalling]
+
+### Other
+
+* Build(deps): bump jinja2 from 3.1.4 to 3.1.5. [dependabot[bot]]
+
+  Bumps [jinja2](https://github.com/pallets/jinja) from 3.1.4 to 3.1.5.
+  - [Release notes](https://github.com/pallets/jinja/releases)
+  - [Changelog](https://github.com/pallets/jinja/blob/main/CHANGES.rst)
+  - [Commits](https://github.com/pallets/jinja/compare/3.1.4...3.1.5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: jinja2
+    dependency-type: direct:production
+  ...
+
+* Build(deps): bump google/osv-scanner-action from 1.9.1 to 1.9.2. [dependabot[bot]]
+
+  Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 1.9.1 to 1.9.2.
+  - [Release notes](https://github.com/google/osv-scanner-action/releases)
+  - [Commits](https://github.com/google/osv-scanner-action/compare/v1.9.1...v1.9.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: google/osv-scanner-action
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Build(deps): bump google/osv-scanner-action from 1.9.0 to 1.9.1. [dependabot[bot]]
+
+  Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 1.9.0 to 1.9.1.
+  - [Release notes](https://github.com/google/osv-scanner-action/releases)
+  - [Commits](https://github.com/google/osv-scanner-action/compare/v1.9.0...v1.9.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: google/osv-scanner-action
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+
+## 0.2.0 (2024-12-10)
 
 ### New
 
