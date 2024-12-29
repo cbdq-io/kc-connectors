@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Ensure passwords ending with "=" are not truncated. [Ben Dalling]
+
 * Ensure connection string parser honours UseDevelopmentEmulator. [Ben Dalling]
 
 ### Other
