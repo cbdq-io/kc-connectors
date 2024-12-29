@@ -46,7 +46,9 @@ public class AzureServiceBusSinkTask extends SinkTask {
             // Parse connection string for JMS parameters
             ConnectionStringParser parser = new ConnectionStringParser(connectionString);
             brokerURL = parser.getBrokerURL();
+            log.debug("brokerURL {}", brokerURL);
             username = parser.getUserName();
+            log.debug("userName {}", username);
             password = parser.getPassword();
 
             // Create JMS ConnectionFactory

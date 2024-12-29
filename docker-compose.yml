@@ -82,7 +82,7 @@ services:
       - connect
     entrypoint: /usr/local/bin/kccinit.py
     environment:
-      CONNECTOR_AzureServiceBusSink_AZURE_SERVICEBUS_CONNECTION_STRING: "${CONNECTION_STRING:-Endpoint=amqp://artemis/;SharedAccessKeyName=artemis;SharedAccessKey=artemis}"
+      CONNECTOR_AzureServiceBusSink_AZURE_SERVICEBUS_CONNECTION_STRING: "${CONNECTION_STRING:-Endpoint=sb://artemis/;SharedAccessKeyName=artemis;SharedAccessKey=artemis;UseDevelopmentEmulator=true}"
       CONNECTOR_AzureServiceBusSink_CONNECTOR_CLASS: io.cbdq.AzureServiceBusSinkConnector
       CONNECTOR_AzureServiceBusSink_CONSUMER_OVERRIDE_AUTO_OFFSET_RESET: earliest
       CONNECTOR_AzureServiceBusSink_KEY_CONVERTER: org.apache.kafka.connect.converters.ByteArrayConverter
