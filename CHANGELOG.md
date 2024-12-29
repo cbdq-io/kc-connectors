@@ -3,6 +3,10 @@
 
 ## 0.2.0
 
+### Changes
+
+* Add CVE-2024-52046 and CVE-2024-53990 to the allowed vulnerabilities. [Ben Dalling]
+
 ### Fix
 
 * Ensure passwords ending with "=" are not truncated. [Ben Dalling]
