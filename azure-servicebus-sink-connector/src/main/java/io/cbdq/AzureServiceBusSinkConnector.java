@@ -1,5 +1,7 @@
 package io.cbdq;
 
+import io.prometheus.metrics.exporter.httpserver.HTTPServer;
+
 import org.apache.kafka.connect.connector.Task;
 import org.apache.kafka.connect.sink.SinkConnector;
 import org.apache.kafka.common.config.ConfigDef;
@@ -7,6 +9,7 @@ import org.apache.kafka.common.config.ConfigDef;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +24,20 @@ public class AzureServiceBusSinkConnector extends SinkConnector {
         configProperties = props;
         // You can perform any initialization here if necessary
         log.info("Starting version {} of the connector.", VersionUtil.getVersion());
+        String port = System.getenv("PROMETHEUS_PORT");
+
+        try {
+            if (port == null) {
+                port = "9401"; // Default value
+            }
+
+            HTTPServer prometheusServer = HTTPServer.builder()
+                .port(Integer.parseInt(port))
+                .buildAndStart();
+            log.info("Prometheus HTTPServer listening on port http://localhost:" + prometheusServer.getPort() + "/metrics");
+        } catch (IOException e) {
+            log.warn("Unable to open Prometheus HTTPServer on port {}.", port);
+        }
     }
 
     @Override
