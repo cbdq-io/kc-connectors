@@ -1,7 +1,16 @@
 # Changelog
 
 
-## 0.2.1
+## 0.2.2
+
+### Fix
+
+* Refactor Prometheus metrics. [Ben Dalling]
+
+* Ensure kccinit reports not successful posts to the Kafka Connect endpoint correctly. [Ben Dalling]
+
+
+## 0.2.1 (2024-12-29)
 
 ### Changes
 

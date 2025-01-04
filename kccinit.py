@@ -81,7 +81,10 @@ class ConnectorInitialiser:
             timeout=30
         )
 
-        logger.info(f'Got response {req.status_code} when initialising {data["name"]}.')
+        if req.status_code >= 200 and req.status_code < 300:
+            logger.info(f'Got response {req.status_code} when initialising {data["name"]}.')
+        else:
+            logger.error(f'Got response {req.status_code} when initialising {data["name"]}.')
 
     def initialise_connectors(self) -> None:
         """Initialise any connector that has been configured."""
