@@ -1,7 +1,7 @@
 #!/bin/bash
 
 URL="http://localhost:9400/metrics"
-TARGET="azure_service_bus_sink_task_message_count_total 40000.0"
+TARGET="azureservicebussink_message_count_total 1000.0"
 
 while true; do
 	# Fetch the contents of the URL
