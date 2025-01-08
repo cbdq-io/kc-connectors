@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Add bind-utils to the image. [Ben Dalling]
+
 * Update copyright notice. [Ben Dalling]
 
 
