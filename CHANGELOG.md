@@ -1,6 +1,20 @@
 # Changelog
 
 
+## 0.2.5 (2025-01-29)
+
+### Fix
+
+* Need buildx for mutil-arch builds. [Ben Dalling]
+
+
+## 0.2.4 (2025-01-29)
+
+### Fix
+
+* Make containers both linux/amd64 and linux/arm64. [Ben Dalling]
+
+
 ## 0.2.3 (2025-01-08)
 
 ### Fix
