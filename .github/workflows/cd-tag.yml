@@ -46,6 +46,7 @@ jobs:
         with:
           push: true
           platforms: linux/amd64,linux/arm64
+          context: .
           tags: |
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ github.ref_name }}
           outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=A Kafka Connect Sink Connecter for Azure Service Bus.
