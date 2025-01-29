@@ -1,7 +1,14 @@
 # Changelog
 
 
-## 0.2.4
+## 0.2.5
+
+### Fix
+
+* Need buildx for mutil-arch builds. [Ben Dalling]
+
+
+## 0.2.4 (2025-01-29)
 
 ### Fix
 
