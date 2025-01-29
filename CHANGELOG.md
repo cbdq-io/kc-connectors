@@ -1,6 +1,20 @@
 # Changelog
 
 
+## 0.2.7 (2025-01-29)
+
+### Fix
+
+* Make containers both linux/amd64 and linux/arm64 (IV). [Ben Dalling]
+
+
+## 0.2.6 (2025-01-29)
+
+### Fix
+
+* Make containers both linux/amd64 and linux/arm64 (III). [Ben Dalling]
+
+
 ## 0.2.5 (2025-01-29)
 
 ### Fix
