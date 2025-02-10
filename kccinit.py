@@ -17,6 +17,7 @@ connector.
 import json
 import logging
 import os
+import sys
 import time
 
 import requests
@@ -42,6 +43,7 @@ class ConnectorInitialiser:
         self.parse_environment_config()
         self.wait_for_endpoint_to_be_ready()
         self.initialise_connectors()
+        self.status = 0
 
     def endpoint(self, endpoint: str = None) -> str:
         """
@@ -62,17 +64,19 @@ class ConnectorInitialiser:
             logger.debug(f'Kafka Connect endpoint set to "{endpoint}".')
         return self._endpoint
 
-    def initialise_connector(self, data) -> None:
+    def initialise_connector(self, name: str, data: dict) -> None:
         """
         Initialise a single connector.
 
         Parameters
         ----------
+        name : str
+            The name of the connector.
         data : dict
             The data payload to be sent to the Kafka Connect endpoint.
         """
-        url = f'{self.endpoint()}/connectors'
-        req = requests.post(
+        url = f'{self.endpoint()}/connectors/{name}/config'
+        req = requests.put(
             url=url,
             data=json.dumps(data),
             headers={
@@ -85,20 +89,20 @@ class ConnectorInitialiser:
             logger.info(f'Got response {req.status_code} when initialising {data["name"]}.')
         else:
             logger.error(f'Got response {req.status_code} when initialising {data["name"]}.')
+            self.status = 1
 
     def initialise_connectors(self) -> None:
         """Initialise any connector that has been configured."""
         for connector_name, config_items in self.connectors.items():
             data = {
                 'name': connector_name,
-                'config': {}
             }
 
             for item in config_items:
                 key, value = item
-                data['config'][key] = value
+                data[key] = value
 
-            self.initialise_connector(data)
+            self.initialise_connector(connector_name, data)
 
     def parse_environment_config(self) -> None:
         """Parse the configuration from the environment."""
@@ -152,4 +156,4 @@ class ConnectorInitialiser:
 
 
 if __name__ == '__main__':
-    ConnectorInitialiser()
+    sys.exit(ConnectorInitialiser().status)
