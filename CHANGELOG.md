@@ -1,7 +1,16 @@
 # Changelog
 
 
-## 0.2.7
+## 0.2.8
+
+### Fix
+
+* Resolve CVE-2024-1488. [Ben Dalling]
+
+* Use HTTP PUT rather than POST to initialise the connector as it is more idempotent. [Ben Dalling]
+
+
+## 0.2.7 (2025-01-29)
 
 ### Fix
 
