@@ -1,9 +1,13 @@
 # Changelog
 
 
-## 0.2.8
+## 0.2.9
 
 ### Fix
+
+* CVE-2024-47535 no longer present. [Ben Dalling]
+
+* Give more detail at INFO level of logs when a topic rename happens.' [Ben Dalling]
 
 * Bump qpid-jms-client.version from 2.6.1 to 2.7.0. [Ben Dalling]
 
