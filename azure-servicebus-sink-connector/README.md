@@ -18,6 +18,6 @@ Please note the following:
 - `retry.wait.time.ms`: The time (in milliseconds) to wait between retries to
   connect to the ASB instance. Default is 1000.
 - `topic.rename.format`: A format string for the topic name in the destination
-  cluster, which may contain ${topic} as a placeholder for the originating
-  topic name. For example, gb_${topic} for the topic widgets will map to the
-  destination topic name gb_widgets. Default is "${topic}".
+  cluster, which may contain `${topic}` as a placeholder for the originating
+  topic name. For example, `gb_${topic}` for the topic widgets will map to the
+  destination topic name `gb_widgets`. Default is `"${topic}"`.
