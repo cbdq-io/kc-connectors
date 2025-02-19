@@ -1,6 +1,13 @@
 # Changelog
 
 
+## 0.2.8
+
+### Fix
+
+* Make kccinit more robust against exceptions. [Ben Dalling]
+
+
 ## 0.2.8 (2025-02-10)
 
 ### Fix
