@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Bump qpid-jms-client.version from 2.6.1 to 2.7.0. [Ben Dalling]
+
 * Make kccinit more robust against exceptions. [Ben Dalling]
 
 
