@@ -1,7 +1,24 @@
 # Changelog
 
 
-## 0.2.8
+## 0.2.9
+
+### Fix
+
+* CVE-2024-52046 and CVE-2024-53990 no longer present. [Ben Dalling]
+
+* Bump confluentinc/cp-kafka-connect from 7.8.0 to 7.9.0. [Ben Dalling]
+
+* CVE-2024-47535 no longer present. [Ben Dalling]
+
+* Give more detail at INFO level of logs when a topic rename happens.' [Ben Dalling]
+
+* Bump qpid-jms-client.version from 2.6.1 to 2.7.0. [Ben Dalling]
+
+* Make kccinit more robust against exceptions. [Ben Dalling]
+
+
+## 0.2.8 (2025-02-10)
 
 ### Fix
 

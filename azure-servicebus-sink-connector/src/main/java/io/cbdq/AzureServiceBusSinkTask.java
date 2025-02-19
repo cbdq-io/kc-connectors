@@ -66,12 +66,13 @@ public class AzureServiceBusSinkTask extends SinkTask {
                     topic = topic.trim();
 
                     if (!topic.isEmpty()) {
+                        String destinationTopic = renamer.rename(topic);
                         Destination destination = jmsSession.createTopic(
-                            renamer.rename(topic)
+                            destinationTopic
                         );
                         MessageProducer producer = jmsSession.createProducer(destination);
                         jmsProducers.put(topic, producer);
-                        log.info("Initialized JMS producer for topic: {}", topic);
+                        log.info("Initialized JMS producer for topic: {} -> {}", topic, destinationTopic);
                     }
                 }
             } else {
