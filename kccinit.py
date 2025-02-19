@@ -149,7 +149,7 @@ class ConnectorInitialiser:
 
                 if code and code >= 200 and code <= 299:
                     is_ready = True
-            except requests.exceptions.ConnectTimeout:
+            except (requests.exceptions.ConnectTimeout, Exception):
                 logger.warning(f'Waiting for "{self.endpoint()}" to return a 2XX code.')
 
         logger.info(f'The Kafka Connect endpoint ("{self.endpoint()}") is ready.')
