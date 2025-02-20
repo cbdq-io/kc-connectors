@@ -1,6 +1,13 @@
 # Changelog
 
 
+## 0.2.9
+
+### Fix
+
+* Ensure that when connections are recovered, the correct destination topic name is used. [Ben Dalling]
+
+
 ## 0.2.9 (2025-02-19)
 
 ### Fix
