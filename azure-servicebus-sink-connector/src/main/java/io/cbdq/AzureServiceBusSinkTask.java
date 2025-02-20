@@ -27,13 +27,13 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private String username;
     private String password;
     private Counter prometheusMessageCounter;
+    private TopicRenameFormat renamer;
 
     @Override
     public void start(Map<String, String> props) {
         log.info("Starting a task in version {} of the connector.", VersionUtil.getVersion());
         config = new AzureServiceBusSinkConnectorConfig(props);
-
-        TopicRenameFormat renamer = new TopicRenameFormat(
+        renamer = new TopicRenameFormat(
             config.getString(AzureServiceBusSinkConnectorConfig.TOPIC_RENAME_FORMAT_CONFIG)
         );
 
@@ -103,6 +103,10 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
     private synchronized void reconnect() {
         log.warn("Attempting to reconnect to Azure Service Bus...");
+        renamer = new TopicRenameFormat(
+            config.getString(AzureServiceBusSinkConnectorConfig.TOPIC_RENAME_FORMAT_CONFIG)
+        );
+
         try {
             // Close existing resources
             if (jmsSession != null) {
@@ -126,10 +130,11 @@ public class AzureServiceBusSinkTask extends SinkTask {
                     topic = topic.trim();
 
                     if (!topic.isEmpty()) {
-                        Destination destination = jmsSession.createTopic(topic);
+                        String destinationTopic = renamer.rename(topic);
+                        Destination destination = jmsSession.createTopic(destinationTopic);
                         MessageProducer producer = jmsSession.createProducer(destination);
                         jmsProducers.put(topic, producer);
-                        log.info("Reconnected and initialized JMS producer for topic: {}", topic);
+                        log.info("Reconnected and initialized JMS producer for topic: {} ->", topic);
                     }
                 }
             }
