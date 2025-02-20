@@ -1,6 +1,6 @@
 .EXPORT_ALL_VARIABLES:
 
-TAG = 0.2.9
+TAG = 0.2.10
 
 all: lint clean build test
 
