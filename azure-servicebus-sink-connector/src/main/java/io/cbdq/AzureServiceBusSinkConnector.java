@@ -18,12 +18,11 @@ public class AzureServiceBusSinkConnector extends SinkConnector {
 
     private static final Logger log = LoggerFactory.getLogger(AzureServiceBusSinkConnector.class);
     private Map<String, String> configProperties;
-    private HTTPServer prometheusServer;;
 
     @Override
     public void start(Map<String, String> props) {
-        configProperties = props;
         // You can perform any initialization here if necessary
+        configProperties = props;
         log.info("Starting version {} of the connector.", VersionUtil.getVersion());
         String port = System.getenv("PROMETHEUS_PORT");
 
@@ -32,10 +31,10 @@ public class AzureServiceBusSinkConnector extends SinkConnector {
                 port = "9401"; // Default value
             }
 
-            prometheusServer = HTTPServer.builder()
+            HTTPServer prometheusServer = HTTPServer.builder()
                 .port(Integer.parseInt(port))
                 .buildAndStart();
-            log.info("Prometheus HTTPServer listening on port http://localhost:" + prometheusServer.getPort() + "/metrics");
+            log.info("Prometheus HTTPServer listening on port http://localhost:{}/metrics", prometheusServer.getPort());
         } catch (IOException e) {
             log.warn("Unable to open Prometheus HTTPServer on port {}.", port);
         }

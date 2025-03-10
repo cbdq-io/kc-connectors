@@ -1,6 +1,5 @@
 package io.cbdq;
 
-import io.prometheus.metrics.core.metrics.Counter;
 import io.prometheus.metrics.instrumentation.jvm.JvmMetrics;
 
 import org.apache.kafka.connect.sink.SinkTask;
