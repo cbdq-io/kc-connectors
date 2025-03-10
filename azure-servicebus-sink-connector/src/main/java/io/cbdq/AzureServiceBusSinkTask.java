@@ -26,7 +26,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private String brokerURL;
     private String username;
     private String password;
-    private Counter prometheusMessageCounter;
+    private PrometheusMetrics metrics;
     private TopicRenameFormat renamer;
 
     @Override
@@ -83,10 +83,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
             JvmMetrics.builder().register();  // Initialise the out-of-th-box JVM metrics.
             String connectorName = context.configs().get("name").toLowerCase();
-            prometheusMessageCounter = Counter.builder()
-                .name(connectorName + "_message_count_total")
-                .help("The number of messages processed.")
-                .register();
+            metrics = PrometheusMetrics.getInstance(connectorName);
         } catch (JMSException e) {
             throw new AzureServiceBusSinkException("Failed to initialise JMS client", e);
         }
@@ -97,7 +94,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
         log.info("Received {} records", envelopes.size());
         for (SinkRecord envelope : envelopes) {
             processRecord(envelope);
-            prometheusMessageCounter.inc();
+            metrics.incrementMessageCounter();
         }
     }
 
