@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Correct race condition when starting the Prometheus client. [Ben Dalling]
+
 * Resolve CVE-2025-27516. [Ben Dalling]
 
 
