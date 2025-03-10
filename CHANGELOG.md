@@ -1,6 +1,13 @@
 # Changelog
 
 
+## 0.2.10
+
+### Fix
+
+* Resolve CVE-2025-27516. [Ben Dalling]
+
+
 ## 0.2.10 (2025-02-20)
 
 ### Fix
