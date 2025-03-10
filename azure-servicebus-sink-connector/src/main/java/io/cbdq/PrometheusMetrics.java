@@ -5,7 +5,7 @@ import io.prometheus.metrics.instrumentation.jvm.JvmMetrics;
 
 public class PrometheusMetrics {
 
-    private static PrometheusMetrics INSTANCE;
+    private static PrometheusMetrics instance;
     private final Counter messageCounter;
 
     private PrometheusMetrics(String connectorName) {
@@ -20,10 +20,10 @@ public class PrometheusMetrics {
     }
 
     public static synchronized PrometheusMetrics getInstance(String connectorName) {
-        if (INSTANCE == null) {
-            INSTANCE = new PrometheusMetrics(connectorName);
+        if (instance == null) {
+            instance = new PrometheusMetrics(connectorName);
         }
-        return INSTANCE;
+        return instance;
     }
 
     public void incrementMessageCounter() {
