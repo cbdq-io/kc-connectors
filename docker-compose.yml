@@ -89,7 +89,7 @@ services:
       CONNECTOR_AzureServiceBusSink_KEY_CONVERTER: org.apache.kafka.connect.converters.ByteArrayConverter
       CONNECTOR_AzureServiceBusSink_RETRY_MAX_ATTEMPTS: "5"
       CONNECTOR_AzureServiceBusSink_RETRY_WAIT_TIME_MS: "1000"
-      CONNECTOR_AzureServiceBusSink_TASKS_MAX: "1"
+      CONNECTOR_AzureServiceBusSink_TASKS_MAX: "2"
       CONNECTOR_AzureServiceBusSink_TOPIC_RENAME_FORMAT: "replicated-$${topic}"
       CONNECTOR_AzureServiceBusSink_TOPICS: "vault.api.v1.accounts.account.created,vault.api.v1.audit_logs.audit_log.created"
       CONNECTOR_AzureServiceBusSink_VALUE_CONVERTER: org.apache.kafka.connect.converters.ByteArrayConverter
