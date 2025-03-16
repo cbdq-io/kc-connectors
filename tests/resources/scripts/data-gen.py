@@ -67,7 +67,7 @@ class DataGenerator:
                 choice(ascii_uppercase) for i in range(payload_size)  # nosec B311
             )
             record['payload'] = payload
-            print(json.dumps(record))
+            print(f'{instance}:{json.dumps(record)}')
 
 
 if __name__ == '__main__':
