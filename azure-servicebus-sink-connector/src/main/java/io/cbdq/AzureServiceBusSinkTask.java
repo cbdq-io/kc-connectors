@@ -1,6 +1,5 @@
 package io.cbdq;
 
-import io.prometheus.metrics.core.metrics.Counter;
 import io.prometheus.metrics.instrumentation.jvm.JvmMetrics;
 
 import org.apache.kafka.connect.sink.SinkTask;
@@ -12,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.jms.*;
+
 import java.util.*;
 
 
@@ -26,8 +26,9 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private String brokerURL;
     private String username;
     private String password;
-    private Counter prometheusMessageCounter;
+    private PrometheusMetrics metrics;
     private TopicRenameFormat renamer;
+    private boolean setKafkaPartitionAsSessionId;
 
     @Override
     public void start(Map<String, String> props) {
@@ -36,6 +37,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
         renamer = new TopicRenameFormat(
             config.getString(AzureServiceBusSinkConnectorConfig.TOPIC_RENAME_FORMAT_CONFIG)
         );
+        setKafkaPartitionAsSessionId = config.getBoolean(AzureServiceBusSinkConnectorConfig.SET_KAFKA_PARTITION_AS_SESSION_ID_CONFIG).booleanValue();
 
         // Retrieve the connection string as a Password type
         String connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
@@ -83,10 +85,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
             JvmMetrics.builder().register();  // Initialise the out-of-th-box JVM metrics.
             String connectorName = context.configs().get("name").toLowerCase();
-            prometheusMessageCounter = Counter.builder()
-                .name(connectorName + "_message_count_total")
-                .help("The number of messages processed.")
-                .register();
+            metrics = PrometheusMetrics.getInstance(connectorName);
         } catch (JMSException e) {
             throw new AzureServiceBusSinkException("Failed to initialise JMS client", e);
         }
@@ -97,7 +96,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
         log.info("Received {} records", envelopes.size());
         for (SinkRecord envelope : envelopes) {
             processRecord(envelope);
-            prometheusMessageCounter.inc();
+            metrics.incrementMessageCounter();
         }
     }
 
@@ -162,6 +161,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
         while (attempt < maxAttempts) {
             try {
                 Message message;
+
                 if (envelope.value() instanceof byte[] data) {
                     BytesMessage bytesMessage = jmsSession.createBytesMessage();
                     bytesMessage.writeBytes(data);
@@ -173,6 +173,13 @@ public class AzureServiceBusSinkTask extends SinkTask {
                     return;
                 }
 
+                if (setKafkaPartitionAsSessionId && envelope.kafkaPartition() != null) {
+                    String sessionIdString = Integer.toString(envelope.kafkaPartition());
+                    message.setStringProperty("JMSXGroupID", sessionIdString);
+                }
+
+                message.setStringProperty("__kafka_key", envelope.key().toString());
+                message.setStringProperty("__kafka_partition", Integer.toString(envelope.kafkaPartition()));
                 producer.send(message);
                 return; // Exit on successful send
 

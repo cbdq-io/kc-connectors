@@ -1,7 +1,22 @@
 # Changelog
 
 
-## 0.2.10
+## 0.3.0
+
+### Fix
+
+* Add CVE-2024-56171 & CVE-2025-24928 to the Trivy ignore list. [Ben Dalling]
+
+* Correct race condition when starting the Prometheus client. [Ben Dalling]
+
+* Resolve CVE-2025-27516. [Ben Dalling]
+
+### Other
+
+* Feat: Add the set.kafka.partition.as.session.id. Also ensure that the Kafka key and partition are set as properties on the message. [Ben Dalling]
+
+
+## 0.2.10 (2025-02-20)
 
 ### Fix
 
