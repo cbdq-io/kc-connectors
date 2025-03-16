@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Add CVE-2024-56171 & CVE-2025-24928 to the Trivy ignore list. [Ben Dalling]
+
 * Correct race condition when starting the Prometheus client. [Ben Dalling]
 
 * Resolve CVE-2025-27516. [Ben Dalling]
