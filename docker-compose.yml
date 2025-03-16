@@ -36,8 +36,8 @@ services:
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
-      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.converters.ByteArrayConverter
-      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.converters.ByteArrayConverter
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.storage.StringConverter
       CONNECT_REST_ADVERTISED_HOST_NAME: "connect"
       CONNECT_LOG4J_LOGGERS: "org.apache.kafka.connect.runtime.rest=WARN"
       CONNECT_LOG4J_ROOT_LOGLEVEL: INFO
@@ -86,12 +86,13 @@ services:
       CONNECTOR_AzureServiceBusSink_AZURE_SERVICEBUS_CONNECTION_STRING: "${CONNECTION_STRING:-Endpoint=sb://artemis/;SharedAccessKeyName=artemis;SharedAccessKey=artemis;UseDevelopmentEmulator=true}"
       CONNECTOR_AzureServiceBusSink_CONNECTOR_CLASS: io.cbdq.AzureServiceBusSinkConnector
       CONNECTOR_AzureServiceBusSink_CONSUMER_OVERRIDE_AUTO_OFFSET_RESET: earliest
-      CONNECTOR_AzureServiceBusSink_KEY_CONVERTER: org.apache.kafka.connect.converters.ByteArrayConverter
+      CONNECTOR_AzureServiceBusSink_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
       CONNECTOR_AzureServiceBusSink_RETRY_MAX_ATTEMPTS: "5"
       CONNECTOR_AzureServiceBusSink_RETRY_WAIT_TIME_MS: "1000"
-      CONNECTOR_AzureServiceBusSink_TASKS_MAX: "1"
+      CONNECTOR_AzureServiceBusSink_SET_KAFKA_PARTITION_AS_SESSION_ID: "true"
+      CONNECTOR_AzureServiceBusSink_TASKS_MAX: "2"
       CONNECTOR_AzureServiceBusSink_TOPIC_RENAME_FORMAT: "replicated-$${topic}"
       CONNECTOR_AzureServiceBusSink_TOPICS: "vault.api.v1.accounts.account.created,vault.api.v1.audit_logs.audit_log.created"
-      CONNECTOR_AzureServiceBusSink_VALUE_CONVERTER: org.apache.kafka.connect.converters.ByteArrayConverter
+      CONNECTOR_AzureServiceBusSink_VALUE_CONVERTER: org.apache.kafka.connect.storage.StringConverter
       KAFKA_CONNECT_ENDPOINT: "http://connect:8083"
       LOG_LEVEL: DEBUG
