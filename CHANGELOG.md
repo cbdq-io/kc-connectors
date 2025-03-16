@@ -9,6 +9,10 @@
 
 * Resolve CVE-2025-27516. [Ben Dalling]
 
+### Other
+
+* Feat: Add the set.kafka.partition.as.session.id. Also ensure that the Kafka key and partition are set as properties on the message. [Ben Dalling]
+
 
 ## 0.2.10 (2025-02-20)
 
