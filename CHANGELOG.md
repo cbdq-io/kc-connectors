@@ -14,6 +14,23 @@
 
 * Handle messages with no key. [Ben Dalling]
 
+## 0.3.0
+
+### Other
+
+* Build(deps): Bump aquasecurity/trivy-action from 0.29.0 to 0.30.0. [dependabot[bot]]
+
+  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.29.0 to 0.30.0.
+  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
+  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.29.0...0.30.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: aquasecurity/trivy-action
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
 
 ## 0.3.0 (2025-03-16)
 
