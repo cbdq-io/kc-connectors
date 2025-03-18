@@ -1,14 +1,7 @@
 # Changelog
 
 
-## 0.3.1 (2025-03-18)
-
-### Fix
-
-* Handle messages with no key. [Ben Dalling]
-
-
-## 0.3.0 (2025-03-16)
+## 0.3.1
 
 ### Other
 
@@ -24,6 +17,13 @@
     dependency-type: direct:production
     update-type: version-update:semver-minor
   ...
+
+
+## 0.3.1 (2025-03-18)
+
+### Fix
+
+* Handle messages with no key. [Ben Dalling]
 
 
 ## 0.3.0 (2025-03-16)
