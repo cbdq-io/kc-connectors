@@ -178,7 +178,10 @@ public class AzureServiceBusSinkTask extends SinkTask {
                     message.setStringProperty("JMSXGroupID", sessionIdString);
                 }
 
-                message.setStringProperty("__kafka_key", envelope.key().toString());
+                if (envelope.key() != null) {
+                    message.setStringProperty("__kafka_key", envelope.key().toString());
+                }
+
                 message.setStringProperty("__kafka_partition", Integer.toString(envelope.kafkaPartition()));
                 producer.send(message);
                 return; // Exit on successful send
