@@ -5,6 +5,19 @@
 
 ### Other
 
+* Build(deps): Bump google/osv-scanner-action from 1.9.2 to 2.0.0. [dependabot[bot]]
+
+  Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 1.9.2 to 2.0.0.
+  - [Release notes](https://github.com/google/osv-scanner-action/releases)
+  - [Commits](https://github.com/google/osv-scanner-action/compare/v1.9.2...v2.0.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: google/osv-scanner-action
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
 * Build(deps): Bump aquasecurity/trivy-action from 0.29.0 to 0.30.0. [dependabot[bot]]
 
   Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.29.0 to 0.30.0.
