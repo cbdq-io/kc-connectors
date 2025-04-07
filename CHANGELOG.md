@@ -5,6 +5,20 @@
 
 ### Other
 
+* Build(deps): Bump google/osv-scanner-action from 2.0.0 to 2.0.1. [dependabot[bot]]
+
+  Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 2.0.0 to 2.0.1.
+  - [Release notes](https://github.com/google/osv-scanner-action/releases)
+  - [Commits](https://github.com/google/osv-scanner-action/compare/v2.0.0...v2.0.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: google/osv-scanner-action
+    dependency-version: 2.0.1
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Build(deps): Bump google/osv-scanner-action from 1.9.2 to 2.0.0. [dependabot[bot]]
 
   Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 1.9.2 to 2.0.0.
