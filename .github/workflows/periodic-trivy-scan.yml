@@ -6,6 +6,8 @@ on:
   schedule:
     - cron: "0 2 * * 2"
 
+permissions: read-all
+
 jobs:
   trivy-scan:
     runs-on: ubuntu-latest
