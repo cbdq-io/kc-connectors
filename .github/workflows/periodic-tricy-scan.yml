@@ -35,13 +35,12 @@ jobs:
           echo "tag=$semver_tag" >> $GITHUB_OUTPUT
 
       - name: Run Trivy scan and output SARIF
-        uses: aquasecurity/trivy-action@v0.12.0
+        uses: aquasecurity/trivy-action@0.30.0
         with:
           image-ref: ghcr.io/${{ github.repository }}:${{ steps.get-tag.outputs.tag }}
           format: sarif
           output: trivy-results.sarif
-          ignore-unfixed: true
-          vuln-type: os,library
+          trivy-config: trivy.yaml
 
       - name: Upload SARIF file to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
