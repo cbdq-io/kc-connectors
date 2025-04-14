@@ -6,12 +6,14 @@ on:
   schedule:
     - cron: "0 2 * * 2"
 
+permissions: read-all
+
 jobs:
   trivy-scan:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write
+      contents: read
       issues: write
       security-events: write
       actions: read
