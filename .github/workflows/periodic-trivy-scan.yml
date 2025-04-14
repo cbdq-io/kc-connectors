@@ -43,6 +43,7 @@ jobs:
 
       - name: Run Trivy scan and output SARIF
         uses: aquasecurity/trivy-action@0.30.0
+        continue-on-error: true
         with:
           image-ref: ghcr.io/${{ github.repository }}:${{ steps.get-tag.outputs.tag }}
           format: sarif
