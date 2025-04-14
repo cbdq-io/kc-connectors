@@ -12,8 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write         # Required for creating issues
-      security-events: write  # For uploading SARIF results
+      contents: write
+      issues: write
+      security-events: write
       actions: read
 
     steps:
