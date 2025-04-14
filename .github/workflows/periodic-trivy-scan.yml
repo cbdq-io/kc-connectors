@@ -23,15 +23,22 @@ jobs:
       - name: Set up Docker login to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Get latest SemVer tag
+      - name: Get latest SemVer tag from GitHub repo
         id: get-tag
         run: |
-          tags=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            https://ghcr.io/v2/${{ github.repository }}/tags/list | jq -r '.tags[]')
+          tags=$(curl -s https://api.github.com/repos/cbdq-io/kc-connectors/tags | jq -r '.[].name')
+
+          echo "Tags from GitHub:"
+          echo "$tags"
 
           semver_tag=$(echo "$tags" | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n1)
 
-          echo "Latest SemVer tag: $semver_tag"
+          if [ -z "$semver_tag" ]; then
+            echo "❌ No valid SemVer tags found."
+            exit 1
+          fi
+
+          echo "✅ Latest SemVer tag: $semver_tag"
           echo "tag=$semver_tag" >> $GITHUB_OUTPUT
 
       - name: Run Trivy scan and output SARIF
