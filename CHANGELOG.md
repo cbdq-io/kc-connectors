@@ -1,7 +1,14 @@
 # Changelog
 
 
-## 0.3.1
+## 0.3.2
+
+### Fix
+
+* Resolve CVE-2025-27363. [Ben Dalling]
+
+
+## 0.3.1 (2025-03-18)
 
 ### Fix
 
