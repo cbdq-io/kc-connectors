@@ -5,7 +5,7 @@ LABEL org.opencontainers.image.description "A Kafka Connect Sink Connecter for A
 USER root
 
 RUN dnf clean all \
-  && dnf upgrade -y krb5-libs pam python3-unbound unbound-libs \
+  && dnf upgrade -y freetype krb5-libs pam python3-unbound unbound-libs \
   && dnf install -y bind-utils
 
 COPY --chmod=0755 --chown=root:root kccinit.py /usr/local/bin/kccinit.py
