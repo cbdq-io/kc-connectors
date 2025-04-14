@@ -1,14 +1,7 @@
 # Changelog
 
 
-## 0.3.2 (2025-04-14)
-
-### Fix
-
-* Resolve CVE-2025-27363. [Ben Dalling]
-
-
-## 0.3.1 (2025-03-18)
+## 0.3.2
 
 ### Other
 
@@ -37,6 +30,13 @@
     dependency-type: direct:production
     update-type: version-update:semver-minor
   ...
+
+
+## 0.3.2 (2025-04-14)
+
+### Fix
+
+* Resolve CVE-2025-27363. [Ben Dalling]
 
 
 ## 0.3.1 (2025-03-18)
