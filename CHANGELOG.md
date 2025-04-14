@@ -5,9 +5,6 @@
 
 ### Fix
 
-* Handle messages with no key. [Ben Dalling]
-
-## 0.3.1
 * Really resolve CVE-2025-27363. [Ben Dalling]
 
 * Periodic Trivy Scans. [Ben Dalling]
