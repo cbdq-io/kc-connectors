@@ -9,6 +9,7 @@
 
 ## 0.3.1
 
+* Periodic Trivy Scans. [Ben Dalling]
 
 ### Other
 
