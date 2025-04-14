@@ -32,7 +32,7 @@ jobs:
 
       # Run Trivy security scan
       - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@0.29.0
+        uses: aquasecurity/trivy-action@0.30.0
         with:
           image-ref: kc-connectors:latest
           trivy-config: trivy.yaml
