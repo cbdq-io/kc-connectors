@@ -4,8 +4,7 @@ name: Trivy Scan on Latest SemVer Image
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 2 * * *' # Daily at 2 AM UTC
-  push:
+    - cron: '0 2 * * 2'
 
 jobs:
   trivy-scan:
