@@ -9,6 +9,10 @@
 
 * Periodic Trivy Scans. [Ben Dalling]
 
+### Fix
+
+* Periodic Trivy Scans. [Ben Dalling]
+
 ### Other
 
 * Build(deps): Bump google/osv-scanner-action from 2.0.0 to 2.0.1. [dependabot[bot]]
