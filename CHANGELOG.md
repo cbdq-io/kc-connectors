@@ -11,6 +11,8 @@
 
 ### Fix
 
+* Really resolve CVE-2025-27363. [Ben Dalling]
+
 * Periodic Trivy Scans. [Ben Dalling]
 
 ### Other
