@@ -1,7 +1,16 @@
 # Changelog
 
 
-## 0.3.3
+## 0.3.4
+
+### Fix
+
+* Reduce complexity of the processRecord method. Also ensures at-least-once delivery. [Ben Dalling]
+
+* Periodic Trivy Scans. [Ben Dalling]
+
+
+## 0.3.3 (2025-04-14)
 
 ### Fix
 
