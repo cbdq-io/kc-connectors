@@ -3,6 +3,26 @@
 
 ## 0.3.4
 
+### Other
+
+* Build(deps): Bump github/codeql-action from 2 to 3. [dependabot[bot]]
+
+  Bumps [github/codeql-action](https://github.com/github/codeql-action) from 2 to 3.
+  - [Release notes](https://github.com/github/codeql-action/releases)
+  - [Changelog](https://github.com/github/codeql-action/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/github/codeql-action/compare/v2...v3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: github/codeql-action
+    dependency-version: '3'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+
+## 0.3.4 (2025-04-15)
+
 ### Fix
 
 * Reduce complexity of the processRecord method. Also ensures at-least-once delivery. [Ben Dalling]
