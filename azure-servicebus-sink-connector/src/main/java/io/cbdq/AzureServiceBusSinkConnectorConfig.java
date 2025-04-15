@@ -1,6 +1,5 @@
 package io.cbdq;
 
-import org.apache.kafka.clients.admin.ConfigEntry.ConfigType;
 import org.apache.kafka.common.config.AbstractConfig;
 import org.apache.kafka.common.config.ConfigDef;
 
