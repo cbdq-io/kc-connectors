@@ -30,6 +30,32 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private TopicRenameFormat renamer;
     private boolean setKafkaPartitionAsSessionId;
 
+    private Message createMessageFromRecord(SinkRecord envelope) throws JMSException {
+        Message message;
+
+        if (envelope.value() instanceof byte[] data) {
+            BytesMessage bytesMessage = jmsSession.createBytesMessage();
+            bytesMessage.writeBytes(data);
+            message = bytesMessage;
+        } else if (envelope.value() instanceof String string) {
+            message = jmsSession.createTextMessage(string);
+        } else {
+            throw new AzureServiceBusSinkException("Unsupported record value type: " + envelope.value().getClass());
+        }
+
+        if (setKafkaPartitionAsSessionId && envelope.kafkaPartition() != null) {
+            message.setStringProperty("JMSXGroupID", Integer.toString(envelope.kafkaPartition()));
+        }
+
+        if (envelope.key() != null) {
+            message.setStringProperty("__kafka_key", envelope.key().toString());
+        }
+
+        message.setStringProperty("__kafka_partition", Integer.toString(envelope.kafkaPartition()));
+
+        return message;
+    }
+
     @Override
     public void start(Map<String, String> props) {
         log.info("Starting a task in version {} of the connector.", VersionUtil.getVersion());
@@ -145,6 +171,40 @@ public class AzureServiceBusSinkTask extends SinkTask {
         }
     }
 
+    private void sendWithRetry(MessageProducer producer, Message message, String kafkaTopic, SinkRecord envelope) {
+        int maxAttempts = config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_ATTEMPTS_CONFIG);
+        int waitTimeMs = config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_WAIT_TIME_MS_CONFIG);
+
+        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+            try {
+                producer.send(message);
+                return; // success
+            } catch (JMSException e) {
+                log.warn("Attempt {} failed to send message to topic {}. Retrying in {} ms...", attempt, kafkaTopic, waitTimeMs, e);
+
+                if (e instanceof jakarta.jms.IllegalStateException) {
+                    log.warn("Session or producer error detected. Triggering recovery.");
+                    reconnect();
+                }
+
+                if (attempt >= maxAttempts) {
+                    log.error("All {} attempts failed. Topic: {}, Partition: {}, Offset: {}",
+                              maxAttempts, kafkaTopic, envelope.kafkaPartition(), envelope.kafkaOffset());
+                    throw new AzureServiceBusSinkException(
+                        String.format("Failed to send message after %d attempts", maxAttempts), e
+                    );
+                }
+
+                try {
+                    Thread.sleep(waitTimeMs);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    throw new AzureServiceBusSinkException("Interrupted during backoff wait", ie);
+                }
+            }
+        }
+    }
+
     private void processRecord(SinkRecord envelope) {
         String kafkaTopic = envelope.topic();
         MessageProducer producer = jmsProducers.get(kafkaTopic);
@@ -154,54 +214,12 @@ public class AzureServiceBusSinkTask extends SinkTask {
             return;
         }
 
-        int maxAttempts = config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_ATTEMPTS_CONFIG);
-        int waitTimeMs = config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_WAIT_TIME_MS_CONFIG);
-
-        int attempt = 0;
-        while (attempt < maxAttempts) {
-            try {
-                Message message;
-
-                if (envelope.value() instanceof byte[] data) {
-                    BytesMessage bytesMessage = jmsSession.createBytesMessage();
-                    bytesMessage.writeBytes(data);
-                    message = bytesMessage;
-                } else if (envelope.value() instanceof String string) {
-                    message = jmsSession.createTextMessage(string);
-                } else {
-                    log.error("Unsupported record value type: {}", envelope.value().getClass());
-                    return;
-                }
-
-                if (setKafkaPartitionAsSessionId && envelope.kafkaPartition() != null) {
-                    String sessionIdString = Integer.toString(envelope.kafkaPartition());
-                    message.setStringProperty("JMSXGroupID", sessionIdString);
-                }
-
-                if (envelope.key() != null) {
-                    message.setStringProperty("__kafka_key", envelope.key().toString());
-                }
-
-                message.setStringProperty("__kafka_partition", Integer.toString(envelope.kafkaPartition()));
-                producer.send(message);
-                return; // Exit on successful send
-
-            } catch (JMSException e) {
-                attempt++;
-                log.warn("Attempt {} failed to send message to topic {}. Retrying in {} ms...", attempt, kafkaTopic, waitTimeMs, e);
-
-                if (attempt >= maxAttempts || e instanceof jakarta.jms.IllegalStateException) {
-                    log.error("Session or producer error detected. Triggering recovery.");
-                    reconnect();
-                }
-
-                try {
-                    Thread.sleep(waitTimeMs);
-                } catch (InterruptedException interruptedException) {
-                    Thread.currentThread().interrupt();
-                    throw new AzureServiceBusSinkException("Interrupted during backoff wait", interruptedException);
-                }
-            }
+        try {
+            Message message = createMessageFromRecord(envelope);
+            sendWithRetry(producer, message, kafkaTopic, envelope);
+        } catch (Exception e) {
+            log.error("Failed to process record for topic {}: {}", kafkaTopic, e.getMessage(), e);
+            throw new AzureServiceBusSinkException("Message permanently failed", e);
         }
     }
 
