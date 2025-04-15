@@ -7,60 +7,10 @@
 
 * Reduce complexity of the processRecord method. Also ensures at-least-once delivery. [Ben Dalling]
 
-* Really resolve CVE-2025-27363. [Ben Dalling]
-
 * Periodic Trivy Scans. [Ben Dalling]
-
-### Other
-
-* Build(deps): Bump google/osv-scanner-action from 2.0.0 to 2.0.1. [dependabot[bot]]
-
-  Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 2.0.0 to 2.0.1.
-  - [Release notes](https://github.com/google/osv-scanner-action/releases)
-  - [Commits](https://github.com/google/osv-scanner-action/compare/v2.0.0...v2.0.1)
-
-  ---
-  updated-dependencies:
-  - dependency-name: google/osv-scanner-action
-    dependency-version: 2.0.1
-    dependency-type: direct:production
-    update-type: version-update:semver-patch
-  ...
-
-* Build(deps): Bump google/osv-scanner-action from 1.9.2 to 2.0.0. [dependabot[bot]]
-
-  Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 1.9.2 to 2.0.0.
-  - [Release notes](https://github.com/google/osv-scanner-action/releases)
-  - [Commits](https://github.com/google/osv-scanner-action/compare/v1.9.2...v2.0.0)
-
-  ---
-  updated-dependencies:
-  - dependency-name: google/osv-scanner-action
-    dependency-type: direct:production
-    update-type: version-update:semver-major
-  ...
-
-* Build(deps): Bump aquasecurity/trivy-action from 0.29.0 to 0.30.0. [dependabot[bot]]
-
-  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.29.0 to 0.30.0.
-  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
-  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.29.0...0.30.0)
-
-  ---
-  updated-dependencies:
-  - dependency-name: aquasecurity/trivy-action
-    dependency-type: direct:production
-    update-type: version-update:semver-minor
-  ...
 
 
 ## 0.3.3 (2025-04-14)
-
-### Fix
-
-* Really resolve CVE-2025-27363. [Ben Dalling]
-
-* Periodic Trivy Scans. [Ben Dalling]
 
 ### Fix
 
