@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Reduce complexity of the processRecord method. Also ensures at-least-once delivery. [Ben Dalling]
+
 * Really resolve CVE-2025-27363. [Ben Dalling]
 
 * Periodic Trivy Scans. [Ben Dalling]
