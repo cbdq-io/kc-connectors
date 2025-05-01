@@ -5,6 +5,21 @@
 
 ### Other
 
+* Build(deps): Bump github/codeql-action from 2 to 3. [dependabot[bot]]
+
+  Bumps [github/codeql-action](https://github.com/github/codeql-action) from 2 to 3.
+  - [Release notes](https://github.com/github/codeql-action/releases)
+  - [Changelog](https://github.com/github/codeql-action/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/github/codeql-action/compare/v2...v3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: github/codeql-action
+    dependency-version: '3'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
 * Build(deps): Bump peter-evans/create-issue-from-file from 4 to 5. [dependabot[bot]]
 
   Bumps [peter-evans/create-issue-from-file](https://github.com/peter-evans/create-issue-from-file) from 4 to 5.
