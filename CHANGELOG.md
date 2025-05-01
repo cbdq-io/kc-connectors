@@ -20,6 +20,20 @@
     update-type: version-update:semver-major
   ...
 
+* Build(deps): Bump peter-evans/create-issue-from-file from 4 to 5. [dependabot[bot]]
+
+  Bumps [peter-evans/create-issue-from-file](https://github.com/peter-evans/create-issue-from-file) from 4 to 5.
+  - [Release notes](https://github.com/peter-evans/create-issue-from-file/releases)
+  - [Commits](https://github.com/peter-evans/create-issue-from-file/compare/v4...v5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: peter-evans/create-issue-from-file
+    dependency-version: '5'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
 
 ## 0.3.4 (2025-04-15)
 
