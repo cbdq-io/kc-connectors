@@ -1,30 +1,12 @@
 ---
 services:
-  artemis:
-    container_name: amqp
-    healthcheck:
-      test: |
-        /var/lib/artemis-instance/bin/artemis queue create \
-          --user=artemis \
-          --password=artemis \
-          --name=foo \
-          --silent \
-          --auto-create-address
-      interval: 1m30s
-      timeout: 30s
-      retries: 5
-      start_period: 1s
-    image: apache/activemq-artemis:2.38.0-alpine
-    ports:
-      - "5672:5672"
-      - "8161:8161"
 
   connect:
     build: .
     container_name: connect
     depends_on:
-      artemis:
-        condition: service_healthy
+      emulators:
+        condition: service_completed_successfully
       kafka:
         condition: service_healthy
     environment:
@@ -47,6 +29,20 @@ services:
     ports:
       - 8083:8083
       - 9400:9400
+
+  emulators:
+    build: "./tests/resources/is_sbus_emulator_alive"
+    command:
+      - "-c"
+      - "Endpoint=sb://sbemulatorns;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;"
+      - "-f"
+      - "/usr/local/etc/Config.json"
+    container_name: emulators
+    depends_on:
+      sbemulatorns:
+        condition: service_started
+    volumes:
+      - "./tests/resources/sbus-landing-config.json:/usr/local/etc/Config.json"
 
   kafka:
     container_name: kafka
@@ -83,7 +79,7 @@ services:
       - connect
     entrypoint: /usr/local/bin/kccinit.py
     environment:
-      CONNECTOR_AzureServiceBusSink_AZURE_SERVICEBUS_CONNECTION_STRING: "${CONNECTION_STRING:-Endpoint=sb://artemis/;SharedAccessKeyName=artemis;SharedAccessKey=artemis;UseDevelopmentEmulator=true}"
+      CONNECTOR_AzureServiceBusSink_AZURE_SERVICEBUS_CONNECTION_STRING: "${CONNECTION_STRING:-Endpoint=sb://sbemulatorns;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;}"
       CONNECTOR_AzureServiceBusSink_CONNECTOR_CLASS: io.cbdq.AzureServiceBusSinkConnector
       CONNECTOR_AzureServiceBusSink_CONSUMER_OVERRIDE_AUTO_OFFSET_RESET: earliest
       CONNECTOR_AzureServiceBusSink_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
@@ -96,3 +92,28 @@ services:
       CONNECTOR_AzureServiceBusSink_VALUE_CONVERTER: org.apache.kafka.connect.storage.StringConverter
       KAFKA_CONNECT_ENDPOINT: "http://connect:8083"
       LOG_LEVEL: DEBUG
+
+  sbemulatorns:
+    container_name: "sbemulatorns"
+    depends_on:
+      sqledge:
+        condition: service_healthy
+    environment:
+      SQL_SERVER: sqledge
+      MSSQL_SA_PASSWORD: "Secret123"
+      ACCEPT_EULA: "Y"
+    image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
+    ports:
+      - "5672:5672"
+      - "8080:8080"
+    volumes:
+      - "./tests/resources/sbus-landing-config.json:/ServiceBus_Emulator/ConfigFiles/Config.json"
+
+  sqledge:
+    container_name: "sqledge"
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Secret123"
+    healthcheck:
+      test: timeout 1 bash -c 'cat < /dev/null > /dev/tcp/127.0.0.1/1433'
+    image: "mcr.microsoft.com/azure-sql-edge:latest"
