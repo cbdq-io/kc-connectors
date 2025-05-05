@@ -5,6 +5,20 @@
 
 ### Other
 
+* Build(deps): Bump google/osv-scanner-action from 2.0.1 to 2.0.2. [dependabot[bot]]
+
+  Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 2.0.1 to 2.0.2.
+  - [Release notes](https://github.com/google/osv-scanner-action/releases)
+  - [Commits](https://github.com/google/osv-scanner-action/compare/v2.0.1...v2.0.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: google/osv-scanner-action
+    dependency-version: 2.0.2
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Build(deps): Bump github/codeql-action from 2 to 3. [dependabot[bot]]
 
   Bumps [github/codeql-action](https://github.com/github/codeql-action) from 2 to 3.
