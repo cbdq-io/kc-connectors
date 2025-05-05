@@ -3,21 +3,24 @@
 
 ## 0.3.4
 
+### Fix
+
+* Migrate the SDK from Qpid JMS to Azure Service Bus. [Ben Dalling]
+
 ### Other
 
-* Build(deps): Bump github/codeql-action from 2 to 3. [dependabot[bot]]
+* Build(deps): Bump google/osv-scanner-action from 2.0.1 to 2.0.2. [dependabot[bot]]
 
-  Bumps [github/codeql-action](https://github.com/github/codeql-action) from 2 to 3.
-  - [Release notes](https://github.com/github/codeql-action/releases)
-  - [Changelog](https://github.com/github/codeql-action/blob/main/CHANGELOG.md)
-  - [Commits](https://github.com/github/codeql-action/compare/v2...v3)
+  Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 2.0.1 to 2.0.2.
+  - [Release notes](https://github.com/google/osv-scanner-action/releases)
+  - [Commits](https://github.com/google/osv-scanner-action/compare/v2.0.1...v2.0.2)
 
   ---
   updated-dependencies:
-  - dependency-name: github/codeql-action
-    dependency-version: '3'
+  - dependency-name: google/osv-scanner-action
+    dependency-version: 2.0.2
     dependency-type: direct:production
-    update-type: version-update:semver-major
+    update-type: version-update:semver-patch
   ...
 
 * Build(deps): Bump peter-evans/create-issue-from-file from 4 to 5. [dependabot[bot]]
@@ -30,6 +33,21 @@
   updated-dependencies:
   - dependency-name: peter-evans/create-issue-from-file
     dependency-version: '5'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+* Build(deps): Bump github/codeql-action from 2 to 3. [dependabot[bot]]
+
+  Bumps [github/codeql-action](https://github.com/github/codeql-action) from 2 to 3.
+  - [Release notes](https://github.com/github/codeql-action/releases)
+  - [Changelog](https://github.com/github/codeql-action/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/github/codeql-action/compare/v2...v3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: github/codeql-action
+    dependency-version: '3'
     dependency-type: direct:production
     update-type: version-update:semver-major
   ...
