@@ -17,20 +17,18 @@ public class AzureServiceBusSinkTask extends SinkTask {
     /* package-private */ Map<String, ServiceBusSenderClient> serviceBusSenders;
     private AzureServiceBusSinkConnectorConfig config;
     private PrometheusMetrics metrics;
-    private TopicRenameFormat renamer;
     /* package-private */ boolean setKafkaPartitionAsSessionId;
-    private String connectionString;
 
     @Override
     public void start(Map<String, String> props) {
         log.info("Starting task in version {} of the connector.", VersionUtil.getVersion());
 
         config = new AzureServiceBusSinkConnectorConfig(props);
-        renamer = new TopicRenameFormat(
+        TopicRenameFormat renamer = new TopicRenameFormat(
             config.getString(AzureServiceBusSinkConnectorConfig.TOPIC_RENAME_FORMAT_CONFIG)
         );
         setKafkaPartitionAsSessionId = config.getBoolean(AzureServiceBusSinkConnectorConfig.SET_KAFKA_PARTITION_AS_SESSION_ID_CONFIG);
-        connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
+        String connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
 
         serviceBusSenders = new HashMap<>();
         String topicsStr = props.get("topics");
@@ -61,17 +59,17 @@ public class AzureServiceBusSinkTask extends SinkTask {
     }
 
     @Override
-    public void put(Collection<SinkRecord> records) {
-        log.info("Received {} records", records.size());
+    public void put(Collection<SinkRecord> envelopes) {
+        log.info("Received {} records", envelopes.size());
 
-        for (SinkRecord record : records) {
-            processRecord(record);
+        for (SinkRecord envelope : envelopes) {
+            processRecord(envelope);
             metrics.incrementMessageCounter();
         }
     }
 
-    /* package-private */ void processRecord(SinkRecord record) {
-        String kafkaTopic = record.topic();
+    /* package-private */ void processRecord(SinkRecord envelope) {
+        String kafkaTopic = envelope.topic();
         ServiceBusSenderClient sender = serviceBusSenders.get(kafkaTopic);
 
         if (sender == null) {
@@ -80,41 +78,40 @@ public class AzureServiceBusSinkTask extends SinkTask {
         }
 
         try {
-            ServiceBusMessage message = createMessageFromRecord(record);
-            sendWithRetry(sender, message, kafkaTopic, record);
+            ServiceBusMessage message = createMessageFromRecord(envelope);
+            sendWithRetry(sender, message, kafkaTopic, envelope);
         } catch (Exception e) {
-            log.error("Failed to process record for topic {}: {}", kafkaTopic, e.getMessage(), e);
             throw new AzureServiceBusSinkException("Message permanently failed", e);
         }
     }
 
-    /* package-private */ ServiceBusMessage createMessageFromRecord(SinkRecord record) {
+    /* package-private */ ServiceBusMessage createMessageFromRecord(SinkRecord envelope) {
         byte[] body;
 
-        if (record.value() instanceof byte[] bytes) {
+        if (envelope.value() instanceof byte[] bytes) {
             body = bytes;
-        } else if (record.value() instanceof String string) {
+        } else if (envelope.value() instanceof String string) {
             body = string.getBytes(StandardCharsets.UTF_8);
         } else {
-            throw new AzureServiceBusSinkException("Unsupported record value type: " + record.value().getClass());
+            throw new AzureServiceBusSinkException("Unsupported record value type: " + envelope.value().getClass());
         }
 
         ServiceBusMessage message = new ServiceBusMessage(body);
 
-        if (setKafkaPartitionAsSessionId && record.kafkaPartition() != null) {
-            message.setSessionId(record.kafkaPartition().toString());
+        if (setKafkaPartitionAsSessionId && envelope.kafkaPartition() != null) {
+            message.setSessionId(envelope.kafkaPartition().toString());
         }
 
-        if (record.key() != null) {
-            message.getApplicationProperties().put("__kafka_key", record.key().toString());
+        if (envelope.key() != null) {
+            message.getApplicationProperties().put("__kafka_key", envelope.key().toString());
         }
 
-        message.getApplicationProperties().put("__kafka_partition", record.kafkaPartition());
+        message.getApplicationProperties().put("__kafka_partition", envelope.kafkaPartition());
 
         return message;
     }
 
-    /* package-private */ void sendWithRetry(ServiceBusSenderClient sender, ServiceBusMessage message, String kafkaTopic, SinkRecord record) {
+    /* package-private */ void sendWithRetry(ServiceBusSenderClient sender, ServiceBusMessage message, String kafkaTopic, SinkRecord envelope) {
         int maxAttempts = config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_ATTEMPTS_CONFIG);
         int waitTimeMs = config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_WAIT_TIME_MS_CONFIG);
 
@@ -127,7 +124,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
                 if (attempt >= maxAttempts) {
                     log.error("All {} attempts failed. Topic: {}, Partition: {}, Offset: {}",
-                            maxAttempts, kafkaTopic, record.kafkaPartition(), record.kafkaOffset());
+                            maxAttempts, kafkaTopic, envelope.kafkaPartition(), envelope.kafkaOffset());
                     throw new AzureServiceBusSinkException(
                         String.format("Failed to send message after %d attempts", maxAttempts), e
                     );
