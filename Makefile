@@ -6,7 +6,7 @@ all: lint clean build test
 
 build:
 	make -C azure-servicebus-sink-connector build
-	docker compose pull --quiet artemis kafka
+	docker compose pull --quiet kafka sbemulatorns sqledge
 	docker compose build --quiet
 
 changelog:
@@ -30,7 +30,8 @@ tag:
 	@echo $(TAG)
 
 test:
-	docker compose up -d kafka artemis --wait
+	docker compose up -d kafka sqledge --wait
+	docker compose run emulators
 	docker compose exec kafka kafka-topics --bootstrap-server kafka:29092 --create --topic vault.infra.external.kafka_connect.default.config --config cleanup.policy=compact
 	docker compose exec kafka kafka-topics --bootstrap-server kafka:29092 --create --topic vault.infra.external.kafka_connect.default.offset --partitions 25 --config cleanup.policy=compact
 	docker compose exec kafka kafka-topics --bootstrap-server kafka:29092 --create --topic vault.infra.external.kafka_connect.default.status --partitions 5 --config cleanup.policy=compact
@@ -38,10 +39,7 @@ test:
 	docker compose exec kafka kafka-topics --bootstrap-server kafka:29092 --create --topic vault.api.v1.audit_logs.audit_log.created --partitions 4
 	docker compose exec kafka kafka-configs --bootstrap-server kafka:29092 --alter --entity-type topics --entity-name vault.api.v1.audit_logs.audit_log.created --add-config max.message.bytes=4096000
 	docker compose exec kafka /bin/sh -c "echo 'Hello, world!' | kafka-console-producer --topic vault.api.v1.audit_logs.audit_log.created --bootstrap-server kafka:29092"
-	docker compose exec kafka /bin/sh -c "python /usr/local/bin/data-gen.py -c 1000 -s 12_800 -r 4_000_000 | kafka-console-producer --topic vault.api.v1.audit_logs.audit_log.created --bootstrap-server kafka:29092 --producer-property max.request.size=4096000 --property parse.key=true --property key.separator=:"
-	docker compose exec artemis /var/lib/artemis-instance/bin/artemis queue create --user=artemis --password=artemis --name=replicated.vault.api.v1.accounts.account.created --silent --auto-create-address
-	docker compose exec artemis /var/lib/artemis-instance/bin/artemis queue create --user=artemis --password=artemis --name=replicated.vault.api.v1.audit_logs.audit_log.created --silent --auto-create-address
-
+	docker compose exec kafka /bin/sh -c "python /usr/local/bin/data-gen.py -c 1000 -s 12_700 -r 12_800 | kafka-console-producer --topic vault.api.v1.audit_logs.audit_log.created --bootstrap-server kafka:29092 --producer-property max.request.size=4096000 --property parse.key=true --property key.separator=:"
 	docker compose up -d connect --wait
 	docker compose run kccinit
 	tests/resources/poll-until-complete.sh
