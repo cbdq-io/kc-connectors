@@ -3,6 +3,10 @@
 
 ## 0.3.4
 
+### Fix
+
+* Migrate the SDK from Qpid JMS to Azure Service Bus. [Ben Dalling]
+
 ### Other
 
 * Build(deps): Bump github/codeql-action from 2 to 3. [dependabot[bot]]
