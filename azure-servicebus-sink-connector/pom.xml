@@ -7,7 +7,7 @@
     <!-- Project Coordinates -->
     <groupId>io.cbdq</groupId>
     <artifactId>azure-servicebus-sink-connector</artifactId>
-    <version>0.3.4</version>
+    <version>0.3.5</version>
     <packaging>jar</packaging>
 
     <!-- Project Information -->
@@ -19,7 +19,7 @@
     <properties>
         <java.version>17</java.version>
         <kafka.version>3.9.0</kafka.version>
-        <qpid-jms-client.version>2.7.0</qpid-jms-client.version>
+        <servicebus.version>7.17.11</servicebus.version>
         <slf4j.version>2.0.16</slf4j.version>
         <cucumber.version>7.14.0</cucumber.version>
         <prometheus.version>1.3.6</prometheus.version>
@@ -57,9 +57,9 @@
             <version>${kafka.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.qpid</groupId>
-            <artifactId>qpid-jms-client</artifactId>
-            <version>${qpid-jms-client.version}</version>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-messaging-servicebus</artifactId>
+            <version>${servicebus.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -135,6 +135,9 @@
                                     <artifact>*:*</artifact>
                                     <excludes>
                                         <exclude>module-info.class</exclude>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
                                     </excludes>
                                 </filter>
                             </filters>

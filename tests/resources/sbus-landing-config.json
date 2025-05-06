@@ -1,0 +1,59 @@
+{
+    "UserConfig": {
+        "Namespaces": [
+            {
+                "Name": "sbemulatorns",
+                "Queues": [],
+                "Topics": [
+                    {
+                        "Name": "replicated-vault.api.v1.accounts.account.created",
+                        "Properties": {
+                            "DefaultMessageTimeToLive": "PT1H",
+                            "DuplicateDetectionHistoryTimeWindow": "PT20S",
+                            "RequiresDuplicateDetection": false
+                        },
+                        "Subscriptions": [
+                            {
+                                "Name": "test",
+                                "Properties": {
+                                    "DeadLetteringOnMessageExpiration": false,
+                                    "DefaultMessageTimeToLive": "PT1H",
+                                    "LockDuration": "PT1M",
+                                    "MaxDeliveryCount": 10,
+                                    "ForwardDeadLetteredMessagesTo": "",
+                                    "ForwardTo": "",
+                                    "RequiresSession": false
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Name": "replicated-vault.api.v1.audit_logs.audit_log.created",
+                        "Properties": {
+                            "DefaultMessageTimeToLive": "PT1H",
+                            "DuplicateDetectionHistoryTimeWindow": "PT20S",
+                            "RequiresDuplicateDetection": false
+                        },
+                        "Subscriptions": [
+                            {
+                                "Name": "test",
+                                "Properties": {
+                                    "DeadLetteringOnMessageExpiration": false,
+                                    "DefaultMessageTimeToLive": "PT1H",
+                                    "LockDuration": "PT1M",
+                                    "MaxDeliveryCount": 10,
+                                    "ForwardDeadLetteredMessagesTo": "",
+                                    "ForwardTo": "",
+                                    "RequiresSession": false
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "Logging": {
+            "Type": "Console"
+        }
+    }
+}
