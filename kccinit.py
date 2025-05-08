@@ -14,18 +14,154 @@ AzureServiceBusSink.  When the connector config is gathered, it will be
 posted to the connectors endpoint of Kafka Connect to initialise the
 connector.
 """
+import argparse
 import json
 import logging
 import os
+import signal
 import sys
 import time
+import types
 
 import requests
+from prometheus_client import start_http_server, Counter
 
 logging.basicConfig()
 logger = logging.getLogger('kccinit')
 logger.setLevel(os.environ.get('LOG_LEVEL', 'WARN'))
+parser = argparse.ArgumentParser()
+group = parser.add_mutually_exclusive_group()
+group.add_argument(
+    '-d', '--debug',
+    help='Set logging to DEBUG.',
+    action='store_true'
+)
+group.add_argument(
+    '-v', '--verbose',
+    help='Set logging to verbose (INFO).',
+    action='store_true'
+)
+parser.add_argument(
+    '-s', '--sidecar',
+    help='Run in sidecar mode.',
+    action='store_true'
+)
 
+
+class SidecarMode:
+    def __init__(self, endpoint: str) -> None:
+        logger.debug(f'Starting sidecar mode (endpoint={endpoint}).')
+        signal.signal(signal.SIGINT, self.signal_handler)
+        signal.signal(signal.SIGTERM, self.signal_handler)
+        self.endpoint = endpoint
+        self.error_occurences = 0
+        start_http_server(8000)
+        self.prom = Counter(
+            'kafka_connect_task_restart_count',
+            'The number of task restarts made.'
+        )
+
+        while(True):
+            status_details = self.get_status_details(endpoint)
+            failed_tasks_count = self.restart_any_failed_tasks(status_details)
+            self.error_occurences = self.report_status(failed_tasks_count)
+            time.sleep(60)
+
+    def get_status_details(self, endpoint: str) -> dict:
+        """
+        Get the status of all connectors and tasks from the Kafka Connect endpoint.
+
+        Parameters
+        ----------
+        endpoint : str
+            The endpoint for the Kafka Connect API.
+
+        Returns
+        -------
+        dict
+            The details returned from the endpoint having been decoded from JSON.
+        """
+        url = f'{endpoint}/connectors?expand=status'
+        response = requests.get(url).json()
+        return response
+
+    def report_status(self, failed_task_count: int) -> int:
+        """Report the status of the connectors."""
+        if failed_task_count:
+            self.prom.inc(failed_task_count)
+        elif not self.error_occurences and not failed_task_count:
+            logger.debug(f'All tasks in all connectors are running.')
+            return 0
+        elif self.error_occurences:
+            logger.info(f'Tasks have recovered.')
+            return 0
+
+        message = f'Restarted {failed_task_count} tasks.'
+
+        if self.error_occurences >= 3:
+            logger.error(message)
+        else:
+            logger.warning(message)
+
+        return self.error_occurences + 1
+
+    def restart_any_failed_tasks(self, status_details: dict) -> int:
+        """
+        Restart any failed tasks for any connector.
+
+        Parameters
+        ----------
+        status_details : dict
+            The data as returned from the status endpoint.
+
+        Returns
+        -------
+        int
+            The number of tasks that needed to be restarted.
+        """
+        failed_tasks_count = 0
+
+        for connector_name, connector_details in status_details.items():
+            connector_status = connector_details['status']
+            connector_state = connector_status['connector']['state']
+            logger.debug(f'{connector_name} ({connector_state})')
+
+            if connector_state != 'RUNNING':
+                logger.error(f'The state of connector {connector_name} is "{connector_state}".')
+
+            tasks = connector_status['tasks']
+
+            for task in tasks:
+                task_id = task['id']
+                task_state = task['state']
+
+                if task_state == 'RUNNING':
+                    continue
+
+                failed_tasks_count += 1
+                url = f'{self.endpoint}/connectors/{connector_name}/tasks/'
+                url += f'{task_id}/restart'
+                response = requests.post(url)
+                message = f'Response code from restart request of task {connector_name}/'
+                message += f'{task_id} ("{task_state}") was {response.status_code}.'
+                logger.warning(message)
+
+        return failed_tasks_count
+
+
+    def signal_handler(self, sig: int, frame: types.FrameType) -> None:
+        """
+        Catch signals.
+
+        Parameters
+        ----------
+        sig : int
+            The signal received that needs to be handled.
+        frame : types.FrameType
+            This is the current stack frame when the signal was received.
+        """
+        logger.warning(f'Received signal ({sig}), shutting down.')
+        sys.exit(self.error_occurences)
 
 class ConnectorInitialiser:
     """
@@ -156,4 +292,17 @@ class ConnectorInitialiser:
 
 
 if __name__ == '__main__':
-    sys.exit(ConnectorInitialiser().status)
+    args = parser.parse_args()
+
+    if args.debug:
+        logger.setLevel(logging.DEBUG)
+    elif args.verbose:
+        logger.setLevel(logging.INFO)
+
+    initialiser = ConnectorInitialiser()
+    status = initialiser.status
+
+    if args.sidecar and status == 0:
+        SidecarMode(initialiser.endpoint())
+
+    sys.exit(status)

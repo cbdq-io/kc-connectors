@@ -41,7 +41,7 @@ test:
 	docker compose exec kafka /bin/sh -c "echo 'Hello, world!' | kafka-console-producer --topic vault.api.v1.audit_logs.audit_log.created --bootstrap-server kafka:29092"
 	docker compose exec kafka /bin/sh -c "python /usr/local/bin/data-gen.py -c 1000 -s 12_700 -r 12_800 | kafka-console-producer --topic vault.api.v1.audit_logs.audit_log.created --bootstrap-server kafka:29092 --producer-property max.request.size=4096000 --property parse.key=true --property key.separator=:"
 	docker compose up -d connect --wait
-	docker compose run kccinit
+	docker compose up -d kccinit --wait
 	tests/resources/poll-until-complete.sh
 
 trivy:
