@@ -82,7 +82,7 @@ class SidecarMode:
             The details returned from the endpoint having been decoded from JSON.
         """
         url = f'{endpoint}/connectors?expand=status'
-        response = requests.get(url).json()
+        response = requests.get(url, timeout=10).json()
         return response
 
     def report_status(self, failed_task_count: int) -> int:
@@ -90,10 +90,10 @@ class SidecarMode:
         if failed_task_count:
             self.prom.inc(failed_task_count)
         elif not self.error_occurences and not failed_task_count:
-            logger.debug(f'All tasks in all connectors are running.')
+            logger.debug('All tasks in all connectors are running.')
             return 0
         elif self.error_occurences:
-            logger.info(f'Tasks have recovered.')
+            logger.info('Tasks have recovered.')
             return 0
 
         message = f'Restarted {failed_task_count} tasks.'
@@ -141,7 +141,7 @@ class SidecarMode:
                 failed_tasks_count += 1
                 url = f'{self.endpoint}/connectors/{connector_name}/tasks/'
                 url += f'{task_id}/restart'
-                response = requests.post(url)
+                response = requests.post(url, timeout=10)
                 message = f'Response code from restart request of task {connector_name}/'
                 message += f'{task_id} ("{task_state}") was {response.status_code}.'
                 logger.warning(message)
