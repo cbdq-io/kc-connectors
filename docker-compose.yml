@@ -77,7 +77,9 @@ services:
     build: .
     depends_on:
       - connect
-    entrypoint: /usr/local/bin/kccinit.py
+    entrypoint:
+      - "/usr/local/bin/kccinit.py"
+      - "-s"
     environment:
       CONNECTOR_AzureServiceBusSink_AZURE_SERVICEBUS_CONNECTION_STRING: "${CONNECTION_STRING:-Endpoint=sb://sbemulatorns;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;}"
       CONNECTOR_AzureServiceBusSink_CONNECTOR_CLASS: io.cbdq.AzureServiceBusSinkConnector
@@ -92,6 +94,12 @@ services:
       CONNECTOR_AzureServiceBusSink_VALUE_CONVERTER: org.apache.kafka.connect.storage.StringConverter
       KAFKA_CONNECT_ENDPOINT: "http://connect:8083"
       LOG_LEVEL: DEBUG
+    healthcheck:
+      test: curl --fail --silent localhost:8000
+      interval: 5s
+      retries: 12
+    ports:
+      - "8000:8000"
 
   sbemulatorns:
     container_name: "sbemulatorns"
