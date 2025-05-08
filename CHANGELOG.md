@@ -1,6 +1,13 @@
 # Changelog
 
 
+## 0.3.5
+
+### Other
+
+* Feat: Add sidecar option to kccinit. [Ben Dalling]
+
+
 ## 0.3.5 (2025-05-06)
 
 ### Fix
