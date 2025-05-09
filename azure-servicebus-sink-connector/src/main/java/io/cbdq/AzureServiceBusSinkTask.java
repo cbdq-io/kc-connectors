@@ -89,8 +89,8 @@ public class AzureServiceBusSinkTask extends SinkTask {
             try {
                 ServiceBusMessageBatch batch = sender.createMessageBatch();
 
-                for (SinkRecord record : records) {
-                    ServiceBusMessage msg = createMessageFromRecord(record);
+                for (SinkRecord sourceRecord : records) {
+                    ServiceBusMessage msg = createMessageFromRecord(sourceRecord);
                     if (!batch.tryAddMessage(msg)) {
                         sender.sendMessages(batch);
                         batch = sender.createMessageBatch();
