@@ -1,5 +1,8 @@
 package io.cbdq;
 
+import com.azure.core.amqp.AmqpRetryOptions;
+import com.azure.core.amqp.AmqpRetryMode;
+import java.time.Duration;
 import com.azure.messaging.servicebus.*;
 import io.prometheus.metrics.instrumentation.jvm.JvmMetrics;
 import org.apache.kafka.connect.sink.SinkRecord;
@@ -24,27 +27,33 @@ public class AzureServiceBusSinkTask extends SinkTask {
         log.info("Starting task in version {} of the connector.", VersionUtil.getVersion());
 
         config = new AzureServiceBusSinkConnectorConfig(props);
-        TopicRenameFormat renamer = new TopicRenameFormat(
-            config.getString(AzureServiceBusSinkConnectorConfig.TOPIC_RENAME_FORMAT_CONFIG)
-        );
+        TopicRenameFormat renamer = new TopicRenameFormat(config.getString(AzureServiceBusSinkConnectorConfig.TOPIC_RENAME_FORMAT_CONFIG));
         setKafkaPartitionAsSessionId = config.getBoolean(AzureServiceBusSinkConnectorConfig.SET_KAFKA_PARTITION_AS_SESSION_ID_CONFIG);
+
         String connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
+
+        AmqpRetryOptions retryOptions = new AmqpRetryOptions()
+        .setMaxRetries(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_ATTEMPTS_CONFIG))
+        .setDelay(Duration.ofMillis(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_DELAY_MS_CONFIG)))
+        .setMaxDelay(Duration.ofMillis(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_DELAY_MS_CONFIG)))
+        .setTryTimeout(Duration.ofMillis(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_TOTAL_TIMEOUT_MS_CONFIG)))
+        .setMode("fixed".equalsIgnoreCase(config.getString(AzureServiceBusSinkConnectorConfig.RETRY_MODE_CONFIG))
+                 ? AmqpRetryMode.FIXED
+                 : AmqpRetryMode.EXPONENTIAL);
 
         serviceBusSenders = new HashMap<>();
         String topicsStr = props.get("topics");
 
         if (topicsStr != null) {
             ServiceBusClientBuilder clientBuilder = new ServiceBusClientBuilder()
-                .connectionString(connectionString);
+                .connectionString(connectionString)
+                .retryOptions(retryOptions);
 
             for (String topic : topicsStr.split(",")) {
                 topic = topic.trim();
                 if (!topic.isEmpty()) {
                     String destinationTopic = renamer.rename(topic);
-                    ServiceBusSenderClient sender = clientBuilder
-                        .sender()
-                        .topicName(destinationTopic)
-                        .buildClient();
+                    ServiceBusSenderClient sender = clientBuilder.sender().topicName(destinationTopic).buildClient();
                     serviceBusSenders.put(topic, sender);
                     log.info("Initialized Azure Service Bus sender for topic: {} -> {}", topic, destinationTopic);
                 }
@@ -53,35 +62,52 @@ public class AzureServiceBusSinkTask extends SinkTask {
             log.error("No topics specified in the configuration");
         }
 
-        JvmMetrics.builder().register();  // JVM metrics for Prometheus
-        String connectorName = context.configs().get("name").toLowerCase();
-        metrics = PrometheusMetrics.getInstance(connectorName);
+        JvmMetrics.builder().register();
+        metrics = PrometheusMetrics.getInstance(context.configs().get("name").toLowerCase());
     }
 
     @Override
     public void put(Collection<SinkRecord> envelopes) {
         log.info("Received {} records", envelopes.size());
 
+        Map<String, List<SinkRecord>> recordsByTopic = new HashMap<>();
+
         for (SinkRecord envelope : envelopes) {
-            processRecord(envelope);
+            recordsByTopic.computeIfAbsent(envelope.topic(), k -> new ArrayList<>()).add(envelope);
             metrics.incrementMessageCounter();
         }
-    }
 
-    /* package-private */ void processRecord(SinkRecord envelope) {
-        String kafkaTopic = envelope.topic();
-        ServiceBusSenderClient sender = serviceBusSenders.get(kafkaTopic);
+        for (Map.Entry<String, List<SinkRecord>> entry : recordsByTopic.entrySet()) {
+            String topic = entry.getKey();
+            List<SinkRecord> records = entry.getValue();
+            ServiceBusSenderClient sender = serviceBusSenders.get(topic);
+            if (sender == null) {
+                log.warn("No sender configured for topic {}", topic);
+                continue;
+            }
 
-        if (sender == null) {
-            log.warn("No Service Bus sender found for topic {}", kafkaTopic);
-            return;
-        }
+            try {
+                ServiceBusMessageBatch batch = sender.createMessageBatch();
 
-        try {
-            ServiceBusMessage message = createMessageFromRecord(envelope);
-            sendWithRetry(sender, message, kafkaTopic, envelope);
-        } catch (Exception e) {
-            throw new AzureServiceBusSinkException("Message permanently failed", e);
+                for (SinkRecord sourceRecord : records) {
+                    ServiceBusMessage msg = createMessageFromRecord(sourceRecord);
+                    if (!batch.tryAddMessage(msg)) {
+                        sender.sendMessages(batch);
+                        batch = sender.createMessageBatch();
+                        if (!batch.tryAddMessage(msg)) {
+                            throw new AzureServiceBusSinkException("Single message too large to fit in an empty batch");
+                        }
+                    }
+                }
+
+                if (batch.getCount() > 0) {
+                    sender.sendMessages(batch);
+                }
+
+            } catch (Exception e) {
+                log.error("Failed to send messages to topic {}", topic, e);
+                throw new AzureServiceBusSinkException("Failed to send message batch", e);
+            }
         }
     }
 
@@ -109,35 +135,6 @@ public class AzureServiceBusSinkTask extends SinkTask {
         message.getApplicationProperties().put("__kafka_partition", envelope.kafkaPartition());
 
         return message;
-    }
-
-    /* package-private */ void sendWithRetry(ServiceBusSenderClient sender, ServiceBusMessage message, String kafkaTopic, SinkRecord envelope) {
-        int maxAttempts = config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_ATTEMPTS_CONFIG);
-        int waitTimeMs = config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_WAIT_TIME_MS_CONFIG);
-
-        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
-            try {
-                sender.sendMessage(message);
-                return;
-            } catch (Exception e) {
-                log.warn("Attempt {} failed to send message to topic {}. Retrying in {} ms...", attempt, kafkaTopic, waitTimeMs, e);
-
-                if (attempt >= maxAttempts) {
-                    log.error("All {} attempts failed. Topic: {}, Partition: {}, Offset: {}",
-                            maxAttempts, kafkaTopic, envelope.kafkaPartition(), envelope.kafkaOffset());
-                    throw new AzureServiceBusSinkException(
-                        String.format("Failed to send message after %d attempts", maxAttempts), e
-                    );
-                }
-
-                try {
-                    Thread.sleep(waitTimeMs);
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                    throw new AzureServiceBusSinkException("Interrupted during backoff wait", ie);
-                }
-            }
-        }
     }
 
     @Override
