@@ -3,7 +3,13 @@
 
 ## 0.3.5
 
+### Fix
+
+* Batch the sending of messages. [Ben Dalling]
+
 ### Other
+
+* Feat: Allow the user to specify exponential back off during retry. [Ben Dalling]
 
 * Feat: Add sidecar option to kccinit. [Ben Dalling]
 
