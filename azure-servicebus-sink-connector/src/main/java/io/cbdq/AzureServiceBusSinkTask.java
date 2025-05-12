@@ -90,7 +90,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
         return grouped;
     }
 
-    private void sendBatchToTopic(String topic, List<SinkRecord> records) {
+    private void sendBatchToTopic(String topic, List<SinkRecord> envelopes) {
         ServiceBusSenderClient sender = serviceBusSenders.get(topic);
         if (sender == null) {
             throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
@@ -99,8 +99,9 @@ public class AzureServiceBusSinkTask extends SinkTask {
         try {
             ServiceBusMessageBatch batch = sender.createMessageBatch();
 
-            for (SinkRecord record : records) {
-                ServiceBusMessage msg = createMessageFromRecord(record);
+            for (SinkRecord envelope : envelopes) {
+                ServiceBusMessage msg = createMessageFromRecord(envelope);
+
                 if (!batch.tryAddMessage(msg)) {
                     if (batch.getCount() > 0) {
                         sender.sendMessages(batch);
