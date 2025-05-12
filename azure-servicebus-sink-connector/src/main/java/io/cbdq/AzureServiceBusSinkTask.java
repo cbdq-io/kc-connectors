@@ -81,10 +81,10 @@ public class AzureServiceBusSinkTask extends SinkTask {
         }
     }
 
-    private Map<String, List<SinkRecord>> groupRecordsByTopic(Collection<SinkRecord> records) {
+    private Map<String, List<SinkRecord>> groupRecordsByTopic(Collection<SinkRecord> envelopes) {
         Map<String, List<SinkRecord>> grouped = new HashMap<>();
-        for (SinkRecord record : records) {
-            grouped.computeIfAbsent(record.topic(), k -> new ArrayList<>()).add(record);
+        for (SinkRecord envelope : envelopes) {
+            grouped.computeIfAbsent(envelope.topic(), k -> new ArrayList<>()).add(envelope);
             metrics.incrementMessageCounter();
         }
         return grouped;
@@ -92,6 +92,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
     private void sendBatchToTopic(String topic, List<SinkRecord> envelopes) {
         ServiceBusSenderClient sender = serviceBusSenders.get(topic);
+
         if (sender == null) {
             throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
         }
@@ -120,7 +121,6 @@ public class AzureServiceBusSinkTask extends SinkTask {
             }
 
         } catch (Exception e) {
-            log.error("Failed to send messages to topic {}", topic, e);
             throw new AzureServiceBusSinkException("Failed to send message batch", e);
         }
     }
