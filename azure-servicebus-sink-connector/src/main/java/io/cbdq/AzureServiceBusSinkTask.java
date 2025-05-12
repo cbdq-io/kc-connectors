@@ -81,9 +81,9 @@ public class AzureServiceBusSinkTask extends SinkTask {
             String topic = entry.getKey();
             List<SinkRecord> records = entry.getValue();
             ServiceBusSenderClient sender = serviceBusSenders.get(topic);
+
             if (sender == null) {
-                log.warn("No sender configured for topic {}", topic);
-                continue;
+                throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
             }
 
             try {
@@ -91,15 +91,21 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
                 for (SinkRecord sourceRecord : records) {
                     ServiceBusMessage msg = createMessageFromRecord(sourceRecord);
+
                     if (!batch.tryAddMessage(msg)) {
-                        sender.sendMessages(batch);
+                        if (batch.getCount() > 0) {
+                            sender.sendMessages(batch);
+                        }
+
                         batch = sender.createMessageBatch();
+
                         if (!batch.tryAddMessage(msg)) {
                             throw new AzureServiceBusSinkException("Single message too large to fit in an empty batch");
                         }
                     }
                 }
 
+                // Final send — only if non-empty
                 if (batch.getCount() > 0) {
                     sender.sendMessages(batch);
                 }
