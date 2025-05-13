@@ -1,7 +1,14 @@
 # Changelog
 
 
-## 0.4.0
+## 0.4.1
+
+### Fix
+
+* More robust checking to avoid sending empty batches and ensure an unconfugured sender will throw an exception. [Ben Dalling]
+
+
+## 0.4.0 (2025-05-09)
 
 ### Fix
 
