@@ -68,46 +68,60 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
     @Override
     public void put(Collection<SinkRecord> envelopes) {
-        log.info("Received {} records", envelopes.size());
-
-        Map<String, List<SinkRecord>> recordsByTopic = new HashMap<>();
-
-        for (SinkRecord envelope : envelopes) {
-            recordsByTopic.computeIfAbsent(envelope.topic(), k -> new ArrayList<>()).add(envelope);
-            metrics.incrementMessageCounter();
+        if (envelopes == null || envelopes.isEmpty()) {
+            log.info("Received empty record batch, skipping.");
+            return;
         }
 
+        log.info("Received {} records", envelopes.size());
+        Map<String, List<SinkRecord>> recordsByTopic = groupRecordsByTopic(envelopes);
+
         for (Map.Entry<String, List<SinkRecord>> entry : recordsByTopic.entrySet()) {
-            String topic = entry.getKey();
-            List<SinkRecord> records = entry.getValue();
-            ServiceBusSenderClient sender = serviceBusSenders.get(topic);
-            if (sender == null) {
-                log.warn("No sender configured for topic {}", topic);
-                continue;
-            }
+            sendBatchToTopic(entry.getKey(), entry.getValue());
+        }
+    }
 
-            try {
-                ServiceBusMessageBatch batch = sender.createMessageBatch();
+    private Map<String, List<SinkRecord>> groupRecordsByTopic(Collection<SinkRecord> envelopes) {
+        Map<String, List<SinkRecord>> grouped = new HashMap<>();
+        for (SinkRecord envelope : envelopes) {
+            grouped.computeIfAbsent(envelope.topic(), k -> new ArrayList<>()).add(envelope);
+            metrics.incrementMessageCounter();
+        }
+        return grouped;
+    }
 
-                for (SinkRecord sourceRecord : records) {
-                    ServiceBusMessage msg = createMessageFromRecord(sourceRecord);
-                    if (!batch.tryAddMessage(msg)) {
+    private void sendBatchToTopic(String topic, List<SinkRecord> envelopes) {
+        ServiceBusSenderClient sender = serviceBusSenders.get(topic);
+
+        if (sender == null) {
+            throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
+        }
+
+        try {
+            ServiceBusMessageBatch batch = sender.createMessageBatch();
+
+            for (SinkRecord envelope : envelopes) {
+                ServiceBusMessage msg = createMessageFromRecord(envelope);
+
+                if (!batch.tryAddMessage(msg)) {
+                    if (batch.getCount() > 0) {
                         sender.sendMessages(batch);
-                        batch = sender.createMessageBatch();
-                        if (!batch.tryAddMessage(msg)) {
-                            throw new AzureServiceBusSinkException("Single message too large to fit in an empty batch");
-                        }
+                    }
+
+                    batch = sender.createMessageBatch();
+
+                    if (!batch.tryAddMessage(msg)) {
+                        throw new AzureServiceBusSinkException("Single message too large to fit in an empty batch");
                     }
                 }
-
-                if (batch.getCount() > 0) {
-                    sender.sendMessages(batch);
-                }
-
-            } catch (Exception e) {
-                log.error("Failed to send messages to topic {}", topic, e);
-                throw new AzureServiceBusSinkException("Failed to send message batch", e);
             }
+
+            if (batch.getCount() > 0) {
+                sender.sendMessages(batch);
+            }
+
+        } catch (Exception e) {
+            throw new AzureServiceBusSinkException("Failed to send message batch", e);
         }
     }
 
