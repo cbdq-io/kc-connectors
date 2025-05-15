@@ -77,7 +77,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
         Map<String, List<SinkRecord>> recordsByTopic = groupRecordsByTopic(envelopes);
 
         for (Map.Entry<String, List<SinkRecord>> entry : recordsByTopic.entrySet()) {
-            sendBatchToTopic(entry.getKey(), entry.getValue());
+            sendMessages(entry.getKey(), entry.getValue());
         }
     }
 
@@ -90,7 +90,42 @@ public class AzureServiceBusSinkTask extends SinkTask {
         return grouped;
     }
 
-    private void sendBatchToTopic(String topic, List<SinkRecord> envelopes) {
+    private void sendMessages(String topic, List<SinkRecord> envelopes) {
+        int largeThresholdBytes = config.getInt(AzureServiceBusSinkConnectorConfig.LARGE_MESSAGE_THRESHOLD_BYTES_CONFIG);
+
+        for (SinkRecord envelope : envelopes) {
+            ServiceBusMessage probe = createMessageFromRecord(envelope);
+
+            if (probe.getBody().getLength() > largeThresholdBytes) {
+                log.warn("Large message detected ({} bytes) — sending all records individually for topic {}",
+                        probe.getBody().getLength(), topic);
+
+                for (SinkRecord r : envelopes) {
+                    ServiceBusMessage m = createMessageFromRecord(r);
+                    ServiceBusSenderClient sender = serviceBusSenders.get(topic);
+
+                    if (sender == null) {
+                        throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
+                    }
+
+                    ServiceBusMessageBatch soloBatch = sender.createMessageBatch();
+                    if (!soloBatch.tryAddMessage(m)) {
+                        throw new AzureServiceBusSinkException(
+                            String.format("Message too large to fit in batch for topic '%s'", topic)
+                        );
+                    }
+
+                    sender.sendMessages(soloBatch);
+                }
+                return;
+            }
+        }
+
+        // Proceed with batching if no large messages
+        sendBatchToTopic(topic, envelopes);
+    }
+
+    private void sendBatchToTopic(String topic, List<SinkRecord> records) {
         ServiceBusSenderClient sender = serviceBusSenders.get(topic);
 
         if (sender == null) {
@@ -100,28 +135,38 @@ public class AzureServiceBusSinkTask extends SinkTask {
         try {
             ServiceBusMessageBatch batch = sender.createMessageBatch();
 
-            for (SinkRecord envelope : envelopes) {
+            for (SinkRecord envelope : records) {
                 ServiceBusMessage msg = createMessageFromRecord(envelope);
 
-                if (!batch.tryAddMessage(msg)) {
+                boolean added = batch.tryAddMessage(msg);
+                if (!added) {
                     if (batch.getCount() > 0) {
+                        log.info("Sending full batch of {} messages to topic {}", batch.getCount(), topic);
                         sender.sendMessages(batch);
+                    } else {
+                        log.warn("Batch rejected first message — skipping send and creating a new batch");
                     }
 
                     batch = sender.createMessageBatch();
 
-                    if (!batch.tryAddMessage(msg)) {
-                        throw new AzureServiceBusSinkException("Single message too large to fit in an empty batch");
+                    boolean addedToNew = batch.tryAddMessage(msg);
+                    if (!addedToNew) {
+                        throw new AzureServiceBusSinkException(
+                            "Single message too large to fit in an empty batch for topic: " + topic
+                        );
                     }
                 }
             }
 
             if (batch.getCount() > 0) {
+                log.info("Sending final batch of {} messages to topic {}", batch.getCount(), topic);
                 sender.sendMessages(batch);
+            } else {
+                log.debug("No messages to send in final batch for topic {}", topic);
             }
-
         } catch (Exception e) {
-            throw new AzureServiceBusSinkException("Failed to send message batch", e);
+            String errorMessage = String.format("Failed to send messages to topic '%s': %s", topic, e.getMessage());
+            throw new AzureServiceBusSinkException(errorMessage, e);
         }
     }
 
