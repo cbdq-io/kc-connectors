@@ -90,17 +90,17 @@ public class AzureServiceBusSinkTask extends SinkTask {
         return grouped;
     }
 
-    private void sendMessages(String topic, List<SinkRecord> records) {
+    private void sendMessages(String topic, List<SinkRecord> envelopes) {
         int largeThresholdBytes = config.getInt(AzureServiceBusSinkConnectorConfig.LARGE_MESSAGE_THRESHOLD_BYTES_CONFIG);
 
-        for (SinkRecord record : records) {
-            ServiceBusMessage probe = createMessageFromRecord(record);
+        for (SinkRecord envelope : envelopes) {
+            ServiceBusMessage probe = createMessageFromRecord(envelope);
 
             if (probe.getBody().getLength() > largeThresholdBytes) {
                 log.warn("Large message detected ({} bytes) — sending all records individually for topic {}",
                         probe.getBody().getLength(), topic);
 
-                for (SinkRecord r : records) {
+                for (SinkRecord r : envelopes) {
                     ServiceBusMessage m = createMessageFromRecord(r);
                     ServiceBusSenderClient sender = serviceBusSenders.get(topic);
 
@@ -122,7 +122,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
         }
 
         // Proceed with batching if no large messages
-        sendBatchToTopic(topic, records);
+        sendBatchToTopic(topic, envelopes);
     }
 
     private void sendBatchToTopic(String topic, List<SinkRecord> records) {
