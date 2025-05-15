@@ -7,7 +7,7 @@
     <!-- Project Coordinates -->
     <groupId>io.cbdq</groupId>
     <artifactId>azure-servicebus-sink-connector</artifactId>
-    <version>0.4.1</version>
+    <version>0.4.2</version>
     <packaging>jar</packaging>
 
     <!-- Project Information -->

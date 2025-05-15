@@ -5,8 +5,6 @@ for the list of default configuration properties for sink connectors.
 
 Please note the following:
 
-- There is no changing of the topic name from Kafka to ASB. So there is a
-  one-to-one mapping of a Kafka topic name to an ASB topic name.
 - This connector only sinks to ASB topics, there is no functionality for queues.
 
 ## Custom Connector Properties
