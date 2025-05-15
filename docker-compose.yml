@@ -85,6 +85,7 @@ services:
       CONNECTOR_AzureServiceBusSink_CONNECTOR_CLASS: io.cbdq.AzureServiceBusSinkConnector
       CONNECTOR_AzureServiceBusSink_CONSUMER_OVERRIDE_AUTO_OFFSET_RESET: earliest
       CONNECTOR_AzureServiceBusSink_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      CONNECTOR_AzureServiceBusSink_LARGE_MESSAGE_THRESHOLD_BYTES: 100000
       CONNECTOR_AzureServiceBusSink_RETRY_MAX_ATTEMPTS: "5"
       CONNECTOR_AzureServiceBusSink_RETRY_WAIT_TIME_MS: "1000"
       CONNECTOR_AzureServiceBusSink_SET_KAFKA_PARTITION_AS_SESSION_ID: "true"
