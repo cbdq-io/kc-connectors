@@ -77,7 +77,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
         Map<String, List<SinkRecord>> recordsByTopic = groupRecordsByTopic(envelopes);
 
         for (Map.Entry<String, List<SinkRecord>> entry : recordsByTopic.entrySet()) {
-            sendBatchToTopic(entry.getKey(), entry.getValue());
+            sendMessages(entry.getKey(), entry.getValue());
         }
     }
 
@@ -88,6 +88,43 @@ public class AzureServiceBusSinkTask extends SinkTask {
             metrics.incrementMessageCounter();
         }
         return grouped;
+    }
+
+    private void sendMessages(String topic, List<SinkRecord> envelopes) {
+        try {
+            log.debug("Attempting to send {} messages in batch for topic '{}'", envelopes.size(), topic);
+            sendBatchToTopic(topic, envelopes);
+        } catch (AzureServiceBusSinkException ex) {
+            if (ex.getMessage().contains("batch message with no data") ||
+                ex.getMessage().contains("too large to fit in an empty batch")) {
+                log.warn("Recoverable batch failure detected for topic '{}'. Switching to individual sends. Reason: {}", topic, ex.getMessage());
+                sendIndividually(topic, envelopes);
+            } else {
+                throw ex; // unknown or critical failure
+            }
+        }
+    }
+
+    private void sendIndividually(String topic, List<SinkRecord> envelopes) {
+        log.warn("Large message detected — sending all records individually for topic {}", topic);
+        ServiceBusSenderClient sender = serviceBusSenders.get(topic);
+
+        if (sender == null) {
+            throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
+        }
+
+        for (SinkRecord envelope : envelopes) {
+            ServiceBusMessage message = createMessageFromRecord(envelope);
+            ServiceBusMessageBatch batch = sender.createMessageBatch();
+
+            if (!batch.tryAddMessage(message)) {
+                throw new AzureServiceBusSinkException(
+                    String.format("Message too large to fit in batch for topic '%s'", topic)
+                );
+            }
+
+            sender.sendMessages(batch);
+        }
     }
 
     private void sendBatchToTopic(String topic, List<SinkRecord> envelopes) {
@@ -103,25 +140,35 @@ public class AzureServiceBusSinkTask extends SinkTask {
             for (SinkRecord envelope : envelopes) {
                 ServiceBusMessage msg = createMessageFromRecord(envelope);
 
-                if (!batch.tryAddMessage(msg)) {
+                boolean added = batch.tryAddMessage(msg);
+                if (!added) {
                     if (batch.getCount() > 0) {
+                        log.info("Sending current batch of {} messages to topic '{}'", batch.getCount(), topic);
                         sender.sendMessages(batch);
+                    } else {
+                        log.warn("Batch rejected first message — skipping send and creating a new batch");
                     }
 
                     batch = sender.createMessageBatch();
 
-                    if (!batch.tryAddMessage(msg)) {
-                        throw new AzureServiceBusSinkException("Single message too large to fit in an empty batch");
+                    boolean addedToNew = batch.tryAddMessage(msg);
+                    if (!addedToNew) {
+                        throw new AzureServiceBusSinkException(
+                            "Single message too large to fit in an empty batch for topic: " + topic
+                        );
                     }
                 }
             }
 
             if (batch.getCount() > 0) {
+                log.info("Sending remaining batch of {} messages to topic '{}'", batch.getCount(), topic);
                 sender.sendMessages(batch);
+            } else {
+                log.debug("No messages to send in final batch for topic '{}'", topic);
             }
-
         } catch (Exception e) {
-            throw new AzureServiceBusSinkException("Failed to send message batch", e);
+            String errorMessage = String.format("Failed to send messages to topic '%s': %s", topic, e.getMessage());
+            throw new AzureServiceBusSinkException(errorMessage, e);
         }
     }
 

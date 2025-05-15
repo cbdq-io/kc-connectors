@@ -1,7 +1,18 @@
 # Changelog
 
 
-## 0.4.1
+## 0.4.2
+
+### Fix
+
+* Remove the large.message.threshold.bytes config option. [Ben Dalling]
+
+* Send messages individually if too large for a batch send. [Ben Dalling]
+
+* More robust testing around the creation of a batch of messags for sending. [Ben Dalling]
+
+
+## 0.4.1 (2025-05-13)
 
 ### Fix
 
