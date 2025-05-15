@@ -10,6 +10,9 @@ public class AzureServiceBusSinkConnectorConfig extends AbstractConfig {
     public static final String CONNECTION_STRING_CONFIG = "azure.servicebus.connection.string";
     private static final String CONNECTION_STRING_DOC = "Azure Service Bus connection string.";
 
+    public static final String LARGE_MESSAGE_THRESHOLD_BYTES_CONFIG = "large.message.threshold.bytes";
+    private static final String LARGE_MESSAGE_THRESHOLD_BYTES_DOC = "Message size threshold in bytes above which a message is considered too large for batching (default: 524288 = 512KB).";
+
     public static final String RETRY_MAX_ATTEMPTS_CONFIG = "retry.max.attempts";
     private static final String RETRY_MAX_ATTEMPTS_DOC = "Maximum number of retry attempts.";
 
@@ -33,6 +36,7 @@ public class AzureServiceBusSinkConnectorConfig extends AbstractConfig {
 
     public static final ConfigDef CONFIG_DEF = new ConfigDef()
         .define(CONNECTION_STRING_CONFIG, ConfigDef.Type.PASSWORD, ConfigDef.Importance.HIGH, CONNECTION_STRING_DOC)
+        .define(LARGE_MESSAGE_THRESHOLD_BYTES_CONFIG, ConfigDef.Type.INT, 524288, ConfigDef.Importance.MEDIUM, LARGE_MESSAGE_THRESHOLD_BYTES_DOC)
         .define(RETRY_MAX_ATTEMPTS_CONFIG, ConfigDef.Type.INT, 3, ConfigDef.Importance.MEDIUM, RETRY_MAX_ATTEMPTS_DOC)
         .define(RETRY_DELAY_MS_CONFIG, ConfigDef.Type.INT, 800, ConfigDef.Importance.MEDIUM, RETRY_DELAY_MS_DOC)
         .define(RETRY_MAX_DELAY_MS_CONFIG, ConfigDef.Type.INT, 8000, ConfigDef.Importance.MEDIUM, RETRY_MAX_DELAY_MS_DOC)
