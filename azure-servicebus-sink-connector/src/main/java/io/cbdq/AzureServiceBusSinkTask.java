@@ -91,50 +91,65 @@ public class AzureServiceBusSinkTask extends SinkTask {
     }
 
     private void sendMessages(String topic, List<SinkRecord> envelopes) {
-        int largeThresholdBytes = config.getInt(AzureServiceBusSinkConnectorConfig.LARGE_MESSAGE_THRESHOLD_BYTES_CONFIG);
-        int maxRecordSize = 0;
+        int threshold = config.getInt(AzureServiceBusSinkConnectorConfig.LARGE_MESSAGE_THRESHOLD_BYTES_CONFIG);
 
+        if (containsOversizedMessage(envelopes, threshold)) {
+            sendIndividually(topic, envelopes);
+        } else {
+            logLargestMessageSize(topic, envelopes);
+            sendBatchToTopic(topic, envelopes);
+        }
+    }
+
+    private boolean containsOversizedMessage(List<SinkRecord> envelopes, int threshold) {
         for (SinkRecord envelope : envelopes) {
-            byte[] body;
-
-            if (envelope.value() instanceof byte[] bytes) {
-                body = bytes;
-            } else if (envelope.value() instanceof String string) {
-                body = string.getBytes(StandardCharsets.UTF_8);
-            } else {
-                throw new AzureServiceBusSinkException("Unsupported record value type: " + envelope.value().getClass());
-            }
-
-            int size = body.length;
-            maxRecordSize = Math.max(maxRecordSize, size);
-
-            if (body.length > largeThresholdBytes) {
-                log.warn("Large message detected ({} bytes) — sending all records individually for topic {}", body.length, topic);
-
-                for (SinkRecord r : envelopes) {
-                    ServiceBusMessage m = createMessageFromRecord(r);
-                    ServiceBusSenderClient sender = serviceBusSenders.get(topic);
-
-                    if (sender == null) {
-                        throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
-                    }
-
-                    ServiceBusMessageBatch soloBatch = sender.createMessageBatch();
-                    if (!soloBatch.tryAddMessage(m)) {
-                        throw new AzureServiceBusSinkException(
-                            String.format("Message too large to fit in batch for topic '%s'", topic)
-                        );
-                    }
-
-                    sender.sendMessages(soloBatch);
-                }
-                return;
+            byte[] body = extractBody(envelope);
+            if (body.length > threshold) {
+                return true;
             }
         }
+        return false;
+    }
 
-        // Proceed with batching if no large messages
-        log.debug("Batch for topic '{}' passed large-message check. Largest message size: {} bytes", topic, maxRecordSize);
-        sendBatchToTopic(topic, envelopes);
+    private void sendIndividually(String topic, List<SinkRecord> envelopes) {
+        log.warn("Large message detected — sending all records individually for topic {}", topic);
+        ServiceBusSenderClient sender = serviceBusSenders.get(topic);
+
+        if (sender == null) {
+            throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
+        }
+
+        for (SinkRecord envelope : envelopes) {
+            ServiceBusMessage message = createMessageFromRecord(envelope);
+            ServiceBusMessageBatch batch = sender.createMessageBatch();
+
+            if (!batch.tryAddMessage(message)) {
+                throw new AzureServiceBusSinkException(
+                    String.format("Message too large to fit in batch for topic '%s'", topic)
+                );
+            }
+
+            sender.sendMessages(batch);
+        }
+    }
+
+    private void logLargestMessageSize(String topic, List<SinkRecord> envelopes) {
+        int maxSize = 0;
+        for (SinkRecord envelope : envelopes) {
+            byte[] body = extractBody(envelope);
+            maxSize = Math.max(maxSize, body.length);
+        }
+        log.debug("Batch for topic '{}' passed large-message check. Largest message size: {} bytes", topic, maxSize);
+    }
+
+    private byte[] extractBody(SinkRecord envelope) {
+        if (envelope.value() instanceof byte[] bytes) {
+            return bytes;
+        } else if (envelope.value() instanceof String string) {
+            return string.getBytes(StandardCharsets.UTF_8);
+        } else {
+            throw new AzureServiceBusSinkException("Unsupported record value type: " + envelope.value().getClass());
+        }
     }
 
     private void sendBatchToTopic(String topic, List<SinkRecord> records) {
