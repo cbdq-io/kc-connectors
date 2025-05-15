@@ -166,27 +166,32 @@ public class AzureServiceBusSinkTask extends SinkTask {
                 ServiceBusMessage msg = createMessageFromRecord(envelope);
 
                 boolean added = batch.tryAddMessage(msg);
+
                 if (!added) {
-                    if (batch.getCount() > 0) {
-                        log.info("Sending full batch of {} messages to topic {}", batch.getCount(), topic);
-                        sender.sendMessages(batch);
-                    } else {
-                        log.warn("Batch rejected first message — skipping send and creating a new batch");
+                    if (batch.getCount() == 0) {
+                        // This message is too large to fit in a batch — ever
+                        throw new AzureServiceBusSinkException(
+                            "Single message too large to fit in an empty batch for topic: " + topic +
+                            ". Size: " + msg.getBody().getLength() + " bytes"
+                        );
                     }
+
+                    log.info("Sending full batch of {} messages to topic {}", batch.getCount(), topic);
+                    sender.sendMessages(batch);
 
                     batch = sender.createMessageBatch();
 
-                    boolean addedToNew = batch.tryAddMessage(msg);
-                    if (!addedToNew) {
+                    if (!batch.tryAddMessage(msg)) {
                         throw new AzureServiceBusSinkException(
-                            "Single message too large to fit in an empty batch for topic: " + topic
+                            "Single message too large to fit in an empty batch for topic: " + topic +
+                            ". Size: " + msg.getBody().getLength() + " bytes"
                         );
                     }
                 }
             }
 
             if (batch.getCount() > 0) {
-                log.info("Sending final batch of {} messages to topic {}", batch.getCount(), topic);
+                log.info("Sending a remaining batch of {} messages to topic {}", batch.getCount(), topic);
                 sender.sendMessages(batch);
             } else {
                 log.debug("No messages to send in final batch for topic {}", topic);
