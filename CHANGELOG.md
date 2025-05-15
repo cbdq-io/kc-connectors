@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Send messages individually if too large for a batch send. [Ben Dalling]
+
 * More robust testing around the creation of a batch of messags for sending. [Ben Dalling]
 
 
