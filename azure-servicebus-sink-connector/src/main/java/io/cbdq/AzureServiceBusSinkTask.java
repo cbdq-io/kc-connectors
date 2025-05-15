@@ -77,7 +77,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
         Map<String, List<SinkRecord>> recordsByTopic = groupRecordsByTopic(envelopes);
 
         for (Map.Entry<String, List<SinkRecord>> entry : recordsByTopic.entrySet()) {
-            sendBatchToTopic(entry.getKey(), entry.getValue());
+            sendMessages(entry.getKey(), entry.getValue());
         }
     }
 
@@ -88,6 +88,41 @@ public class AzureServiceBusSinkTask extends SinkTask {
             metrics.incrementMessageCounter();
         }
         return grouped;
+    }
+
+    private void sendMessages(String topic, List<SinkRecord> records) {
+        int largeThresholdBytes = config.getInt(AzureServiceBusSinkConnectorConfig.LARGE_MESSAGE_THRESHOLD_BYTES_CONFIG);
+
+        for (SinkRecord record : records) {
+            ServiceBusMessage probe = createMessageFromRecord(record);
+
+            if (probe.getBody().getLength() > largeThresholdBytes) {
+                log.warn("Large message detected ({} bytes) — sending all records individually for topic {}",
+                        probe.getBody().getLength(), topic);
+
+                for (SinkRecord r : records) {
+                    ServiceBusMessage m = createMessageFromRecord(r);
+                    ServiceBusSenderClient sender = serviceBusSenders.get(topic);
+
+                    if (sender == null) {
+                        throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
+                    }
+
+                    ServiceBusMessageBatch soloBatch = sender.createMessageBatch();
+                    if (!soloBatch.tryAddMessage(m)) {
+                        throw new AzureServiceBusSinkException(
+                            String.format("Message too large to fit in batch for topic '%s'", topic)
+                        );
+                    }
+
+                    sender.sendMessages(soloBatch);
+                }
+                return;
+            }
+        }
+
+        // Proceed with batching if no large messages
+        sendBatchToTopic(topic, records);
     }
 
     private void sendBatchToTopic(String topic, List<SinkRecord> records) {
