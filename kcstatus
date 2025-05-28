@@ -1,0 +1,7 @@
+#!/bin/sh
+#############################################################################
+# A convenience script to check the status of the connectors and their
+# respective tasks.
+#############################################################################
+: "${KAFKA_CONNECT_ENDPOINT:=http://localhost:8083}"
+curl -s "${KAFKA_CONNECT_ENDPOINT}/connectors?expand=status" | jq .
