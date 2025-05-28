@@ -10,7 +10,7 @@ build:
 	docker compose build --quiet
 
 changelog:
-	gitchangelog > CHANGELOG.md
+	docker run --quiet --rm --volume "${PWD}:/mnt/source" --workdir /mnt/source ghcr.io/cbdq-io/gitchangelog > CHANGELOG.md
 
 clean:
 	make -C azure-servicebus-sink-connector clean
