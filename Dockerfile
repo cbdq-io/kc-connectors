@@ -1,4 +1,4 @@
-FROM confluentinc/cp-kafka-connect:7.9.0
+FROM confluentinc/cp-kafka-connect:7.9.1
 
 LABEL org.opencontainers.image.description "A Kafka Connect Sink Connecter for Azure Service Bus."
 
