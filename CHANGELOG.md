@@ -1,6 +1,13 @@
 # Changelog
 
 
+## 0.4.2
+
+### Fix
+
+* Update trivy ignore. [Ben Dalling]
+
+
 ## 0.4.2 (2025-05-15)
 
 ### Fix
