@@ -8,6 +8,7 @@ USER root
 RUN dnf clean all \
   && dnf upgrade -y freetype krb5-libs pam python3-unbound unbound-libs \
   && dnf install -y bind-utils jq \
+  && dnf clean all \
   && python -m pip install --no-cache-dir prometheus-client==0.21.1
 
 COPY --chmod=0755 --chown=root:root kccinit.py /usr/local/bin/kccinit.py
