@@ -9,6 +9,8 @@
 
 ### Fix
 
+* Clean up after dnf operations. [Ben Dalling]
+
 * Add CVE-2025-47273 and CVE-2025-48734 vulnerabilities to the allowed list. [Ben Dalling]
 
 * CVE-2024-56171 is no longer present in the image. [Ben Dalling]
