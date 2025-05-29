@@ -75,6 +75,7 @@ services:
 
   kccinit:
     build: .
+    container_name: kccinit
     depends_on:
       - connect
     entrypoint:
