@@ -7,6 +7,16 @@
 
 * Add the kcstatus convenience script. [Ben Dalling]
 
+### Fix
+
+* Add CVE-2025-47273 and CVE-2025-48734 vulnerabilities to the allowed list. [Ben Dalling]
+
+* CVE-2024-56171 is no longer present in the image. [Ben Dalling]
+
+* CVE-2024-53990 is no longer present in the image. [Ben Dalling]
+
+* CVE-2024-52046 no longer present in the image. [Ben Dalling]
+
 ### Build
 
 * Migrate to a containerised change log generator. [Ben Dalling]
