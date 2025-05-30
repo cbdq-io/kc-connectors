@@ -33,7 +33,6 @@ docker==7.1.0
 dockerfile-parse==2.0.1
 dpath==2.1.3
 frozenlist==1.5.0
-gitchangelog==3.0.4
 gitdb==4.0.12
 GitPython==3.1.44
 idna==3.10
@@ -67,7 +66,6 @@ pycparser==2.22
 pydantic==2.10.6
 pydantic_core==2.27.2
 pyparsing==3.2.1
-pystache==0.6.7
 python-dateutil==2.9.0.post0
 PyYAML==6.0.2
 rdflib==7.1.3

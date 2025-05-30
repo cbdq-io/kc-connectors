@@ -1,7 +1,36 @@
 # Changelog
 
 
-## 0.4.2
+## Unreleased
+
+### Features
+
+* Add the kcstatus convenience script. [Ben Dalling]
+
+### Fix
+
+* Report when a connector recovers from a non-running state. [Ben Dalling]
+
+* Clean up after dnf operations. [Ben Dalling]
+
+* Add CVE-2025-47273 and CVE-2025-48734 vulnerabilities to the allowed list. [Ben Dalling]
+
+* CVE-2024-56171 is no longer present in the image. [Ben Dalling]
+
+* CVE-2024-53990 is no longer present in the image. [Ben Dalling]
+
+* CVE-2024-52046 no longer present in the image. [Ben Dalling]
+
+### Build
+
+* Release/0.5.0. [Ben Dalling]
+
+* Migrate to a containerised change log generator. [Ben Dalling]
+
+* Bump tag of confluentinc/cp-kafka-connect from 7.9.0 to 7.9.1. [Ben Dalling]
+
+
+## 0.4.2 (2025-05-15)
 
 ### Fix
 
@@ -21,15 +50,15 @@
 
 ## 0.4.0 (2025-05-09)
 
+### Features
+
+* Allow the user to specify exponential back off during retry. [Ben Dalling]
+
+* Add sidecar option to kccinit. [Ben Dalling]
+
 ### Fix
 
 * Batch the sending of messages. [Ben Dalling]
-
-### Other
-
-* Feat: Allow the user to specify exponential back off during retry. [Ben Dalling]
-
-* Feat: Add sidecar option to kccinit. [Ben Dalling]
 
 
 ## 0.3.5 (2025-05-06)
@@ -38,9 +67,9 @@
 
 * Migrate the SDK from Qpid JMS to Azure Service Bus. [Ben Dalling]
 
-### Other
+### Build
 
-* Build(deps): Bump google/osv-scanner-action from 2.0.1 to 2.0.2. [dependabot[bot]]
+* Bump google/osv-scanner-action from 2.0.1 to 2.0.2. [dependabot[bot]]
 
   Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 2.0.1 to 2.0.2.
   - [Release notes](https://github.com/google/osv-scanner-action/releases)
@@ -54,7 +83,7 @@
     update-type: version-update:semver-patch
   ...
 
-* Build(deps): Bump peter-evans/create-issue-from-file from 4 to 5. [dependabot[bot]]
+* Bump peter-evans/create-issue-from-file from 4 to 5. [dependabot[bot]]
 
   Bumps [peter-evans/create-issue-from-file](https://github.com/peter-evans/create-issue-from-file) from 4 to 5.
   - [Release notes](https://github.com/peter-evans/create-issue-from-file/releases)
@@ -68,7 +97,7 @@
     update-type: version-update:semver-major
   ...
 
-* Build(deps): Bump github/codeql-action from 2 to 3. [dependabot[bot]]
+* Bump github/codeql-action from 2 to 3. [dependabot[bot]]
 
   Bumps [github/codeql-action](https://github.com/github/codeql-action) from 2 to 3.
   - [Release notes](https://github.com/github/codeql-action/releases)
@@ -101,9 +130,9 @@
 
 * Periodic Trivy Scans. [Ben Dalling]
 
-### Other
+### Build
 
-* Build(deps): Bump google/osv-scanner-action from 2.0.0 to 2.0.1. [dependabot[bot]]
+* Bump google/osv-scanner-action from 2.0.0 to 2.0.1. [dependabot[bot]]
 
   Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 2.0.0 to 2.0.1.
   - [Release notes](https://github.com/google/osv-scanner-action/releases)
@@ -117,7 +146,7 @@
     update-type: version-update:semver-patch
   ...
 
-* Build(deps): Bump google/osv-scanner-action from 1.9.2 to 2.0.0. [dependabot[bot]]
+* Bump google/osv-scanner-action from 1.9.2 to 2.0.0. [dependabot[bot]]
 
   Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 1.9.2 to 2.0.0.
   - [Release notes](https://github.com/google/osv-scanner-action/releases)
@@ -130,7 +159,7 @@
     update-type: version-update:semver-major
   ...
 
-* Build(deps): Bump aquasecurity/trivy-action from 0.29.0 to 0.30.0. [dependabot[bot]]
+* Bump aquasecurity/trivy-action from 0.29.0 to 0.30.0. [dependabot[bot]]
 
   Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.29.0 to 0.30.0.
   - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
@@ -160,6 +189,10 @@
 
 ## 0.3.0 (2025-03-16)
 
+### Features
+
+* Add the set.kafka.partition.as.session.id. Also ensure that the Kafka key and partition are set as properties on the message. [Ben Dalling]
+
 ### Fix
 
 * Add CVE-2024-56171 & CVE-2025-24928 to the Trivy ignore list. [Ben Dalling]
@@ -167,10 +200,6 @@
 * Correct race condition when starting the Prometheus client. [Ben Dalling]
 
 * Resolve CVE-2025-27516. [Ben Dalling]
-
-### Other
-
-* Feat: Add the set.kafka.partition.as.session.id. Also ensure that the Kafka key and partition are set as properties on the message. [Ben Dalling]
 
 
 ## 0.2.10 (2025-02-20)
@@ -254,19 +283,19 @@
 
 ## 0.2.1 (2024-12-29)
 
-### Changes
-
-* Add CVE-2024-52046 and CVE-2024-53990 to the allowed vulnerabilities. [Ben Dalling]
-
 ### Fix
 
 * Ensure passwords ending with "=" are not truncated. [Ben Dalling]
 
 * Ensure connection string parser honours UseDevelopmentEmulator. [Ben Dalling]
 
-### Other
+### Changes
 
-* Build(deps): bump jinja2 from 3.1.4 to 3.1.5. [dependabot[bot]]
+* Add CVE-2024-52046 and CVE-2024-53990 to the allowed vulnerabilities. [Ben Dalling]
+
+### Build
+
+* Bump jinja2 from 3.1.4 to 3.1.5. [dependabot[bot]]
 
   Bumps [jinja2](https://github.com/pallets/jinja) from 3.1.4 to 3.1.5.
   - [Release notes](https://github.com/pallets/jinja/releases)
@@ -279,7 +308,7 @@
     dependency-type: direct:production
   ...
 
-* Build(deps): bump google/osv-scanner-action from 1.9.1 to 1.9.2. [dependabot[bot]]
+* Bump google/osv-scanner-action from 1.9.1 to 1.9.2. [dependabot[bot]]
 
   Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 1.9.1 to 1.9.2.
   - [Release notes](https://github.com/google/osv-scanner-action/releases)
@@ -292,7 +321,7 @@
     update-type: version-update:semver-patch
   ...
 
-* Build(deps): bump google/osv-scanner-action from 1.9.0 to 1.9.1. [dependabot[bot]]
+* Bump google/osv-scanner-action from 1.9.0 to 1.9.1. [dependabot[bot]]
 
   Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 1.9.0 to 1.9.1.
   - [Release notes](https://github.com/google/osv-scanner-action/releases)
@@ -308,6 +337,10 @@
 
 ## 0.2.0 (2024-12-10)
 
+### Fix
+
+* Resolve CVE-2024-47554, CVE-2024-47561 and CVE-2024-7254. [Ben Dalling]
+
 ### New
 
 * Add the connector initialiser script to the image. [Ben Dalling]
@@ -322,13 +355,9 @@
 
 * Upgrade Kafka Connect API version from 2.8.2 to 3.8.1. [Ben Dalling]
 
-### Fix
+### Build
 
-* Resolve CVE-2024-47554, CVE-2024-47561 and CVE-2024-7254. [Ben Dalling]
-
-### Other
-
-* Build(deps): bump actions/setup-python from 4 to 5. [dependabot[bot]]
+* Bump actions/setup-python from 4 to 5. [dependabot[bot]]
 
   Bumps [actions/setup-python](https://github.com/actions/setup-python) from 4 to 5.
   - [Release notes](https://github.com/actions/setup-python/releases)
@@ -344,6 +373,12 @@
 
 ## 0.1.2 (2024-12-04)
 
+### Fix
+
+* Add health check to the container. [Ben Dalling]
+
+* Resolve CVE-2024-10963. [Ben Dalling]
+
 ### New
 
 * Create SECURITY.md. [Ben Dalling]
@@ -354,15 +389,9 @@
 
 * Bump Kafka Connect from 7.7.1 to 7.8.0. [Ben Dalling]
 
-### Fix
+### Build
 
-* Add health check to the container. [Ben Dalling]
-
-* Resolve CVE-2024-10963. [Ben Dalling]
-
-### Other
-
-* Build(deps): bump aquasecurity/trivy-action from 0.28.0 to 0.29.0. [dependabot[bot]]
+* Bump aquasecurity/trivy-action from 0.28.0 to 0.29.0. [dependabot[bot]]
 
   Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.28.0 to 0.29.0.
   - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
@@ -385,6 +414,14 @@
 
 ## 0.1.0 (2024-11-17)
 
+### Fix
+
+* CVE-2024-3596. [Ben Dalling]
+
+* Ensure the connector is more robust in attempting to reconnect on losing connection. [Ben Dalling]
+
+* Migrate to the Qpid JMS SDK as it supports ASB and ActiveMQ/Artemis as an emulator. [Ben Dalling]
+
 ### New
 
 * Add a code of conduct document. [Ben Dalling]
@@ -397,17 +434,9 @@
 
 * Initial prototype. [Ben Dalling]
 
-### Fix
+### Build
 
-* CVE-2024-3596. [Ben Dalling]
-
-* Ensure the connector is more robust in attempting to reconnect on losing connection. [Ben Dalling]
-
-* Migrate to the Qpid JMS SDK as it supports ASB and ActiveMQ/Artemis as an emulator. [Ben Dalling]
-
-### Other
-
-* Build(deps): bump docker/setup-buildx-action from 2 to 3. [dependabot[bot]]
+* Bump docker/setup-buildx-action from 2 to 3. [dependabot[bot]]
 
   Bumps [docker/setup-buildx-action](https://github.com/docker/setup-buildx-action) from 2 to 3.
   - [Release notes](https://github.com/docker/setup-buildx-action/releases)
@@ -420,7 +449,7 @@
     update-type: version-update:semver-major
   ...
 
-* Build(deps): bump actions/checkout from 3 to 4. [dependabot[bot]]
+* Bump actions/checkout from 3 to 4. [dependabot[bot]]
 
   Bumps [actions/checkout](https://github.com/actions/checkout) from 3 to 4.
   - [Release notes](https://github.com/actions/checkout/releases)
@@ -433,7 +462,5 @@
     dependency-type: direct:production
     update-type: version-update:semver-major
   ...
-
-* Initial commit. [Ben Dalling]
 
 
