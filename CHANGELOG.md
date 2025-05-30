@@ -1,7 +1,7 @@
 # Changelog
 
 
-## Unreleased
+## 0.5.0 (2025-05-30)
 
 ### Features
 
@@ -22,6 +22,8 @@
 * CVE-2024-52046 no longer present in the image. [Ben Dalling]
 
 ### Build
+
+* Release/0.5.0. [Ben Dalling]
 
 * Migrate to a containerised change log generator. [Ben Dalling]
 
