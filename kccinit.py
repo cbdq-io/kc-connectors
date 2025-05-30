@@ -129,7 +129,7 @@ class SidecarMode:
 
             if connector_state != 'RUNNING':
                 logger.error(f'The state of connector {connector_name} is "{connector_state}".')
-            elif self.connector_states.get(connector_name, 'RUNNING') == 'RUNNING':
+            elif self.connector_states.get(connector_name, 'RUNNING') != 'RUNNING':
                 logger.info(f'The state of connector {connector_name} is "{connector_state}".')
 
             self.connector_states[connector_name] = connector_state
