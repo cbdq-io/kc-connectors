@@ -75,6 +75,7 @@ services:
 
   kccinit:
     build: .
+    container_name: kccinit
     depends_on:
       - connect
     entrypoint:
@@ -94,7 +95,7 @@ services:
       CONNECTOR_AzureServiceBusSink_TOPICS: "vault.api.v1.accounts.account.created,vault.api.v1.audit_logs.audit_log.created"
       CONNECTOR_AzureServiceBusSink_VALUE_CONVERTER: org.apache.kafka.connect.storage.StringConverter
       KAFKA_CONNECT_ENDPOINT: "http://connect:8083"
-      LOG_LEVEL: DEBUG
+      LOG_LEVEL: INFO
     healthcheck:
       test: curl --fail --silent localhost:8000
       interval: 5s
