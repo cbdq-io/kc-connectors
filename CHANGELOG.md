@@ -9,6 +9,8 @@
 
 ### Fix
 
+* Report when a connector recovers from a non-running state. [Ben Dalling]
+
 * Clean up after dnf operations. [Ben Dalling]
 
 * Add CVE-2025-47273 and CVE-2025-48734 vulnerabilities to the allowed list. [Ben Dalling]
