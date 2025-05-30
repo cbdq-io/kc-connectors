@@ -23,6 +23,8 @@
 
 ### Build
 
+* Release/0.5.0. [Ben Dalling]
+
 * Migrate to a containerised change log generator. [Ben Dalling]
 
 * Bump tag of confluentinc/cp-kafka-connect from 7.9.0 to 7.9.1. [Ben Dalling]
