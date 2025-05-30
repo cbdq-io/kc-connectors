@@ -60,8 +60,9 @@ class SidecarMode:
             'kafka_connect_task_restart_count',
             'The number of task restarts made.'
         )
+        self.connector_states = {}
 
-        while(True):
+        while True:
             status_details = self.get_status_details(endpoint)
             failed_tasks_count = self.restart_any_failed_tasks(status_details)
             self.error_occurences = self.report_status(failed_tasks_count)
@@ -128,7 +129,10 @@ class SidecarMode:
 
             if connector_state != 'RUNNING':
                 logger.error(f'The state of connector {connector_name} is "{connector_state}".')
+            elif self.connector_states.get(connector_name, 'RUNNING') == 'RUNNING':
+                logger.info(f'The state of connector {connector_name} is "{connector_state}".')
 
+            self.connector_states[connector_name] = connector_state
             tasks = connector_status['tasks']
 
             for task in tasks:
@@ -148,7 +152,6 @@ class SidecarMode:
 
         return failed_tasks_count
 
-
     def signal_handler(self, sig: int, frame: types.FrameType) -> None:
         """
         Catch signals.
@@ -162,6 +165,7 @@ class SidecarMode:
         """
         logger.warning(f'Received signal ({sig}), shutting down.')
         sys.exit(self.error_occurences)
+
 
 class ConnectorInitialiser:
     """
