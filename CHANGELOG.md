@@ -19,6 +19,10 @@
     update-type: version-update:semver-minor
   ...
 
+### Continuous Integration
+
+* Update the periodic Trivy scan. [Ben Dalling]
+
 
 ## 0.5.0 (2025-05-30)
 
