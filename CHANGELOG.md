@@ -5,6 +5,20 @@
 
 ### Build
 
+* Bump pycares from 4.5.0 to 4.9.0. [dependabot[bot]]
+
+  Bumps [pycares](https://github.com/saghul/pycares) from 4.5.0 to 4.9.0.
+  - [Release notes](https://github.com/saghul/pycares/releases)
+  - [Changelog](https://github.com/saghul/pycares/blob/master/ChangeLog)
+  - [Commits](https://github.com/saghul/pycares/compare/v4.5.0...v4.9.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pycares
+    dependency-version: 4.9.0
+    dependency-type: direct:production
+  ...
+
 * Bump aquasecurity/trivy-action from 0.30.0 to 0.31.0. [dependabot[bot]]
 
   Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.30.0 to 0.31.0.
