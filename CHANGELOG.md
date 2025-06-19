@@ -5,6 +5,20 @@
 
 ### Build
 
+* Bump urllib3 from 2.3.0 to 2.5.0. [dependabot[bot]]
+
+  Bumps [urllib3](https://github.com/urllib3/urllib3) from 2.3.0 to 2.5.0.
+  - [Release notes](https://github.com/urllib3/urllib3/releases)
+  - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+  - [Commits](https://github.com/urllib3/urllib3/compare/2.3.0...2.5.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: urllib3
+    dependency-version: 2.5.0
+    dependency-type: direct:production
+  ...
+
 * Bump aquasecurity/trivy-action from 0.30.0 to 0.31.0. [dependabot[bot]]
 
   Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.30.0 to 0.31.0.
