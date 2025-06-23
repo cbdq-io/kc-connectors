@@ -21,6 +21,8 @@
 
 ### Continuous Integration
 
+* Updated periodic-trivy-scan.yml with github.repository variable. [James Loughlin]
+
 * Update the periodic Trivy scan. [Ben Dalling]
 
 
