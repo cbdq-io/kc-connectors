@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Features
+
+* Updated periodic-trivy-scan.yml with github.repository variable. [James Loughlin]
+
 ### Build
 
 * Bump aquasecurity/trivy-action from 0.30.0 to 0.31.0. [dependabot[bot]]
