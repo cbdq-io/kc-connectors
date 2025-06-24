@@ -6,6 +6,7 @@
 ### Build
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 * Bump google/osv-scanner-action from 2.0.2 to 2.0.3. [dependabot[bot]]
 
   Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 2.0.2 to 2.0.3.
@@ -32,6 +33,20 @@
     dependency-version: 4.9.0
     dependency-type: direct:production
 >>>>>>> dependabot/pip/pycares-4.9.0
+=======
+* Bump requests from 2.32.3 to 2.32.4. [dependabot[bot]]
+
+  Bumps [requests](https://github.com/psf/requests) from 2.32.3 to 2.32.4.
+  - [Release notes](https://github.com/psf/requests/releases)
+  - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+  - [Commits](https://github.com/psf/requests/compare/v2.32.3...v2.32.4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: requests
+    dependency-version: 2.32.4
+    dependency-type: direct:production
+>>>>>>> dependabot/pip/requests-2.32.4
   ...
 
 * Bump aquasecurity/trivy-action from 0.30.0 to 0.31.0. [dependabot[bot]]
