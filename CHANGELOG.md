@@ -5,50 +5,6 @@
 
 ### Build
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-* Bump google/osv-scanner-action from 2.0.2 to 2.0.3. [dependabot[bot]]
-
-  Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 2.0.2 to 2.0.3.
-  - [Release notes](https://github.com/google/osv-scanner-action/releases)
-  - [Commits](https://github.com/google/osv-scanner-action/compare/v2.0.2...v2.0.3)
-
-  ---
-  updated-dependencies:
-  - dependency-name: google/osv-scanner-action
-    dependency-version: 2.0.3
-    dependency-type: direct:production
-    update-type: version-update:semver-patch
-=======
-* Bump pycares from 4.5.0 to 4.9.0. [dependabot[bot]]
-
-  Bumps [pycares](https://github.com/saghul/pycares) from 4.5.0 to 4.9.0.
-  - [Release notes](https://github.com/saghul/pycares/releases)
-  - [Changelog](https://github.com/saghul/pycares/blob/master/ChangeLog)
-  - [Commits](https://github.com/saghul/pycares/compare/v4.5.0...v4.9.0)
-
-  ---
-  updated-dependencies:
-  - dependency-name: pycares
-    dependency-version: 4.9.0
-    dependency-type: direct:production
->>>>>>> dependabot/pip/pycares-4.9.0
-=======
-* Bump requests from 2.32.3 to 2.32.4. [dependabot[bot]]
-
-  Bumps [requests](https://github.com/psf/requests) from 2.32.3 to 2.32.4.
-  - [Release notes](https://github.com/psf/requests/releases)
-  - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
-  - [Commits](https://github.com/psf/requests/compare/v2.32.3...v2.32.4)
-
-  ---
-  updated-dependencies:
-  - dependency-name: requests
-    dependency-version: 2.32.4
-    dependency-type: direct:production
->>>>>>> dependabot/pip/requests-2.32.4
-=======
 * Bump urllib3 from 2.3.0 to 2.5.0. [dependabot[bot]]
 
   Bumps [urllib3](https://github.com/urllib3/urllib3) from 2.3.0 to 2.5.0.
@@ -61,7 +17,48 @@
   - dependency-name: urllib3
     dependency-version: 2.5.0
     dependency-type: direct:production
->>>>>>> dependabot/pip/urllib3-2.5.0
+  ...
+
+* Bump requests from 2.32.3 to 2.32.4. [dependabot[bot]]
+
+  Bumps [requests](https://github.com/psf/requests) from 2.32.3 to 2.32.4.
+  - [Release notes](https://github.com/psf/requests/releases)
+  - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+  - [Commits](https://github.com/psf/requests/compare/v2.32.3...v2.32.4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: requests
+    dependency-version: 2.32.4
+    dependency-type: direct:production
+  ...
+
+* Bump pycares from 4.5.0 to 4.9.0. [dependabot[bot]]
+
+  Bumps [pycares](https://github.com/saghul/pycares) from 4.5.0 to 4.9.0.
+  - [Release notes](https://github.com/saghul/pycares/releases)
+  - [Changelog](https://github.com/saghul/pycares/blob/master/ChangeLog)
+  - [Commits](https://github.com/saghul/pycares/compare/v4.5.0...v4.9.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pycares
+    dependency-version: 4.9.0
+    dependency-type: direct:production
+  ...
+
+* Bump google/osv-scanner-action from 2.0.2 to 2.0.3. [dependabot[bot]]
+
+  Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 2.0.2 to 2.0.3.
+  - [Release notes](https://github.com/google/osv-scanner-action/releases)
+  - [Commits](https://github.com/google/osv-scanner-action/compare/v2.0.2...v2.0.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: google/osv-scanner-action
+    dependency-version: 2.0.3
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
   ...
 
 * Bump aquasecurity/trivy-action from 0.30.0 to 0.31.0. [dependabot[bot]]
