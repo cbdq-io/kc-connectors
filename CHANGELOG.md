@@ -5,6 +5,7 @@
 
 ### Build
 
+<<<<<<< HEAD
 * Bump google/osv-scanner-action from 2.0.2 to 2.0.3. [dependabot[bot]]
 
   Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 2.0.2 to 2.0.3.
@@ -17,6 +18,20 @@
     dependency-version: 2.0.3
     dependency-type: direct:production
     update-type: version-update:semver-patch
+=======
+* Bump pycares from 4.5.0 to 4.9.0. [dependabot[bot]]
+
+  Bumps [pycares](https://github.com/saghul/pycares) from 4.5.0 to 4.9.0.
+  - [Release notes](https://github.com/saghul/pycares/releases)
+  - [Changelog](https://github.com/saghul/pycares/blob/master/ChangeLog)
+  - [Commits](https://github.com/saghul/pycares/compare/v4.5.0...v4.9.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pycares
+    dependency-version: 4.9.0
+    dependency-type: direct:production
+>>>>>>> dependabot/pip/pycares-4.9.0
   ...
 
 * Bump aquasecurity/trivy-action from 0.30.0 to 0.31.0. [dependabot[bot]]
