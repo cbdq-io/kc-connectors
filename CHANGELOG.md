@@ -3,7 +3,13 @@
 
 ## Unreleased
 
+### Fix
+
+* CVE-2024-57699 and CVE-2025-24970 are no longer present. [Ben Dalling]
+
 ### Build
+
+* Bump underlying image confluentinc/cp-kafka-connect from 7.9.1 to 7.9.2. [Ben Dalling]
 
 * Bump urllib3 from 2.3.0 to 2.5.0. [dependabot[bot]]
 
@@ -77,9 +83,15 @@
 
 ### Continuous Integration
 
+* Refactor GitHub workflows. [Ben Dalling]
+
 * Updated periodic-trivy-scan.yml with github.repository variable. [James Loughlin]
 
 * Update the periodic Trivy scan. [Ben Dalling]
+
+### Tests
+
+* Update Python packages. [Ben Dalling]
 
 
 ## 0.5.0 (2025-05-30)
