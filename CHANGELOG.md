@@ -5,6 +5,8 @@
 
 ### Build
 
+* Bump underlying image confluentinc/cp-kafka-connect from 7.9.1 to 7.9.2. [Ben Dalling]
+
 * Bump urllib3 from 2.3.0 to 2.5.0. [dependabot[bot]]
 
   Bumps [urllib3](https://github.com/urllib3/urllib3) from 2.3.0 to 2.5.0.
@@ -80,6 +82,10 @@
 * Updated periodic-trivy-scan.yml with github.repository variable. [James Loughlin]
 
 * Update the periodic Trivy scan. [Ben Dalling]
+
+### Tests
+
+* Update Python packages. [Ben Dalling]
 
 
 ## 0.5.0 (2025-05-30)
