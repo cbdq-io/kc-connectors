@@ -9,6 +9,19 @@
 
 ### Build
 
+* Bump asteval from 1.0.5 to 1.0.6. [dependabot[bot]]
+
+  Bumps [asteval](https://github.com/lmfit/asteval) from 1.0.5 to 1.0.6.
+  - [Release notes](https://github.com/lmfit/asteval/releases)
+  - [Commits](https://github.com/lmfit/asteval/compare/1.0.5...1.0.6)
+
+  ---
+  updated-dependencies:
+  - dependency-name: asteval
+    dependency-version: 1.0.6
+    dependency-type: direct:production
+  ...
+
 * Bump underlying image confluentinc/cp-kafka-connect from 7.9.1 to 7.9.2. [Ben Dalling]
 
 * Bump urllib3 from 2.3.0 to 2.5.0. [dependabot[bot]]
