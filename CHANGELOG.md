@@ -9,6 +9,20 @@
 
 ### Build
 
+* Bump urllib3 from 1.26.20 to 2.5.0. [dependabot[bot]]
+
+  Bumps [urllib3](https://github.com/urllib3/urllib3) from 1.26.20 to 2.5.0.
+  - [Release notes](https://github.com/urllib3/urllib3/releases)
+  - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+  - [Commits](https://github.com/urllib3/urllib3/compare/1.26.20...2.5.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: urllib3
+    dependency-version: 2.5.0
+    dependency-type: direct:production
+  ...
+
 * Bump underlying image confluentinc/cp-kafka-connect from 7.9.1 to 7.9.2. [Ben Dalling]
 
 * Bump urllib3 from 2.3.0 to 2.5.0. [dependabot[bot]]
