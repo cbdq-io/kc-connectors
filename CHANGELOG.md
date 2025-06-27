@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fix
+
+* CVE-2024-57699 and CVE-2025-24970 are no longer present. [Ben Dalling]
+
 ### Build
 
 * Bump underlying image confluentinc/cp-kafka-connect from 7.9.1 to 7.9.2. [Ben Dalling]
