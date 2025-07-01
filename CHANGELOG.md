@@ -1,13 +1,15 @@
 # Changelog
 
 
-## Unreleased
+## 0.5.1 (2025-07-01)
 
 ### Fix
 
 * CVE-2024-57699 and CVE-2025-24970 are no longer present. [Ben Dalling]
 
 ### Build
+
+* Release/0.5.1. [Ben Dalling]
 
 * Update build dependancies. [Ben Dalling]
 
