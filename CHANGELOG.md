@@ -9,6 +9,8 @@
 
 ### Build
 
+* Release/0.5.1. [Ben Dalling]
+
 * Update build dependancies. [Ben Dalling]
 
 * Bump underlying image confluentinc/cp-kafka-connect from 7.9.1 to 7.9.2. [Ben Dalling]
