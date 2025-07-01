@@ -9,6 +9,10 @@
 
 ### Build
 
+* Update Maven packages. [Ben Dalling]
+
+* Harsh prunung of the requirements.txt file. [Ben Dalling]
+
 * Bump underlying image confluentinc/cp-kafka-connect from 7.9.1 to 7.9.2. [Ben Dalling]
 
 * Bump urllib3 from 2.3.0 to 2.5.0. [dependabot[bot]]
