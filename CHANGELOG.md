@@ -3,6 +3,103 @@
 
 ## Unreleased
 
+### Fix
+
+* CVE-2024-57699 and CVE-2025-24970 are no longer present. [Ben Dalling]
+
+### Build
+
+* Release/0.5.1. [Ben Dalling]
+
+* Update build dependancies. [Ben Dalling]
+
+* Bump underlying image confluentinc/cp-kafka-connect from 7.9.1 to 7.9.2. [Ben Dalling]
+
+* Bump urllib3 from 2.3.0 to 2.5.0. [dependabot[bot]]
+
+  Bumps [urllib3](https://github.com/urllib3/urllib3) from 2.3.0 to 2.5.0.
+  - [Release notes](https://github.com/urllib3/urllib3/releases)
+  - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+  - [Commits](https://github.com/urllib3/urllib3/compare/2.3.0...2.5.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: urllib3
+    dependency-version: 2.5.0
+    dependency-type: direct:production
+  ...
+
+* Bump requests from 2.32.3 to 2.32.4. [dependabot[bot]]
+
+  Bumps [requests](https://github.com/psf/requests) from 2.32.3 to 2.32.4.
+  - [Release notes](https://github.com/psf/requests/releases)
+  - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+  - [Commits](https://github.com/psf/requests/compare/v2.32.3...v2.32.4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: requests
+    dependency-version: 2.32.4
+    dependency-type: direct:production
+  ...
+
+* Bump pycares from 4.5.0 to 4.9.0. [dependabot[bot]]
+
+  Bumps [pycares](https://github.com/saghul/pycares) from 4.5.0 to 4.9.0.
+  - [Release notes](https://github.com/saghul/pycares/releases)
+  - [Changelog](https://github.com/saghul/pycares/blob/master/ChangeLog)
+  - [Commits](https://github.com/saghul/pycares/compare/v4.5.0...v4.9.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pycares
+    dependency-version: 4.9.0
+    dependency-type: direct:production
+  ...
+
+* Bump google/osv-scanner-action from 2.0.2 to 2.0.3. [dependabot[bot]]
+
+  Bumps [google/osv-scanner-action](https://github.com/google/osv-scanner-action) from 2.0.2 to 2.0.3.
+  - [Release notes](https://github.com/google/osv-scanner-action/releases)
+  - [Commits](https://github.com/google/osv-scanner-action/compare/v2.0.2...v2.0.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: google/osv-scanner-action
+    dependency-version: 2.0.3
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump aquasecurity/trivy-action from 0.30.0 to 0.31.0. [dependabot[bot]]
+
+  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.30.0 to 0.31.0.
+  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
+  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.30.0...0.31.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: aquasecurity/trivy-action
+    dependency-version: 0.31.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+### Continuous Integration
+
+* Refactor GitHub workflows. [Ben Dalling]
+
+* Updated periodic-trivy-scan.yml with github.repository variable. [James Loughlin]
+
+* Update the periodic Trivy scan. [Ben Dalling]
+
+### Tests
+
+* Update Python packages. [Ben Dalling]
+
+
+## 0.5.0 (2025-05-30)
+
 ### Features
 
 * Add the kcstatus convenience script. [Ben Dalling]
