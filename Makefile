@@ -1,11 +1,9 @@
 .EXPORT_ALL_VARIABLES:
 
-TAG = 0.5.1
-
 all: lint clean build test
 
 build:
-	make -C azure-servicebus-sink-connector build
+	docker compose run --rm mvn -B -e clean install
 	docker compose pull --quiet kafka sbemulatorns sqledge
 	docker compose build --quiet
 
@@ -13,7 +11,7 @@ changelog:
 	docker run --quiet --rm --volume "${PWD}:/mnt/source" --workdir /mnt/source ghcr.io/cbdq-io/gitchangelog > CHANGELOG.md
 
 clean:
-	make -C azure-servicebus-sink-connector clean
+	docker compose run --rm mvn -B clean
 	docker compose down -t 0 --remove-orphans
 
 get-lags:
@@ -27,7 +25,7 @@ osv:
 	docker run -it -v ${PWD}:/src -w /src ghcr.io/google/osv-scanner:latest scan --config /src/osv-scanner.toml --recursive /src
 
 tag:
-	@echo $(TAG)
+	@docker compose run --quiet --rm mvn help:evaluate -Dexpression=project.version -q -DforceStdout
 
 test:
 	docker compose up -d kafka sqledge --wait

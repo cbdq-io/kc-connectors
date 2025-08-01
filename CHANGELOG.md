@@ -5,6 +5,43 @@
 
 ### Fix
 
+* Resolve CVE-2025-49794, CVE-2025-49796, CVE-2025-7425, CVE-2024-12718, CVE-2025-4138, CVE-2025-4517, CVE-2024-12718, CVE-2025-4138, CVE-2025-4517 and CVE-2025-6965. CVE-2025-49794, CVE-2025-49796, CVE-2025-7425, CVE-2024-12718, CVE-2025-4138, CVE-2025-4517, CVE-2024-12718, CVE-2025-4138, CVE-2025-4517 and CVE-2025-6965. [Ben Dalling]
+
+* Refresh of Java dependency versions. [Ben Dalling]
+
+### Build
+
+* Release/0.5.2. [Ben Dalling]
+
+* Upgrade libxml2, platform-python and sqlite-libs. [Ben Dalling]
+
+* Bump aquasecurity/trivy-action from 0.31.0 to 0.32.0. [dependabot[bot]]
+
+  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.31.0 to 0.32.0.
+  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
+  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.31.0...0.32.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: aquasecurity/trivy-action
+    dependency-version: 0.32.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+### Continuous Integration
+
+* Fix the CD pipelines. [Ben Dalling]
+
+### Refactor
+
+* Change the Maven project layout. [Ben Dalling]
+
+
+## 0.5.1 (2025-07-01)
+
+### Fix
+
 * CVE-2024-57699 and CVE-2025-24970 are no longer present. [Ben Dalling]
 
 ### Build
