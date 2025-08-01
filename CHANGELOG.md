@@ -1,13 +1,17 @@
 # Changelog
 
 
-## Unreleased
+## 0.5.2 (2025-08-01)
 
 ### Fix
+
+* Resolve CVE-2025-49794, CVE-2025-49796, CVE-2025-7425, CVE-2024-12718, CVE-2025-4138, CVE-2025-4517, CVE-2024-12718, CVE-2025-4138, CVE-2025-4517 and CVE-2025-6965. CVE-2025-49794, CVE-2025-49796, CVE-2025-7425, CVE-2024-12718, CVE-2025-4138, CVE-2025-4517, CVE-2024-12718, CVE-2025-4138, CVE-2025-4517 and CVE-2025-6965. [Ben Dalling]
 
 * Refresh of Java dependency versions. [Ben Dalling]
 
 ### Build
+
+* Release/0.5.2. [Ben Dalling]
 
 * Upgrade libxml2, platform-python and sqlite-libs. [Ben Dalling]
 
