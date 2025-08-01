@@ -5,6 +5,8 @@
 
 ### Build
 
+* Upgrade libxml2, platform-python and sqlite-libs. [Ben Dalling]
+
 * Bump aquasecurity/trivy-action from 0.31.0 to 0.32.0. [dependabot[bot]]
 
   Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.31.0 to 0.32.0.
