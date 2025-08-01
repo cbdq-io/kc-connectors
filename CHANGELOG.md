@@ -5,6 +5,8 @@
 
 ### Build
 
+* Upgrade libxml2, platform-python and sqlite-libs. [Ben Dalling]
+
 * Bump aquasecurity/trivy-action from 0.31.0 to 0.32.0. [dependabot[bot]]
 
   Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.31.0 to 0.32.0.
@@ -18,6 +20,10 @@
     dependency-type: direct:production
     update-type: version-update:semver-minor
   ...
+
+### Refactor
+
+* Change the Maven project layout. [Ben Dalling]
 
 
 ## 0.5.1 (2025-07-01)
