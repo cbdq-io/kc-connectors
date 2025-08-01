@@ -32,7 +32,7 @@ jobs:
 
       - name: Build Artefacts
         run: |
-          make -C azure-servicebus-sink-connector build
+          make build
           find azure-servicebus-sink-connector -type f
 
       - name: Build and Push Image for Multiple Architectures
