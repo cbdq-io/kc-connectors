@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fix
+
+* Refresh of Java dependency versions. [Ben Dalling]
+
 ### Build
 
 * Upgrade libxml2, platform-python and sqlite-libs. [Ben Dalling]
@@ -20,6 +24,10 @@
     dependency-type: direct:production
     update-type: version-update:semver-minor
   ...
+
+### Continuous Integration
+
+* Fix the CD pipelines. [Ben Dalling]
 
 ### Refactor
 

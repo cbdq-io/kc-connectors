@@ -17,7 +17,7 @@
     <url>https://github.com/your-repo/azure-servicebus-sink-connector</url>
 
     <properties>
-        <servicebus.version>7.17.12</servicebus.version>
+        <servicebus.version>7.17.13</servicebus.version>
     </properties>
 
     <build>
@@ -85,7 +85,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>1.13.1</version>
+            <version>${apache.commons.text.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
@@ -120,7 +120,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
