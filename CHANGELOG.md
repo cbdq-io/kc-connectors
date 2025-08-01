@@ -19,6 +19,10 @@
     update-type: version-update:semver-minor
   ...
 
+### Refactor
+
+* Change the Maven project layout. [Ben Dalling]
+
 
 ## 0.5.1 (2025-07-01)
 
