@@ -9,7 +9,7 @@ RUN dnf clean all \
   && dnf upgrade -y freetype krb5-libs libxml2 pam platform-python python3-unbound sqlite-libs unbound-libs \
   && dnf install -y bind-utils jq \
   && dnf clean all \
-  && python -m pip install --no-cache-dir prometheus-client==0.21.1
+  && python -m pip install --no-cache-dir prometheus-client==0.22.1
 
 COPY --chmod=0755 --chown=root:root kccinit.py /usr/local/bin/kccinit.py
 COPY --chmod=0755 --chown=root:root kcstatus /usr/local/bin/kcstatus
