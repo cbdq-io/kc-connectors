@@ -1,13 +1,15 @@
 # Changelog
 
 
-## Unreleased
+## 0.6.0 (2025-08-12)
 
 ### Features
 
 * Allow the Prometheus port for kccinit to be configured. [Ben Dalling]
 
 ### Build
+
+* Release/0.6.0. [Ben Dalling]
 
 * Bump Python Prometheus client from 0.21.1 to 0.22.1. [Ben Dalling]
 
