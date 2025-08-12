@@ -3,6 +3,19 @@
 
 ## Unreleased
 
+### Features
+
+* Allow the Prometheus port for kccinit to be configured. [Ben Dalling]
+
+### Build
+
+* Release/0.6.0. [Ben Dalling]
+
+* Bump Python Prometheus client from 0.21.1 to 0.22.1. [Ben Dalling]
+
+
+## 0.5.2 (2025-08-01)
+
 ### Fix
 
 * Resolve CVE-2025-49794, CVE-2025-49796, CVE-2025-7425, CVE-2024-12718, CVE-2025-4138, CVE-2025-4517, CVE-2024-12718, CVE-2025-4138, CVE-2025-4517 and CVE-2025-6965. CVE-2025-49794, CVE-2025-49796, CVE-2025-7425, CVE-2024-12718, CVE-2025-4138, CVE-2025-4517, CVE-2024-12718, CVE-2025-4138, CVE-2025-4517 and CVE-2025-6965. [Ben Dalling]
