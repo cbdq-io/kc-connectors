@@ -24,11 +24,11 @@ services:
       CONNECT_LOG4J_LOGGERS: "org.apache.kafka.connect.runtime.rest=WARN"
       CONNECT_LOG4J_ROOT_LOGLEVEL: INFO
       CONNECT_LOG4J_IO_CBDQ_LOGLEVEL: DEBUG
-      PROMETHEUS_PORT: 9400
+      PROMETHEUS_PORT: 8000
     image: kc-connectors:latest
     ports:
       - 8083:8083
-      - 9400:9400
+      - 8000:8000
 
   emulators:
     build: "./tests/resources/is_sbus_emulator_alive"
@@ -96,12 +96,13 @@ services:
       CONNECTOR_AzureServiceBusSink_VALUE_CONVERTER: org.apache.kafka.connect.storage.StringConverter
       KAFKA_CONNECT_ENDPOINT: "http://connect:8083"
       LOG_LEVEL: INFO
+      PROMETHEUS_PORT: 8001
     healthcheck:
-      test: curl --fail --silent localhost:8000
+      test: curl --fail --silent localhost:8001
       interval: 5s
       retries: 12
     ports:
-      - "8000:8000"
+      - "8001:8001"
 
   mvn:
     entrypoint: ["mvn"]
