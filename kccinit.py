@@ -42,6 +42,12 @@ group.add_argument(
     action='store_true'
 )
 parser.add_argument(
+    '-p', '--prometheus-port',
+    help='The Prometheus port to listen on ',
+    type=int,
+    default=int(os.environ.get('PROMETHEUS_PORT', '8000'))
+)
+parser.add_argument(
     '-s', '--sidecar',
     help='Run in sidecar mode.',
     action='store_true'
@@ -49,13 +55,13 @@ parser.add_argument(
 
 
 class SidecarMode:
-    def __init__(self, endpoint: str) -> None:
+    def __init__(self, endpoint: str, prometheus_port: int) -> None:
         logger.debug(f'Starting sidecar mode (endpoint={endpoint}).')
         signal.signal(signal.SIGINT, self.signal_handler)
         signal.signal(signal.SIGTERM, self.signal_handler)
         self.endpoint = endpoint
         self.error_occurences = 0
-        start_http_server(8000)
+        start_http_server(prometheus_port)
         self.prom = Counter(
             'kafka_connect_task_restart_count',
             'The number of task restarts made.'
@@ -307,6 +313,6 @@ if __name__ == '__main__':
     status = initialiser.status
 
     if args.sidecar and status == 0:
-        SidecarMode(initialiser.endpoint())
+        SidecarMode(initialiser.endpoint(), prometheus_port=args.prometheus_port)
 
     sys.exit(status)
