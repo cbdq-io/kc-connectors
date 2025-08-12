@@ -9,6 +9,8 @@
 
 ### Build
 
+* Release/0.6.0. [Ben Dalling]
+
 * Bump Python Prometheus client from 0.21.1 to 0.22.1. [Ben Dalling]
 
 
