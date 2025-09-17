@@ -17,6 +17,19 @@
     dependency-version: 0.33.1
     dependency-type: direct:production
     update-type: version-update:semver-patch
+
+* Bump actions/setup-python from 5 to 6. [dependabot[bot]]
+
+  Bumps [actions/setup-python](https://github.com/actions/setup-python) from 5 to 6.
+  - [Release notes](https://github.com/actions/setup-python/releases)
+  - [Commits](https://github.com/actions/setup-python/compare/v5...v6)
+
+  ---
+  updated-dependencies:
+  - dependency-name: actions/setup-python
+    dependency-version: '6'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
   ...
 
 * Bump aquasecurity/trivy-action from 0.32.0 to 0.33.0. [dependabot[bot]]
