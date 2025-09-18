@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Add CVE-2025-5115 & CVE-2025-55163 to allowed vulnerability list. [Ben Dalling]
+
 * Bump ServiceBus version from 7.17.13 to 7.17.14. [Ben Dalling]
 
 * Bump prometheus-metrics-core from 1.3.10 to 1.4.1. [Ben Dalling]
