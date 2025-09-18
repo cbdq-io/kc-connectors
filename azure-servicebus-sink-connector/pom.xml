@@ -17,7 +17,7 @@
     <url>https://github.com/your-repo/azure-servicebus-sink-connector</url>
 
     <properties>
-        <servicebus.version>7.17.13</servicebus.version>
+        <servicebus.version>7.17.14</servicebus.version>
     </properties>
 
     <build>
