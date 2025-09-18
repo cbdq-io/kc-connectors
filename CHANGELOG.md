@@ -3,6 +3,17 @@
 
 ## Unreleased
 
+### Fix
+
+* Bump ServiceBus version from 7.17.13 to 7.17.14. [Ben Dalling]
+
+* Bump prometheus-metrics-core from 1.3.10 to 1.4.1. [Ben Dalling]
+
+* Upgrade libarchive (CVE-2025-5914) [Ben Dalling]
+
+
+## 0.6.0 (2025-08-12)
+
 ### Features
 
 * Allow the Prometheus port for kccinit to be configured. [Ben Dalling]
