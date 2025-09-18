@@ -6,7 +6,16 @@ USER root
 
 # hadolint ignore=DL3041
 RUN dnf clean all \
-  && dnf upgrade -y freetype krb5-libs libxml2 pam platform-python python3-unbound sqlite-libs unbound-libs \
+  && dnf upgrade -y \
+    freetype \
+    krb5-libs \
+    libarchive \
+    libxml2 \
+    pam \
+    platform-python \
+    python3-unbound \
+    sqlite-libs \
+    unbound-libs \
   && dnf install -y bind-utils jq \
   && dnf clean all \
   && python -m pip install --no-cache-dir prometheus-client==0.22.1
