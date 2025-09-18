@@ -1,24 +1,7 @@
 # Changelog
 
 
-## 0.6.1 (2025-09-18)
-
-### Fix
-
-* Add CVE-2025-5115 & CVE-2025-55163 to allowed vulnerability list. [Ben Dalling]
-
-* Bump ServiceBus version from 7.17.13 to 7.17.14. [Ben Dalling]
-
-* Bump prometheus-metrics-core from 1.3.10 to 1.4.1. [Ben Dalling]
-
-* Upgrade libarchive (CVE-2025-5914) [Ben Dalling]
-
-### Build
-
-* Hotfix/0.6.1. [Ben Dalling]
-
-
-## 0.6.0 (2025-08-12)
+## Unreleased
 
 ### Build
 
@@ -78,6 +61,23 @@
     dependency-type: direct:production
     update-type: version-update:semver-major
   ...
+
+
+## 0.6.1 (2025-09-18)
+
+### Fix
+
+* Add CVE-2025-5115 & CVE-2025-55163 to allowed vulnerability list. [Ben Dalling]
+
+* Bump ServiceBus version from 7.17.13 to 7.17.14. [Ben Dalling]
+
+* Bump prometheus-metrics-core from 1.3.10 to 1.4.1. [Ben Dalling]
+
+* Upgrade libarchive (CVE-2025-5914) [Ben Dalling]
+
+### Build
+
+* Hotfix/0.6.1. [Ben Dalling]
 
 
 ## 0.6.0 (2025-08-12)
