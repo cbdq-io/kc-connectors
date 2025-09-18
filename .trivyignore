@@ -1,5 +1,11 @@
+# org.eclipse.jetty.http2:http2-common
+CVE-2025-5115
+
 # setuptools
 CVE-2025-47273
 
 # commons-beanutils:commons-beanutils
 CVE-2025-48734
+
+# io.netty:netty-codec-http2
+CVE-2025-55163

@@ -37,7 +37,7 @@ jobs:
         run: make test
 
       - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@0.33.0
+        uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: kc-connectors:latest
           trivy-config: trivy.yaml

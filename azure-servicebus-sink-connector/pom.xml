@@ -7,7 +7,7 @@
     <parent>
         <groupId>io.cbdq</groupId>
         <artifactId>azure-servicebus-parent</artifactId>
-        <version>0.6.0</version>
+        <version>0.6.1</version>
     </parent>
 
     <artifactId>azure-servicebus-sink-connector</artifactId>
@@ -17,7 +17,7 @@
     <url>https://github.com/your-repo/azure-servicebus-sink-connector</url>
 
     <properties>
-        <servicebus.version>7.17.13</servicebus.version>
+        <servicebus.version>7.17.14</servicebus.version>
     </properties>
 
     <build>
