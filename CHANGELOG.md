@@ -13,6 +13,10 @@
 
 * Upgrade libarchive (CVE-2025-5914) [Ben Dalling]
 
+### Build
+
+* Hotfix/0.6.1. [Ben Dalling]
+
 
 ## 0.6.0 (2025-08-12)
 
