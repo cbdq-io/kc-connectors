@@ -20,6 +20,68 @@
 
 ## 0.6.0 (2025-08-12)
 
+### Build
+
+* Bump actions/setup-python from 5 to 6. [dependabot[bot]]
+
+  Bumps [actions/setup-python](https://github.com/actions/setup-python) from 5 to 6.
+  - [Release notes](https://github.com/actions/setup-python/releases)
+  - [Commits](https://github.com/actions/setup-python/compare/v5...v6)
+
+  ---
+  updated-dependencies:
+  - dependency-name: actions/setup-python
+    dependency-version: '6'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+* Bump aquasecurity/trivy-action from 0.33.0 to 0.33.1. [dependabot[bot]]
+
+  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.33.0 to 0.33.1.
+  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
+  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.33.0...0.33.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: aquasecurity/trivy-action
+    dependency-version: 0.33.1
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump aquasecurity/trivy-action from 0.32.0 to 0.33.0. [dependabot[bot]]
+
+  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.32.0 to 0.33.0.
+  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
+  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.32.0...0.33.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: aquasecurity/trivy-action
+    dependency-version: 0.33.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+* Bump actions/checkout from 4 to 5. [dependabot[bot]]
+
+  Bumps [actions/checkout](https://github.com/actions/checkout) from 4 to 5.
+  - [Release notes](https://github.com/actions/checkout/releases)
+  - [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/actions/checkout/compare/v4...v5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: actions/checkout
+    dependency-version: '5'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+
+## 0.6.0 (2025-08-12)
+
 ### Features
 
 * Allow the Prometheus port for kccinit to be configured. [Ben Dalling]
