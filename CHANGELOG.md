@@ -19,6 +19,20 @@
     update-type: version-update:semver-major
   ...
 
+* Bump aquasecurity/trivy-action from 0.33.0 to 0.33.1. [dependabot[bot]]
+
+  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.33.0 to 0.33.1.
+  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
+  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.33.0...0.33.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: aquasecurity/trivy-action
+    dependency-version: 0.33.1
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump aquasecurity/trivy-action from 0.32.0 to 0.33.0. [dependabot[bot]]
 
   Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.32.0 to 0.33.0.
@@ -47,6 +61,23 @@
     dependency-type: direct:production
     update-type: version-update:semver-major
   ...
+
+
+## 0.6.1 (2025-09-18)
+
+### Fix
+
+* Add CVE-2025-5115 & CVE-2025-55163 to allowed vulnerability list. [Ben Dalling]
+
+* Bump ServiceBus version from 7.17.13 to 7.17.14. [Ben Dalling]
+
+* Bump prometheus-metrics-core from 1.3.10 to 1.4.1. [Ben Dalling]
+
+* Upgrade libarchive (CVE-2025-5914) [Ben Dalling]
+
+### Build
+
+* Hotfix/0.6.1. [Ben Dalling]
 
 
 ## 0.6.0 (2025-08-12)
