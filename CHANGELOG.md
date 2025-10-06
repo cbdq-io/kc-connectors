@@ -5,6 +5,20 @@
 
 ### Build
 
+* Bump peter-evans/create-issue-from-file from 5 to 6. [dependabot[bot]]
+
+  Bumps [peter-evans/create-issue-from-file](https://github.com/peter-evans/create-issue-from-file) from 5 to 6.
+  - [Release notes](https://github.com/peter-evans/create-issue-from-file/releases)
+  - [Commits](https://github.com/peter-evans/create-issue-from-file/compare/v5...v6)
+
+  ---
+  updated-dependencies:
+  - dependency-name: peter-evans/create-issue-from-file
+    dependency-version: '6'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
 * Bump actions/setup-python from 5 to 6. [dependabot[bot]]
 
   Bumps [actions/setup-python](https://github.com/actions/setup-python) from 5 to 6.
