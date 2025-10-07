@@ -5,6 +5,8 @@
 
 ### Fix
 
+* CVE-2025-55163. [Ben Dalling]
+
 * CVE-2025-48734. [Ben Dalling]
 
 * CVE-2025-47273. [Ben Dalling]
