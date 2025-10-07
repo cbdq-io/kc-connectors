@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fix
+
+* CVE-2025-5115. [Ben Dalling]
+
 ### Build
 
 * Bump peter-evans/create-issue-from-file from 5 to 6. [dependabot[bot]]
