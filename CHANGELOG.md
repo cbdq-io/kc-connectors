@@ -76,6 +76,10 @@
     update-type: version-update:semver-major
   ...
 
+### Other
+
+* Build(pkg) update the base image to confluentinc/cp-kafka-connect:7.9.3. [Ben Dalling]
+
 
 ## 0.6.1 (2025-09-18)
 
