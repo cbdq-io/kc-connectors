@@ -1,7 +1,7 @@
 # Changelog
 
 
-## Unreleased
+## 0.6.2 (2025-10-07)
 
 ### Fix
 
@@ -14,6 +14,8 @@
 * CVE-2025-5115. [Ben Dalling]
 
 ### Build
+
+* Release/0.6.2. [Ben Dalling]
 
 * Bump peter-evans/create-issue-from-file from 5 to 6. [dependabot[bot]]
 
