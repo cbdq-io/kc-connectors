@@ -1,5 +1,2 @@
 # io.netty:netty-codec-http2 found in based image confluentinc/cp-kafka-connect:7.9.3.
 CVE-2025-55163
-
-# libarchive found in based image confluentinc/cp-kafka-connect:7.9.3.
-CVE-2025-5914
