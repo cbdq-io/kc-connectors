@@ -1,6 +1,3 @@
-# commons-beanutils:commons-beanutils found in based image confluentinc/cp-kafka-connect:7.9.2.
-CVE-2025-48734
-
 # io.netty:netty-codec-http2 found in based image confluentinc/cp-kafka-connect:7.9.3.
 CVE-2025-55163
 
