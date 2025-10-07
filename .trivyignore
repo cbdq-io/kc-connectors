@@ -1,6 +1,3 @@
-# setuptools found in based image confluentinc/cp-kafka-connect:7.9.2.
-CVE-2025-47273
-
 # commons-beanutils:commons-beanutils found in based image confluentinc/cp-kafka-connect:7.9.2.
 CVE-2025-48734
 
