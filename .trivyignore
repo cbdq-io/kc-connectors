@@ -1,6 +1,3 @@
-# org.eclipse.jetty.http2:http2-common found in based image confluentinc/cp-kafka-connect:7.9.2.
-CVE-2025-5115
-
 # setuptools found in based image confluentinc/cp-kafka-connect:7.9.2.
 CVE-2025-47273
 
