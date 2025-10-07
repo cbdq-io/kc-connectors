@@ -15,6 +15,8 @@
 
 ### Build
 
+* Release/0.6.2. [Ben Dalling]
+
 * Bump peter-evans/create-issue-from-file from 5 to 6. [dependabot[bot]]
 
   Bumps [peter-evans/create-issue-from-file](https://github.com/peter-evans/create-issue-from-file) from 5 to 6.
