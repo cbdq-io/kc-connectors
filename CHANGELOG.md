@@ -1,7 +1,7 @@
 # Changelog
 
 
-## Unreleased
+## 0.6.3 (2025-11-04)
 
 ### Build
 
