@@ -3,9 +3,31 @@
 
 ## Unreleased
 
+### Build
+
+* Bump github/codeql-action from 3 to 4. [dependabot[bot]]
+
+  Bumps [github/codeql-action](https://github.com/github/codeql-action) from 3 to 4.
+  - [Release notes](https://github.com/github/codeql-action/releases)
+  - [Changelog](https://github.com/github/codeql-action/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/github/codeql-action/compare/v3...v4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: github/codeql-action
+    dependency-version: '4'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+
+## 0.6.2 (2025-10-07)
+
 ### Fix
 
 * CVE-2025-55163. [Ben Dalling]
+
+* CVE-2025-5914. [Ben Dalling]
 
 * CVE-2025-48734. [Ben Dalling]
 
@@ -14,6 +36,8 @@
 * CVE-2025-5115. [Ben Dalling]
 
 ### Build
+
+* Release/0.6.2. [Ben Dalling]
 
 * Bump peter-evans/create-issue-from-file from 5 to 6. [dependabot[bot]]
 
