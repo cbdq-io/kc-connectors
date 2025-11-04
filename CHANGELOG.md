@@ -3,7 +3,13 @@
 
 ## Unreleased
 
+### Fix
+
+* CVE-2025-55163. [Ben Dalling]
+
 ### Build
+
+* Bump base image (confluentinc/cp-kafka-connect) from 7.9.3 to 7.9.4. [Ben Dalling]
 
 * Bump github/codeql-action from 3 to 4. [dependabot[bot]]
 
@@ -24,8 +30,6 @@
 ## 0.6.2 (2025-10-07)
 
 ### Fix
-
-* CVE-2025-55163. [Ben Dalling]
 
 * CVE-2025-5914. [Ben Dalling]
 
