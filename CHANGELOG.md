@@ -5,6 +5,8 @@
 
 ### Build
 
+* Bump base image (confluentinc/cp-kafka-connect) from 7.9.3 to 7.9.4. [Ben Dalling]
+
 * Bump github/codeql-action from 3 to 4. [dependabot[bot]]
 
   Bumps [github/codeql-action](https://github.com/github/codeql-action) from 3 to 4.
