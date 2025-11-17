@@ -1,9 +1,11 @@
 # Changelog
 
 
-## Unreleased
+## 0.6.3 (2025-11-04)
 
 ### Build
+
+* Bump base image (confluentinc/cp-kafka-connect) from 7.9.3 to 7.9.4. [Ben Dalling]
 
 * Bump github/codeql-action from 3 to 4. [dependabot[bot]]
 
