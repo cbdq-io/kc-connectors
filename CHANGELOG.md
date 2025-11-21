@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Unreleased
+
+### Documentation
+
+* Update the release process documentation. [Ben Dalling]
+
+
 ## 0.6.3 (2025-11-04)
 
 ### Build
