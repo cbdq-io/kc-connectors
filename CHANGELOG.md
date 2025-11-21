@@ -1,6 +1,17 @@
 # Changelog
 
 
+## Unreleased
+
+### Fix
+
+* CVE-2025-59375 (upgrade expat) [Ben Dalling]
+
+### Documentation
+
+* Update the release process documentation. [Ben Dalling]
+
+
 ## 0.6.3 (2025-11-04)
 
 ### Build

@@ -48,7 +48,6 @@ environment.
 
    # If using SSH
    git remote add upstream git@github.com:cbdq-io/kc-connectors.git
-
    ```
 
 1. Open in Visual Code Studio
@@ -209,8 +208,6 @@ log.
 
 ## Maintainers Only
 
-repository.
-
 ### Cutting a New Release
 
 1. Creating a Release Branch:
@@ -221,12 +218,11 @@ repository.
    git checkout -b release/your-release-name
    ```
 
-   Now edit `Makefile` and ensure that `TAG` is set to the same
+   Now edit both:
+     - `pom.xml`
+     - `azure-servicebus-sink-connector/pom.xml`
 
-   as the proposed release name. Also ensure that in the sub-
-   projects, that the `project.version` value in `pom.xml` is
-
-   set to the same value.
+   and set `project.version` to the proposed value for your release.
 
 2. Run the local end-to-end tests:
 
@@ -240,7 +236,6 @@ repository.
 
    ```shell
    git push origin release/your-release-name
-
    ```
 
 4. Create a pull request to merge the release branch onto `main`.
