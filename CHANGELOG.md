@@ -3,6 +3,17 @@
 
 ## Unreleased
 
+### Fix
+
+* CVE-2025-59375 (upgrade expat) [Ben Dalling]
+
+### Documentation
+
+* Update the release process documentation. [Ben Dalling]
+
+
+## 0.6.3 (2025-11-04)
+
 ### Build
 
 * Bump base image (confluentinc/cp-kafka-connect) from 7.9.3 to 7.9.4. [Ben Dalling]
