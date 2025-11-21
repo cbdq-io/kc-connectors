@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fix
+
+* CVE-2025-59375 (upgrade expat) [Ben Dalling]
+
 ### Documentation
 
 * Update the release process documentation. [Ben Dalling]
