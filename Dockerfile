@@ -7,6 +7,7 @@ USER root
 # hadolint ignore=DL3041
 RUN dnf clean all \
   && dnf upgrade -y \
+    expat \
     freetype \
     krb5-libs \
     libarchive \
