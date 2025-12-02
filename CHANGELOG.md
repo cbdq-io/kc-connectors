@@ -1,14 +1,7 @@
 # Changelog
 
 
-## 0.6.5 (2025-12-02)
-
-### Fix
-
-* Bump Kafka Connect base image from 7.9.4 to 7.9.5. [Jim Loughlin]
-
-
-## 0.6.4 (2025-11-21)
+## Unreleased
 
 ### Build
 
@@ -26,6 +19,13 @@
     dependency-type: direct:production
     update-type: version-update:semver-major
   ...
+
+
+## 0.6.5 (2025-12-02)
+
+### Fix
+
+* Bump Kafka Connect base image from 7.9.4 to 7.9.5. [Jim Loughlin]
 
 
 ## 0.6.4 (2025-11-21)
