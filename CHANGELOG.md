@@ -10,6 +10,26 @@
 
 ## 0.6.4 (2025-11-21)
 
+### Build
+
+* Bump actions/checkout from 5 to 6. [dependabot[bot]]
+
+  Bumps [actions/checkout](https://github.com/actions/checkout) from 5 to 6.
+  - [Release notes](https://github.com/actions/checkout/releases)
+  - [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/actions/checkout/compare/v5...v6)
+
+  ---
+  updated-dependencies:
+  - dependency-name: actions/checkout
+    dependency-version: '6'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+
+## 0.6.4 (2025-11-21)
+
 ### Fix
 
 * CVE-2025-59375 (upgrade expat) [Ben Dalling]
