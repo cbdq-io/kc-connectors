@@ -5,6 +5,13 @@
 
 ### Fix
 
+* Bump Kafka Connect base image from 7.9.4 to 7.9.5. [Jim Loughlin]
+
+
+## 0.6.4 (2025-11-21)
+
+### Fix
+
 * CVE-2025-59375 (upgrade expat) [Ben Dalling]
 
 ### Documentation
