@@ -1,25 +1,16 @@
-FROM confluentinc/cp-kafka-connect:7.9.5
+FROM confluentinc/cp-kafka-connect:8.1.1
 
 LABEL org.opencontainers.image.description "A Kafka Connect Sink Connecter for Azure Service Bus."
 
 USER root
 
-# hadolint ignore=DL3041
-RUN dnf clean all \
-  && dnf upgrade -y \
-    expat \
-    freetype \
-    krb5-libs \
-    libarchive \
-    libxml2 \
-    pam \
-    platform-python \
-    python3-unbound \
-    sqlite-libs \
-    unbound-libs \
-  && dnf install -y bind-utils jq \
-  && dnf clean all \
-  && python -m pip install --no-cache-dir prometheus-client==0.22.1
+# hadolint ignore=DL3013,DL3041
+RUN microdnf clean all \
+  && microdnf install -y bind-utils jq python3-pip \
+  && microdnf upgrade -y \
+    libpng \
+  && microdnf clean all \
+  && python -m pip install --no-cache-dir prometheus-client requests
 
 COPY --chmod=0755 --chown=root:root kccinit.py /usr/local/bin/kccinit.py
 COPY --chmod=0755 --chown=root:root kcstatus /usr/local/bin/kcstatus
