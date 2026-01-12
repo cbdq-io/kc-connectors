@@ -5,6 +5,10 @@
 
 ### Build
 
+* Update licence to welcome in 2026. [Ben Dalling]
+
+* Bump base Kafka Connect image from 7.9.4 to 8.1.1. [Ben Dalling]
+
 * Bump actions/checkout from 5 to 6. [dependabot[bot]]
 
   Bumps [actions/checkout](https://github.com/actions/checkout) from 5 to 6.
