@@ -1,2 +1,4 @@
-# io.netty:netty-codec-http2 found in based image confluentinc/cp-kafka-connect:7.9.3.
-CVE-2025-55163
+# The following vulnerabilities are found in the base image (confluentinc/cp-kafka-connect:8.1.1).
+CVE-2025-12183
+CVE-2025-12383
+CVE-2025-61729
