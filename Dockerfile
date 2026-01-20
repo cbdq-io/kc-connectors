@@ -1,6 +1,6 @@
 FROM confluentinc/cp-kafka-connect:7.9.5
 
-LABEL org.opencontainers.image.description "A Kafka Connect Sink Connecter for Azure Service Bus."
+LABEL org.opencontainers.image.description="A Kafka Connect Sink Connecter for Azure Service Bus."
 
 USER root
 
