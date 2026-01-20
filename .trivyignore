@@ -1,2 +1,14 @@
-# io.netty:netty-codec-http2 found in based image confluentinc/cp-kafka-connect:7.9.3.
+# Found in based image confluentinc/cp-kafka-connect:7.9.5.
+CVE-2025-68973
+CVE-2025-64720
+CVE-2025-65018
+CVE-2025-66293
+CVE-2024-29371
+CVE-2025-12183
+GHSA-58pv-8j8x-9vj2
+CVE-2025-66418
+CVE-2025-66471
+CVE-2026-21441
+
+# netty: netty-codec-http2: Netty MadeYouReset HTTP/2 DDoS
 CVE-2025-55163
