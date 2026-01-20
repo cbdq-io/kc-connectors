@@ -106,29 +106,34 @@ public class AzureServiceBusSinkTask extends SinkTask {
     }
 
     private void sendIndividually(String topic, List<SinkRecord> envelopes) {
-        log.warn("Large message detected — sending all records individually for topic {}", topic);
         ServiceBusSenderClient sender = serviceBusSenders.get(topic);
-
-        if (sender == null) {
-            throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
-        }
 
         for (SinkRecord envelope : envelopes) {
             ServiceBusMessage message = createMessageFromRecord(envelope);
-            ServiceBusMessageBatch batch = sender.createMessageBatch();
+            int bodyBytes = message.getBody().toBytes().length;
 
-            if (!batch.tryAddMessage(message)) {
-                throw new AzureServiceBusSinkException(
-                    String.format("Message too large to fit in batch for topic '%s'", topic)
+            try {
+                sender.sendMessage(message);
+            } catch (Exception e) {
+                String diagnostic = String.format(
+                    "Failed to send Service Bus message. " +
+                    "topic=%s kafkaTopic=%s partition=%s offset=%s bodyBytes=%d",
+                    topic,
+                    envelope.topic(),
+                    envelope.kafkaPartition(),
+                    envelope.kafkaOffset(),
+                    bodyBytes
                 );
-            }
 
-            sender.sendMessages(batch);
+                log.error(diagnostic, e);
+                throw new AzureServiceBusSinkException(diagnostic, e);
+            }
         }
     }
 
     private void sendBatchToTopic(String topic, List<SinkRecord> envelopes) {
         ServiceBusSenderClient sender = serviceBusSenders.get(topic);
+        int maxBodyBytesInBatch = 0;
 
         if (sender == null) {
             throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
@@ -139,11 +144,18 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
             for (SinkRecord envelope : envelopes) {
                 ServiceBusMessage msg = createMessageFromRecord(envelope);
+                int bodyBytes = msg.getBody().toBytes().length;
+                maxBodyBytesInBatch = Math.max(maxBodyBytesInBatch, bodyBytes);
 
                 boolean added = batch.tryAddMessage(msg);
                 if (!added) {
                     if (batch.getCount() > 0) {
-                        log.info("Sending current batch of {} messages to topic '{}'", batch.getCount(), topic);
+                        log.info(
+                            "Sending current batch of {} messages to topic '{}', largest message is {}K",
+                            batch.getCount(),
+                            topic,
+                            Math.round((maxBodyBytesInBatch / 1024.0) * 10.0) / 10.0
+                        );
                         sender.sendMessages(batch);
                     } else {
                         log.warn("Batch rejected first message — skipping send and creating a new batch");

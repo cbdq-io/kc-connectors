@@ -5,6 +5,17 @@
 
 ### Fix
 
+* More logging about message sizes. [Ben Dalling]
+
+* Send individual messages outside of a batch if size is too large. [Ben Dalling]
+
+* Accept current vulnerabilities in the image. [Ben Dalling]
+
+
+## 0.6.5 (2025-12-02)
+
+### Fix
+
 * Bump Kafka Connect base image from 7.9.4 to 7.9.5. [Jim Loughlin]
 
 
