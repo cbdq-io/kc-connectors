@@ -106,24 +106,28 @@ public class AzureServiceBusSinkTask extends SinkTask {
     }
 
     private void sendIndividually(String topic, List<SinkRecord> envelopes) {
-        log.warn("Large message detected — sending all records individually for topic {}", topic);
         ServiceBusSenderClient sender = serviceBusSenders.get(topic);
-
-        if (sender == null) {
-            throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
-        }
 
         for (SinkRecord envelope : envelopes) {
             ServiceBusMessage message = createMessageFromRecord(envelope);
-            ServiceBusMessageBatch batch = sender.createMessageBatch();
+            int bodyBytes = message.getBody().toBytes().length;
 
-            if (!batch.tryAddMessage(message)) {
-                throw new AzureServiceBusSinkException(
-                    String.format("Message too large to fit in batch for topic '%s'", topic)
+            try {
+                sender.sendMessage(message);
+            } catch (Exception e) {
+                String diagnostic = String.format(
+                    "Failed to send Service Bus message. " +
+                    "topic=%s kafkaTopic=%s partition=%s offset=%s bodyBytes=%d",
+                    topic,
+                    envelope.topic(),
+                    envelope.kafkaPartition(),
+                    envelope.kafkaOffset(),
+                    bodyBytes
                 );
-            }
 
-            sender.sendMessages(batch);
+                log.error(diagnostic, e);
+                throw new AzureServiceBusSinkException(diagnostic, e);
+            }
         }
     }
 
