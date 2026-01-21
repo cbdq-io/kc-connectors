@@ -108,6 +108,12 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private void sendIndividually(String topic, List<SinkRecord> envelopes) {
         ServiceBusSenderClient sender = serviceBusSenders.get(topic);
 
+        if (sender == null) {
+            throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
+        }
+
+        int batchMaxBytes = sender.createMessageBatch().getMaxSizeInBytes();
+
         for (SinkRecord envelope : envelopes) {
             ServiceBusMessage message = createMessageFromRecord(envelope);
             int bodyBytes = message.getBody().toBytes().length;
@@ -116,15 +122,14 @@ public class AzureServiceBusSinkTask extends SinkTask {
                 sender.sendMessage(message);
             } catch (Exception e) {
                 String diagnostic = String.format(
-                    "Failed to send Service Bus message. " +
-                    "topic=%s kafkaTopic=%s partition=%s offset=%s bodyBytes=%d",
+                    "Failed to send Service Bus message. topic=%s kafkaTopic=%s partition=%s offset=%s bodyBytes=%d batchMaxBytes=%d",
                     topic,
                     envelope.topic(),
                     envelope.kafkaPartition(),
                     envelope.kafkaOffset(),
-                    bodyBytes
+                    bodyBytes,
+                    batchMaxBytes
                 );
-
                 log.error(diagnostic, e);
                 throw new AzureServiceBusSinkException(diagnostic, e);
             }
@@ -146,8 +151,8 @@ public class AzureServiceBusSinkTask extends SinkTask {
                 ServiceBusMessage msg = createMessageFromRecord(envelope);
                 int bodyBytes = msg.getBody().toBytes().length;
                 maxBodyBytesInBatch = Math.max(maxBodyBytesInBatch, bodyBytes);
-
                 boolean added = batch.tryAddMessage(msg);
+
                 if (!added) {
                     if (batch.getCount() > 0) {
                         log.info(
@@ -162,12 +167,41 @@ public class AzureServiceBusSinkTask extends SinkTask {
                     }
 
                     batch = sender.createMessageBatch();
-
+                    maxBodyBytesInBatch = 0;
                     boolean addedToNew = batch.tryAddMessage(msg);
+
+                    if (addedToNew) {
+                        maxBodyBytesInBatch = bodyBytes;
+                    }
+
                     if (!addedToNew) {
-                        throw new AzureServiceBusSinkException(
-                            "Single message too large to fit in an empty batch for topic: " + topic
-                        );
+                        // Fallback: try individual send
+                        try {
+                            sender.sendMessage(msg);
+                            log.info(
+                                "Message too large for batching; sent individually. topic={} partition={} offset={} bodyBytes={}K",
+                                topic,
+                                envelope.kafkaPartition(),
+                                envelope.kafkaOffset(),
+                                Math.round((bodyBytes / 1024.0) * 10.0) / 10.0
+                            );
+                            // continue without adding to batch
+                            batch = sender.createMessageBatch();
+                            maxBodyBytesInBatch = 0;
+                            continue;
+                        } catch (Exception e) {
+                            throw new AzureServiceBusSinkException(
+                                String.format(
+                                    "Message too large to batch and failed individual send. " +
+                                    "topic=%s bodyBytes=%d kafkaPartition=%s kafkaOffset=%s",
+                                    topic,
+                                    bodyBytes,
+                                    envelope.kafkaPartition(),
+                                    envelope.kafkaOffset()
+                                ),
+                                e
+                            );
+                        }
                     }
                 }
             }
@@ -179,7 +213,12 @@ public class AzureServiceBusSinkTask extends SinkTask {
                 log.debug("No messages to send in final batch for topic '{}'", topic);
             }
         } catch (Exception e) {
-            String errorMessage = String.format("Failed to send messages to topic '%s': %s", topic, e.getMessage());
+            String errorMessage = String.format(
+                "Failed to send messages to topic '%s': %s (maxBodyBytesInBatch=%d)",
+                topic,
+                e.getMessage(),
+                maxBodyBytesInBatch
+            );
             throw new AzureServiceBusSinkException(errorMessage, e);
         }
     }
