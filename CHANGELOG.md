@@ -5,6 +5,13 @@
 
 ### Fix
 
+* Add more diagnostic logging when dealing with large messages. [Ben Dalling]
+
+
+## 0.6.6 (2026-01-20)
+
+### Fix
+
 * More logging about message sizes. [Ben Dalling]
 
 * Send individual messages outside of a batch if size is too large. [Ben Dalling]
