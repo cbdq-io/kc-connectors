@@ -6,7 +6,7 @@
 
     <groupId>io.cbdq</groupId>
     <artifactId>azure-servicebus-parent</artifactId>
-    <version>0.6.5</version>
+    <version>0.6.7</version>
     <packaging>pom</packaging>
     <name>Azure Service Bus Connectors</name>
     <description>Parent project for Azure Service Bus Kafka Connectors</description>

@@ -1,6 +1,6 @@
 FROM confluentinc/cp-kafka-connect:8.1.1
 
-LABEL org.opencontainers.image.description "A Kafka Connect Sink Connecter for Azure Service Bus."
+LABEL org.opencontainers.image.description="A Kafka Connect Sink Connecter for Azure Service Bus."
 
 USER root
 
@@ -8,7 +8,9 @@ USER root
 RUN microdnf clean all \
   && microdnf install -y bind-utils jq python3-pip \
   && microdnf upgrade -y \
+    gnupg2 \
     libpng \
+    openssl-libs \
   && microdnf clean all \
   && python -m pip install --no-cache-dir prometheus-client requests
 
