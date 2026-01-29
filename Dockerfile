@@ -10,6 +10,7 @@ RUN microdnf clean all \
   && microdnf upgrade -y \
     gnupg2 \
     libpng \
+    openssl-libs \
   && microdnf clean all \
   && python -m pip install --no-cache-dir prometheus-client requests
 
