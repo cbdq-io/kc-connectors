@@ -8,6 +8,7 @@ USER root
 RUN microdnf clean all \
   && microdnf install -y bind-utils jq python3-pip \
   && microdnf upgrade -y \
+    gnupg2 \
     libpng \
   && microdnf clean all \
   && python -m pip install --no-cache-dir prometheus-client requests
