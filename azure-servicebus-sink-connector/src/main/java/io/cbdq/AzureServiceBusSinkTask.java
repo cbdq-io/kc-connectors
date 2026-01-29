@@ -90,50 +90,41 @@ public class AzureServiceBusSinkTask extends SinkTask {
         return grouped;
     }
 
-    private void sendMessages(String topic, List<SinkRecord> envelopes) {
+    private void sendOversizedMessageIndividually(
+        ServiceBusSenderClient sender,
+        String topic,
+        SinkRecord envelope,
+        ServiceBusMessage msg,
+        int bodyBytes
+    ) {
         try {
-            log.debug("Attempting to send {} messages in batch for topic '{}'", envelopes.size(), topic);
-            sendBatchToTopic(topic, envelopes);
-        } catch (AzureServiceBusSinkException ex) {
-            if (ex.getMessage().contains("batch message with no data") ||
-                ex.getMessage().contains("too large to fit in an empty batch")) {
-                log.warn("Recoverable batch failure detected for topic '{}'. Switching to individual sends. Reason: {}", topic, ex.getMessage());
-                sendIndividually(topic, envelopes);
-            } else {
-                throw ex; // unknown or critical failure
-            }
+            sender.sendMessage(msg);
+
+            log.info(
+                "Message too large for batching; sent individually. topic={} partition={} offset={} bodyBytes={}K",
+                topic,
+                envelope.kafkaPartition(),
+                envelope.kafkaOffset(),
+                Math.round((bodyBytes / 1024.0) * 10.0) / 10.0
+            );
+        } catch (Exception e) {
+            throw new AzureServiceBusSinkException(
+                String.format(
+                    "Message too large to batch and failed individual send. " +
+                    "topic=%s bodyBytes=%d kafkaPartition=%s kafkaOffset=%s",
+                    topic,
+                    bodyBytes,
+                    envelope.kafkaPartition(),
+                    envelope.kafkaOffset()
+                ),
+                e
+            );
         }
     }
 
-    private void sendIndividually(String topic, List<SinkRecord> envelopes) {
-        ServiceBusSenderClient sender = serviceBusSenders.get(topic);
-
-        if (sender == null) {
-            throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
-        }
-
-        int batchMaxBytes = sender.createMessageBatch().getMaxSizeInBytes();
-
-        for (SinkRecord envelope : envelopes) {
-            ServiceBusMessage message = createMessageFromRecord(envelope);
-            int bodyBytes = message.getBody().toBytes().length;
-
-            try {
-                sender.sendMessage(message);
-            } catch (Exception e) {
-                String diagnostic = String.format(
-                    "Failed to send Service Bus message. topic=%s kafkaTopic=%s partition=%s offset=%s bodyBytes=%d batchMaxBytes=%d",
-                    topic,
-                    envelope.topic(),
-                    envelope.kafkaPartition(),
-                    envelope.kafkaOffset(),
-                    bodyBytes,
-                    batchMaxBytes
-                );
-                log.error(diagnostic, e);
-                throw new AzureServiceBusSinkException(diagnostic, e);
-            }
-        }
+    private void sendMessages(String topic, List<SinkRecord> envelopes) {
+        log.debug("Attempting to send {} messages in batch for topic '{}'", envelopes.size(), topic);
+        sendBatchToTopic(topic, envelopes);
     }
 
     private void sendBatchToTopic(String topic, List<SinkRecord> envelopes) {
@@ -175,39 +166,23 @@ public class AzureServiceBusSinkTask extends SinkTask {
                     }
 
                     if (!addedToNew) {
-                        // Fallback: try individual send
-                        try {
-                            sender.sendMessage(msg);
-                            log.info(
-                                "Message too large for batching; sent individually. topic={} partition={} offset={} bodyBytes={}K",
-                                topic,
-                                envelope.kafkaPartition(),
-                                envelope.kafkaOffset(),
-                                Math.round((bodyBytes / 1024.0) * 10.0) / 10.0
-                            );
-                            // continue without adding to batch
-                            batch = sender.createMessageBatch();
-                            maxBodyBytesInBatch = 0;
-                            continue;
-                        } catch (Exception e) {
-                            throw new AzureServiceBusSinkException(
-                                String.format(
-                                    "Message too large to batch and failed individual send. " +
-                                    "topic=%s bodyBytes=%d kafkaPartition=%s kafkaOffset=%s",
-                                    topic,
-                                    bodyBytes,
-                                    envelope.kafkaPartition(),
-                                    envelope.kafkaOffset()
-                                ),
-                                e
-                            );
-                        }
+                        sendOversizedMessageIndividually(sender, topic, envelope, msg, bodyBytes);
+
+                        // message handled individually; start a fresh batch
+                        batch = sender.createMessageBatch();
+                        maxBodyBytesInBatch = 0;
+                        continue;
                     }
                 }
             }
 
             if (batch.getCount() > 0) {
-                log.info("Sending remaining batch of {} messages to topic '{}'", batch.getCount(), topic);
+                log.info(
+                    "Sending remaining batch of {} messages to topic '{}', largest message is {}K",
+                    batch.getCount(),
+                    topic,
+                    Math.round((maxBodyBytesInBatch / 1024.0) * 10.0) / 10.0
+                );
                 sender.sendMessages(batch);
             } else {
                 log.debug("No messages to send in final batch for topic '{}'", topic);
