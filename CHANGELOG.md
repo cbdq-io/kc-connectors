@@ -1,25 +1,13 @@
 # Changelog
 
 
-## 0.6.7 (2026-01-21)
+## Unreleased
 
 ### Fix
 
-* Add more diagnostic logging when dealing with large messages. [Ben Dalling]
+* CVE-2025-68973. [Ben Dalling]
 
-
-## 0.6.6 (2026-01-20)
-
-### Fix
-
-* More logging about message sizes. [Ben Dalling]
-
-* Send individual messages outside of a batch if size is too large. [Ben Dalling]
-
-* Accept current vulnerabilities in the image. [Ben Dalling]
-
-
-## 0.6.5 (2025-12-02)
+* Refactor/simplify code. [Ben Dalling]
 
 ### Build
 
@@ -41,6 +29,24 @@
     dependency-type: direct:production
     update-type: version-update:semver-major
   ...
+
+
+## 0.6.7 (2026-01-21)
+
+### Fix
+
+* Add more diagnostic logging when dealing with large messages. [Ben Dalling]
+
+
+## 0.6.6 (2026-01-20)
+
+### Fix
+
+* More logging about message sizes. [Ben Dalling]
+
+* Send individual messages outside of a batch if size is too large. [Ben Dalling]
+
+* Accept current vulnerabilities in the image. [Ben Dalling]
 
 
 ## 0.6.5 (2025-12-02)
