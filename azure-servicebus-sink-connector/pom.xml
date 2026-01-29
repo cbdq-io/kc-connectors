@@ -14,10 +14,10 @@
     <packaging>jar</packaging>
     <name>Azure Service Bus Sink Connector</name>
     <description>Kafka Connect Sink Connector for Azure Service Bus Topics</description>
-    <url>https://github.com/your-repo/azure-servicebus-sink-connector</url>
+    <url>https://github.com/cbdq-io/kc-connectors</url>
 
     <properties>
-        <servicebus.version>7.17.14</servicebus.version>
+        <servicebus.version>7.17.16</servicebus.version>
     </properties>
 
     <build>
