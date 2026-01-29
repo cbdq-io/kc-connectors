@@ -163,15 +163,12 @@ public class AzureServiceBusSinkTask extends SinkTask {
 
                     if (addedToNew) {
                         maxBodyBytesInBatch = bodyBytes;
-                    }
-
-                    if (!addedToNew) {
+                    } else {
                         sendOversizedMessageIndividually(sender, topic, envelope, msg, bodyBytes);
 
                         // message handled individually; start a fresh batch
                         batch = sender.createMessageBatch();
                         maxBodyBytesInBatch = 0;
-                        continue;
                     }
                 }
             }
