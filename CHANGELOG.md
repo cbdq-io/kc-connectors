@@ -5,6 +5,38 @@
 
 ### Fix
 
+* CVE-2025-15467. [Ben Dalling]
+
+* CVE-2025-68973. [Ben Dalling]
+
+* Refactor/simplify code. [Ben Dalling]
+
+### Build
+
+* Update licence to welcome in 2026. [Ben Dalling]
+
+* Bump base Kafka Connect image from 7.9.4 to 8.1.1. [Ben Dalling]
+
+* Bump actions/checkout from 5 to 6. [dependabot[bot]]
+
+  Bumps [actions/checkout](https://github.com/actions/checkout) from 5 to 6.
+  - [Release notes](https://github.com/actions/checkout/releases)
+  - [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/actions/checkout/compare/v5...v6)
+
+  ---
+  updated-dependencies:
+  - dependency-name: actions/checkout
+    dependency-version: '6'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+
+## 0.6.7 (2026-01-21)
+
+### Fix
+
 * Add more diagnostic logging when dealing with large messages. [Ben Dalling]
 
 
