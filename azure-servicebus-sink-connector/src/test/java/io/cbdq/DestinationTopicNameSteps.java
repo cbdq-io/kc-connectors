@@ -1,6 +1,6 @@
 package io.cbdq;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import io.cucumber.java.en.*;
 import io.cucumber.java.After;
@@ -12,13 +12,12 @@ public class DestinationTopicNameSteps {
 
     @Before
     public void setUp() {
-        // Initialization before each scenario
         sourceTopicName = null;
     }
 
     @After
     public void tearDown() {
-        // Cleanup after each scenario
+        // no-op
     }
 
     @Given("the Kafka topic name {string}")
@@ -33,7 +32,7 @@ public class DestinationTopicNameSteps {
     }
 
     @Then("the expected desination topic name is {string}")
-    public void theEpectedDestinattionTopicNameIs(String expectedTopicName) {
+    public void theExpectedDestinationTopicNameIs(String expectedTopicName) {
         String actualTopicName = renamer.rename(sourceTopicName);
         assertEquals(expectedTopicName, actualTopicName);
     }
