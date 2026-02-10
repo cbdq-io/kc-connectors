@@ -2,12 +2,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.cbdq</groupId>
     <artifactId>azure-servicebus-parent</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
+
     <name>Azure Service Bus Connectors</name>
     <description>Parent project for Azure Service Bus Kafka Connectors</description>
 
@@ -16,75 +18,95 @@
     </modules>
 
     <properties>
-        <apache.commons.text.version>1.14.0</apache.commons.text.version>
-        <cucumber.version>7.27.0</cucumber.version>
         <java.version>21</java.version>
-        <junit.version>4.13.2</junit.version>
         <kafka.version>3.9.1</kafka.version>
+
+        <junit.jupiter.version>5.10.1</junit.jupiter.version>
+        <mockito.version>5.8.0</mockito.version>
+        <cucumber.version>7.27.0</cucumber.version>
+
+        <prometheus.version>1.4.1</prometheus.version>
+        <slf4j.version>2.0.17</slf4j.version>
+
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
         <maven.shade.plugin.version>3.2.4</maven.shade.plugin.version>
+        <apache.commons.text.version>1.15.0</apache.commons.text.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <prometheus.version>1.4.1</prometheus.version>
-        <slf4j.version>2.0.17</slf4j.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>prometheus-metrics-core</artifactId>
-                <version>${prometheus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>prometheus-metrics-instrumentation-jvm</artifactId>
-                <version>${prometheus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>prometheus-metrics-exporter-httpserver</artifactId>
-                <version>${prometheus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-text</artifactId>
-                <version>1.15.0</version>
-            </dependency>
+
+            <!-- Runtime -->
             <dependency>
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>connect-api</artifactId>
                 <version>${kafka.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
+
+            <!-- Prometheus -->
+            <dependency>
+                <groupId>io.prometheus</groupId>
+                <artifactId>prometheus-metrics-core</artifactId>
+                <version>${prometheus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.prometheus</groupId>
+                <artifactId>prometheus-metrics-instrumentation-jvm</artifactId>
+                <version>${prometheus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.prometheus</groupId>
+                <artifactId>prometheus-metrics-exporter-httpserver</artifactId>
+                <version>${prometheus.version}</version>
+            </dependency>
+
+            <!-- Test -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.jupiter.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
             <dependency>
                 <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-java</artifactId>
                 <version>${cucumber.version}</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-junit</artifactId>
-                <version>${cucumber.version}</version>
-                <scope>test</scope>
-            </dependency>
+
             <dependency>
                 <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-core</artifactId>
                 <version>${cucumber.version}</version>
                 <scope>test</scope>
             </dependency>
+
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.13.2</version>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-junit-platform-engine</artifactId>
+                <version>${cucumber.version}</version>
                 <scope>test</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -96,11 +118,13 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven.compiler.plugin.version}</version>
                 </plugin>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
                     <version>${maven.shade.plugin.version}</version>
                 </plugin>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
@@ -108,5 +132,18 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <!-- ACTUAL execution -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
+
 </project>
