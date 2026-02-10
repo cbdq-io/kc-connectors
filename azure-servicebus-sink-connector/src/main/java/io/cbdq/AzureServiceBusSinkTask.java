@@ -22,6 +22,56 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private PrometheusMetrics metrics;
     /* package-private */ boolean setKafkaPartitionAsSessionId;
 
+    /* package-private */ ServiceBusMessage createMessageFromEnvelope(SinkRecord envelope) {
+        byte[] body;
+
+        if (envelope.value() instanceof byte[] bytes) {
+            body = bytes;
+        } else if (envelope.value() instanceof String string) {
+            body = string.getBytes(StandardCharsets.UTF_8);
+        } else {
+            throw new AzureServiceBusSinkException("Unsupported record value type: " + envelope.value().getClass());
+        }
+
+        ServiceBusMessage message = new ServiceBusMessage(body);
+
+        if (setKafkaPartitionAsSessionId && envelope.kafkaPartition() != null) {
+            message.setSessionId(envelope.kafkaPartition().toString());
+        }
+
+        if (envelope.key() != null) {
+            message.getApplicationProperties().put("__kafka_key", envelope.key().toString());
+        }
+
+        message.getApplicationProperties().put("__kafka_partition", envelope.kafkaPartition());
+
+        return message;
+    }
+
+    private Map<String, List<SinkRecord>> groupRecordsByTopic(Collection<SinkRecord> envelopes) {
+        Map<String, List<SinkRecord>> grouped = new HashMap<>();
+        for (SinkRecord envelope : envelopes) {
+            grouped.computeIfAbsent(envelope.topic(), k -> new ArrayList<>()).add(envelope);
+            metrics.incrementMessageCounter();
+        }
+        return grouped;
+    }
+
+    @Override
+    public void put(Collection<SinkRecord> envelopes) {
+        if (envelopes == null || envelopes.isEmpty()) {
+            log.info("Received empty record batch, skipping.");
+            return;
+        }
+
+        log.info("Received {} records from Kafka.", envelopes.size());
+        Map<String, List<SinkRecord>> recordsByTopic = groupRecordsByTopic(envelopes);
+
+        for (Map.Entry<String, List<SinkRecord>> entry : recordsByTopic.entrySet()) {
+            sendMessagesToServiceBusTopic(entry.getKey(), entry.getValue());
+        }
+    }
+
     @Override
     public void start(Map<String, String> props) {
         log.info("Starting task in version {} of the connector.", VersionUtil.getVersion());
@@ -66,159 +116,71 @@ public class AzureServiceBusSinkTask extends SinkTask {
         metrics = PrometheusMetrics.getInstance(context.configs().get("name").toLowerCase());
     }
 
-    @Override
-    public void put(Collection<SinkRecord> envelopes) {
-        if (envelopes == null || envelopes.isEmpty()) {
-            log.info("Received empty record batch, skipping.");
+    private void sendBatchToTopic(ServiceBusSenderClient sender, ServiceBusMessageBatch batch, List<ServiceBusMessage> messages) {
+        if (batch.getCount() == 0) {
+            // Avoid sending an empty batch.
             return;
         }
 
-        log.info("Received {} records", envelopes.size());
-        Map<String, List<SinkRecord>> recordsByTopic = groupRecordsByTopic(envelopes);
-
-        for (Map.Entry<String, List<SinkRecord>> entry : recordsByTopic.entrySet()) {
-            sendMessages(entry.getKey(), entry.getValue());
-        }
-    }
-
-    private Map<String, List<SinkRecord>> groupRecordsByTopic(Collection<SinkRecord> envelopes) {
-        Map<String, List<SinkRecord>> grouped = new HashMap<>();
-        for (SinkRecord envelope : envelopes) {
-            grouped.computeIfAbsent(envelope.topic(), k -> new ArrayList<>()).add(envelope);
-            metrics.incrementMessageCounter();
-        }
-        return grouped;
-    }
-
-    private void sendOversizedMessageIndividually(
-        ServiceBusSenderClient sender,
-        String topic,
-        SinkRecord envelope,
-        ServiceBusMessage msg,
-        int bodyBytes
-    ) {
         try {
-            sender.sendMessage(msg);
+            log.info("Sending a batch of {} messages...", batch.getCount());
+            sender.sendMessages(batch);
+        } catch (AzureServiceBusSinkException ex) {
+            if (ex.getMessage().contains("batch message with no data") ||
+                ex.getMessage().contains("too large to fit in an empty batch")) {
+                log.info(
+                    "Recoverable error sending the batch sized {} - {} bytes.  Sending individually.",
+                    batch.getSizeInBytes(),
+                    batch.getMaxSizeInBytes()
+                );
 
-            log.info(
-                "Message too large for batching; sent individually. topic={} partition={} offset={} bodyBytes={}K",
-                topic,
-                envelope.kafkaPartition(),
-                envelope.kafkaOffset(),
-                Math.round((bodyBytes / 1024.0) * 10.0) / 10.0
-            );
-        } catch (Exception e) {
-            throw new AzureServiceBusSinkException(
-                String.format(
-                    "Message too large to batch and failed individual send. " +
-                    "topic=%s bodyBytes=%d kafkaPartition=%s kafkaOffset=%s",
-                    topic,
-                    bodyBytes,
-                    envelope.kafkaPartition(),
-                    envelope.kafkaOffset()
-                ),
-                e
-            );
+                for (ServiceBusMessage message : messages) {
+                    sender.sendMessage(message);
+                }
+            } else {
+                throw ex; // unknown or critical failure
+            }
         }
     }
 
-    private void sendMessages(String topic, List<SinkRecord> envelopes) {
-        log.debug("Attempting to send {} messages in batch for topic '{}'", envelopes.size(), topic);
-        sendBatchToTopic(topic, envelopes);
-    }
-
-    private void sendBatchToTopic(String topic, List<SinkRecord> envelopes) {
+    private void sendMessagesToServiceBusTopic(String topic, List<SinkRecord> envelopes) {
         ServiceBusSenderClient sender = serviceBusSenders.get(topic);
-        int maxBodyBytesInBatch = 0;
+        log.debug("Attempting to send {} messages to ServiceBus topic '{}'.", envelopes.size(), topic);
 
         if (sender == null) {
             throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
         }
 
-        try {
-            ServiceBusMessageBatch batch = sender.createMessageBatch();
+        ServiceBusMessageBatch currentBatch = sender.createMessageBatch();
+        List<ServiceBusMessage> currentMessages = new ArrayList<>();
 
-            for (SinkRecord envelope : envelopes) {
-                ServiceBusMessage msg = createMessageFromRecord(envelope);
-                int bodyBytes = msg.getBody().toBytes().length;
-                maxBodyBytesInBatch = Math.max(maxBodyBytesInBatch, bodyBytes);
-                boolean added = batch.tryAddMessage(msg);
+        // We try to add as many messages as a batch can fit based on the maximum size and send to Service Bus when
+        // the batch can hold no more messages. Create a new batch for next set of messages and repeat until all
+        // messages are sent.
+        for (SinkRecord envelope : envelopes) {
+            ServiceBusMessage message = createMessageFromEnvelope(envelope);
 
-                if (!added) {
-                    if (batch.getCount() > 0) {
-                        log.info(
-                            "Sending current batch of {} messages to topic '{}', largest message is {}K",
-                            batch.getCount(),
-                            topic,
-                            Math.round((maxBodyBytesInBatch / 1024.0) * 10.0) / 10.0
-                        );
-                        sender.sendMessages(batch);
-                    } else {
-                        log.warn("Batch rejected first message — skipping send and creating a new batch");
-                    }
-
-                    batch = sender.createMessageBatch();
-                    maxBodyBytesInBatch = 0;
-                    boolean addedToNew = batch.tryAddMessage(msg);
-
-                    if (addedToNew) {
-                        maxBodyBytesInBatch = bodyBytes;
-                    } else {
-                        sendOversizedMessageIndividually(sender, topic, envelope, msg, bodyBytes);
-
-                        // message handled individually; start a fresh batch
-                        batch = sender.createMessageBatch();
-                        maxBodyBytesInBatch = 0;
-                    }
-                }
+            if (currentBatch.tryAddMessage(message)) {
+                currentMessages.add(message);
+                continue;
             }
 
-            if (batch.getCount() > 0) {
-                log.info(
-                    "Sending remaining batch of {} messages to topic '{}', largest message is {}K",
-                    batch.getCount(),
-                    topic,
-                    Math.round((maxBodyBytesInBatch / 1024.0) * 10.0) / 10.0
-                );
-                sender.sendMessages(batch);
+            // The batch is full, so we create a new batch and send the batch.
+            sendBatchToTopic(sender, currentBatch, currentMessages);
+            currentBatch = sender.createMessageBatch();
+            currentMessages = new ArrayList<>();
+
+            // Add that message that we couldn't before.
+            if (!currentBatch.tryAddMessage(message)) {
+                int bodyBytes = message.getBody().toBytes().length;
+                log.debug("Message is too large ({} bytes) for an empty batch.", bodyBytes);
+                sender.sendMessage(message);
             } else {
-                log.debug("No messages to send in final batch for topic '{}'", topic);
+                currentMessages.add(message);
             }
-        } catch (Exception e) {
-            String errorMessage = String.format(
-                "Failed to send messages to topic '%s': %s (maxBodyBytesInBatch=%d)",
-                topic,
-                e.getMessage(),
-                maxBodyBytesInBatch
-            );
-            throw new AzureServiceBusSinkException(errorMessage, e);
-        }
-    }
-
-    /* package-private */ ServiceBusMessage createMessageFromRecord(SinkRecord envelope) {
-        byte[] body;
-
-        if (envelope.value() instanceof byte[] bytes) {
-            body = bytes;
-        } else if (envelope.value() instanceof String string) {
-            body = string.getBytes(StandardCharsets.UTF_8);
-        } else {
-            throw new AzureServiceBusSinkException("Unsupported record value type: " + envelope.value().getClass());
         }
 
-        ServiceBusMessage message = new ServiceBusMessage(body);
-
-        if (setKafkaPartitionAsSessionId && envelope.kafkaPartition() != null) {
-            message.setSessionId(envelope.kafkaPartition().toString());
-        }
-
-        if (envelope.key() != null) {
-            message.getApplicationProperties().put("__kafka_key", envelope.key().toString());
-        }
-
-        message.getApplicationProperties().put("__kafka_partition", envelope.kafkaPartition());
-
-        return message;
+        sendBatchToTopic(sender, currentBatch, currentMessages);
     }
 
     @Override
