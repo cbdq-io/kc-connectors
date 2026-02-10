@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fix
+
+* Catch batch errors and fall back to individual sending again. [Ben Dalling]
+
 ### Build
 
 * Add more vulnerabilities found in the base image to Trivy ignore. [Ben Dalling]
