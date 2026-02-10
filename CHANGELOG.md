@@ -1,6 +1,17 @@
 # Changelog
 
 
+## Unreleased
+
+### Build
+
+* Add more vulnerabilities found in the base image to Trivy ignore. [Ben Dalling]
+
+### Tests
+
+* Migrate from JUnit 4 to 5. [Ben Dalling]
+
+
 ## 1.0.0 (2026-01-30)
 
 ### Fix
