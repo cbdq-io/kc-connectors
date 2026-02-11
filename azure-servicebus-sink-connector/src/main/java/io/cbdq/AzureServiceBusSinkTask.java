@@ -16,7 +16,9 @@ import java.util.*;
 public class AzureServiceBusSinkTask extends SinkTask {
 
     private static final Logger log = LoggerFactory.getLogger(AzureServiceBusSinkTask.class);
-
+    private ServiceBusClientBuilder clientBuilder;
+    private TopicRenameFormat renamer;
+    private String connectionString;
     /* package-private */ Map<String, ServiceBusSenderClient> serviceBusSenders;
     private AzureServiceBusSinkConnectorConfig config;
     private PrometheusMetrics metrics;
@@ -72,35 +74,45 @@ public class AzureServiceBusSinkTask extends SinkTask {
         }
     }
 
+    private ServiceBusSenderClient recreateSender(String sourceTopic) {
+        String destinationTopic = renamer.rename(sourceTopic);
+        ServiceBusSenderClient old = serviceBusSenders.get(sourceTopic);
+        try { if (old != null) old.close(); } catch (Exception ignore) {}
+
+        ServiceBusSenderClient replacement =
+            clientBuilder.sender().topicName(destinationTopic).buildClient();
+
+        serviceBusSenders.put(sourceTopic, replacement);
+        log.warn("Recreated Service Bus sender for topic: {} -> {}", sourceTopic, destinationTopic);
+        return replacement;
+    }
+
     @Override
     public void start(Map<String, String> props) {
         log.info("Starting task in version {} of the connector.", VersionUtil.getVersion());
-
         config = new AzureServiceBusSinkConnectorConfig(props);
-        TopicRenameFormat renamer = new TopicRenameFormat(config.getString(AzureServiceBusSinkConnectorConfig.TOPIC_RENAME_FORMAT_CONFIG));
+        renamer = new TopicRenameFormat(config.getString(AzureServiceBusSinkConnectorConfig.TOPIC_RENAME_FORMAT_CONFIG));
         setKafkaPartitionAsSessionId = config.getBoolean(AzureServiceBusSinkConnectorConfig.SET_KAFKA_PARTITION_AS_SESSION_ID_CONFIG);
-
-        String connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
-
+        connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
         AmqpRetryOptions retryOptions = new AmqpRetryOptions()
-        .setMaxRetries(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_ATTEMPTS_CONFIG))
-        .setDelay(Duration.ofMillis(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_DELAY_MS_CONFIG)))
-        .setMaxDelay(Duration.ofMillis(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_DELAY_MS_CONFIG)))
-        .setTryTimeout(Duration.ofMillis(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_TOTAL_TIMEOUT_MS_CONFIG)))
-        .setMode("fixed".equalsIgnoreCase(config.getString(AzureServiceBusSinkConnectorConfig.RETRY_MODE_CONFIG))
-                 ? AmqpRetryMode.FIXED
-                 : AmqpRetryMode.EXPONENTIAL);
-
+            .setMaxRetries(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_ATTEMPTS_CONFIG))
+            .setDelay(Duration.ofMillis(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_DELAY_MS_CONFIG)))
+            .setMaxDelay(Duration.ofMillis(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_DELAY_MS_CONFIG)))
+            .setTryTimeout(Duration.ofMillis(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_TOTAL_TIMEOUT_MS_CONFIG)))
+            .setMode("fixed".equalsIgnoreCase(config.getString(AzureServiceBusSinkConnectorConfig.RETRY_MODE_CONFIG))
+                    ? AmqpRetryMode.FIXED
+                    : AmqpRetryMode.EXPONENTIAL);
         serviceBusSenders = new HashMap<>();
         String topicsStr = props.get("topics");
 
         if (topicsStr != null) {
-            ServiceBusClientBuilder clientBuilder = new ServiceBusClientBuilder()
+            clientBuilder = new ServiceBusClientBuilder()
                 .connectionString(connectionString)
                 .retryOptions(retryOptions);
 
             for (String topic : topicsStr.split(",")) {
                 topic = topic.trim();
+
                 if (!topic.isEmpty()) {
                     String destinationTopic = renamer.rename(topic);
                     ServiceBusSenderClient sender = clientBuilder.sender().topicName(destinationTopic).buildClient();
@@ -116,39 +128,44 @@ public class AzureServiceBusSinkTask extends SinkTask {
         metrics = PrometheusMetrics.getInstance(context.configs().get("name").toLowerCase());
     }
 
-    private void sendBatchToTopic(ServiceBusSenderClient sender, ServiceBusMessageBatch batch, List<ServiceBusMessage> messages) {
+    private ServiceBusSenderClient sendBatchToTopic(
+        String sourceTopic,
+        ServiceBusSenderClient sender,
+        ServiceBusMessageBatch batch,
+        List<ServiceBusMessage> messages) {
+
         if (batch.getCount() == 0) {
             // Avoid sending an empty batch.
-            return;
+            return sender;
         }
 
         try {
-            log.info("Sending a batch of {} messages...", batch.getCount());
+            log.info("Sending a batch of {} messages to...", batch.getCount());
             sender.sendMessages(batch);
-        } catch (AzureServiceBusSinkException ex) {
-            if (ex.getMessage().contains("batch message with no data") ||
-                ex.getMessage().contains("too large to fit in an empty batch")) {
-                log.info(
-                    "Recoverable error sending the batch sized {} - {} bytes.  Sending individually.",
-                    batch.getSizeInBytes(),
-                    batch.getMaxSizeInBytes()
-                );
+            return sender;
+        } catch (ServiceBusException ex) {
+            log.warn(
+                "Batch send failed for topic {}. Recreating sender and falling back to individual sends.",
+                sourceTopic,
+                ex
+            );
 
-                for (ServiceBusMessage message : messages) {
-                    sender.sendMessage(message);
-                }
-            } else {
-                throw ex; // unknown or critical failure
+            ServiceBusSenderClient newSender = recreateSender(sourceTopic);
+
+            for (ServiceBusMessage message : messages) {
+                newSender.sendMessage(message);
             }
+
+            return newSender;
         }
     }
 
-    private void sendMessagesToServiceBusTopic(String topic, List<SinkRecord> envelopes) {
-        ServiceBusSenderClient sender = serviceBusSenders.get(topic);
-        log.debug("Attempting to send {} messages to ServiceBus topic '{}'.", envelopes.size(), topic);
+    private void sendMessagesToServiceBusTopic(String sourceTopic, List<SinkRecord> envelopes) {
+        ServiceBusSenderClient sender = serviceBusSenders.get(sourceTopic);
+        log.debug("Attempting to send {} messages from Kafka topic '{}'.", envelopes.size(), sourceTopic);
 
         if (sender == null) {
-            throw new AzureServiceBusSinkException("No sender configured for topic: " + topic);
+            throw new AzureServiceBusSinkException("No sender configured for topic: " + sourceTopic);
         }
 
         ServiceBusMessageBatch currentBatch = sender.createMessageBatch();
@@ -166,7 +183,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
             }
 
             // The batch is full, so we create a new batch and send the batch.
-            sendBatchToTopic(sender, currentBatch, currentMessages);
+            sendBatchToTopic(sourceTopic, sender, currentBatch, currentMessages);
             currentBatch = sender.createMessageBatch();
             currentMessages = new ArrayList<>();
 
@@ -180,7 +197,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
             }
         }
 
-        sendBatchToTopic(sender, currentBatch, currentMessages);
+        sendBatchToTopic(sourceTopic, sender, currentBatch, currentMessages);
     }
 
     @Override
