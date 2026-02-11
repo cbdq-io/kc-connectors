@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Catch the correct exception and recreate sender. [Ben Dalling]
+
 * Catch batch errors and fall back to individual sending again. [Ben Dalling]
 
 ### Build
