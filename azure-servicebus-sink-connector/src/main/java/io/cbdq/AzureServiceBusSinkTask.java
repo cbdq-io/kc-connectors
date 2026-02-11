@@ -18,7 +18,6 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private static final Logger log = LoggerFactory.getLogger(AzureServiceBusSinkTask.class);
     private ServiceBusClientBuilder clientBuilder;
     private TopicRenameFormat renamer;
-    private String connectionString;
     /* package-private */ Map<String, ServiceBusSenderClient> serviceBusSenders;
     private AzureServiceBusSinkConnectorConfig config;
     private PrometheusMetrics metrics;
@@ -77,7 +76,14 @@ public class AzureServiceBusSinkTask extends SinkTask {
     private ServiceBusSenderClient recreateSender(String sourceTopic) {
         String destinationTopic = renamer.rename(sourceTopic);
         ServiceBusSenderClient old = serviceBusSenders.get(sourceTopic);
-        try { if (old != null) old.close(); } catch (Exception ignore) {}
+
+        if (old != null) {
+            try {
+                old.close();
+            } catch (Exception ex) {
+                log.debug("Failed closing old sender for topic {}", sourceTopic, ex);
+            }
+        }
 
         ServiceBusSenderClient replacement =
             clientBuilder.sender().topicName(destinationTopic).buildClient();
@@ -93,7 +99,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
         config = new AzureServiceBusSinkConnectorConfig(props);
         renamer = new TopicRenameFormat(config.getString(AzureServiceBusSinkConnectorConfig.TOPIC_RENAME_FORMAT_CONFIG));
         setKafkaPartitionAsSessionId = config.getBoolean(AzureServiceBusSinkConnectorConfig.SET_KAFKA_PARTITION_AS_SESSION_ID_CONFIG);
-        connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
+        String connectionString = config.getPassword(AzureServiceBusSinkConnectorConfig.CONNECTION_STRING_CONFIG).value();
         AmqpRetryOptions retryOptions = new AmqpRetryOptions()
             .setMaxRetries(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_MAX_ATTEMPTS_CONFIG))
             .setDelay(Duration.ofMillis(config.getInt(AzureServiceBusSinkConnectorConfig.RETRY_DELAY_MS_CONFIG)))
@@ -140,7 +146,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
         }
 
         try {
-            log.info("Sending a batch of {} messages to...", batch.getCount());
+            log.debug("Sending a batch of {} messages to...", batch.getCount());
             sender.sendMessages(batch);
             return sender;
         } catch (ServiceBusException ex) {
@@ -183,7 +189,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
             }
 
             // The batch is full, so we create a new batch and send the batch.
-            sendBatchToTopic(sourceTopic, sender, currentBatch, currentMessages);
+            sender = sendBatchToTopic(sourceTopic, sender, currentBatch, currentMessages);
             currentBatch = sender.createMessageBatch();
             currentMessages = new ArrayList<>();
 
@@ -197,7 +203,7 @@ public class AzureServiceBusSinkTask extends SinkTask {
             }
         }
 
-        sendBatchToTopic(sourceTopic, sender, currentBatch, currentMessages);
+        sender = sendBatchToTopic(sourceTopic, sender, currentBatch, currentMessages);
     }
 
     @Override
