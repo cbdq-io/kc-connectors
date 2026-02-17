@@ -5,6 +5,37 @@
 
 ### Fix
 
+* Catch the correct exception and recreate sender. [Ben Dalling]
+
+* Catch batch errors and fall back to individual sending again. [Ben Dalling]
+
+### Build
+
+* Bump aquasecurity/trivy-action from 0.33.1 to 0.34.0. [dependabot[bot]]
+
+  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.33.1 to 0.34.0.
+  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
+  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.33.1...0.34.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: aquasecurity/trivy-action
+    dependency-version: 0.34.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+* Add more vulnerabilities found in the base image to Trivy ignore. [Ben Dalling]
+
+### Tests
+
+* Migrate from JUnit 4 to 5. [Ben Dalling]
+
+
+## 1.0.0 (2026-01-30)
+
+### Fix
+
 * CVE-2025-15467. [Ben Dalling]
 
 * CVE-2025-68973. [Ben Dalling]
