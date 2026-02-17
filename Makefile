@@ -28,6 +28,7 @@ tag:
 	@docker compose run --quiet --rm mvn help:evaluate -Dexpression=project.version -q -DforceStdout
 
 test:
+	docker compose run --rm mvn test
 	docker compose up -d kafka sqledge --wait
 	docker compose run --rm emulators
 	docker compose exec kafka kafka-topics --bootstrap-server kafka:29092 --create --topic vault.infra.external.kafka_connect.default.config --config cleanup.policy=compact
