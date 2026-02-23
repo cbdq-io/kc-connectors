@@ -1,6 +1,25 @@
 # Changelog
 
 
+## Unreleased
+
+### Build
+
+* Bump aquasecurity/trivy-action from 0.34.0 to 0.34.1. [dependabot[bot]]
+
+  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.34.0 to 0.34.1.
+  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
+  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.34.0...0.34.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: aquasecurity/trivy-action
+    dependency-version: 0.34.1
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+
 ## 1.0.1 (2026-02-17)
 
 ### Fix
