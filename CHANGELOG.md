@@ -1,6 +1,25 @@
 # Changelog
 
 
+## Unreleased
+
+### Build
+
+* Bump docker/build-push-action from 6 to 7. [dependabot[bot]]
+
+  Bumps [docker/build-push-action](https://github.com/docker/build-push-action) from 6 to 7.
+  - [Release notes](https://github.com/docker/build-push-action/releases)
+  - [Commits](https://github.com/docker/build-push-action/compare/v6...v7)
+
+  ---
+  updated-dependencies:
+  - dependency-name: docker/build-push-action
+    dependency-version: '7'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+
 ## 1.0.1 (2026-02-17)
 
 ### Fix
