@@ -5,6 +5,7 @@
 
 ### Build
 
+<<<<<<< HEAD
 * Bump docker/login-action from 3 to 4. [dependabot[bot]]
 
   Bumps [docker/login-action](https://github.com/docker/login-action) from 3 to 4.
@@ -15,6 +16,18 @@
   updated-dependencies:
   - dependency-name: docker/login-action
     dependency-version: '4'
+=======
+* Bump docker/build-push-action from 6 to 7. [dependabot[bot]]
+
+  Bumps [docker/build-push-action](https://github.com/docker/build-push-action) from 6 to 7.
+  - [Release notes](https://github.com/docker/build-push-action/releases)
+  - [Commits](https://github.com/docker/build-push-action/compare/v6...v7)
+
+  ---
+  updated-dependencies:
+  - dependency-name: docker/build-push-action
+    dependency-version: '7'
+>>>>>>> dependabot/github_actions/docker/build-push-action-7
     dependency-type: direct:production
     update-type: version-update:semver-major
   ...
