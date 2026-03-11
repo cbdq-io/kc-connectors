@@ -26,6 +26,16 @@
   updated-dependencies:
   - dependency-name: docker/build-push-action
     dependency-version: '7'
+* Bump docker/setup-buildx-action from 3 to 4. [dependabot[bot]]
+
+  Bumps [docker/setup-buildx-action](https://github.com/docker/setup-buildx-action) from 3 to 4.
+  - [Release notes](https://github.com/docker/setup-buildx-action/releases)
+  - [Commits](https://github.com/docker/setup-buildx-action/compare/v3...v4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: docker/setup-buildx-action
+    dependency-version: '4'
     dependency-type: direct:production
     update-type: version-update:semver-major
   ...
