@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Unreleased
+
+### Fix
+
+* More vulnerabilities found in the base image. [Ben Dalling]
+
+
 ## 1.0.2 (2026-03-11)
 
 ### Fix
