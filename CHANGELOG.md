@@ -5,6 +5,73 @@
 
 ### Fix
 
+* CVE-2025-68973, CVE-2025-61729, CVE-2025-12383 and CVE-2025-12183 are no longer present in the image. [Ben Dalling]
+
+### Build
+
+* Bump aquasecurity/trivy-action from 0.34.0 to 0.34.1. [dependabot[bot]]
+
+  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.34.0 to 0.34.1.
+  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
+  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.34.0...0.34.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: aquasecurity/trivy-action
+    dependency-version: 0.34.1
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump docker/setup-buildx-action from 3 to 4. [dependabot[bot]]
+
+  Bumps [docker/setup-buildx-action](https://github.com/docker/setup-buildx-action) from 3 to 4.
+  - [Release notes](https://github.com/docker/setup-buildx-action/releases)
+  - [Commits](https://github.com/docker/setup-buildx-action/compare/v3...v4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: docker/setup-buildx-action
+    dependency-version: '4'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+* Bump docker/build-push-action from 6 to 7. [dependabot[bot]]
+
+  Bumps [docker/build-push-action](https://github.com/docker/build-push-action) from 6 to 7.
+  - [Release notes](https://github.com/docker/build-push-action/releases)
+  - [Commits](https://github.com/docker/build-push-action/compare/v6...v7)
+
+  ---
+  updated-dependencies:
+  - dependency-name: docker/build-push-action
+    dependency-version: '7'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+* Bump docker/login-action from 3 to 4. [dependabot[bot]]
+
+  Bumps [docker/login-action](https://github.com/docker/login-action) from 3 to 4.
+  - [Release notes](https://github.com/docker/login-action/releases)
+  - [Commits](https://github.com/docker/login-action/compare/v3...v4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: docker/login-action
+    dependency-version: '4'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+* Upgrade the container image of confluentinc/cp-kafka-connect from 8.1.1 to 8.2.0. [Ben Dalling]
+
+
+## 1.0.1 (2026-02-17)
+
+### Fix
+
 * Catch the correct exception and recreate sender. [Ben Dalling]
 
 * Catch batch errors and fall back to individual sending again. [Ben Dalling]
