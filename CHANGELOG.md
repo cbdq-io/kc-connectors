@@ -7,6 +7,22 @@
 
 * More vulnerabilities found in the base image. [Ben Dalling]
 
+### Build
+
+* Bump aquasecurity/trivy-action from 0.34.1 to 0.35.0. [dependabot[bot]]
+
+  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.34.1 to 0.35.0.
+  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
+  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.34.1...0.35.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: aquasecurity/trivy-action
+    dependency-version: 0.35.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
 
 ## 1.0.2 (2026-03-11)
 
