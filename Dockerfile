@@ -9,6 +9,7 @@ RUN microdnf clean all \
   && microdnf install -y bind-utils jq python3-pip \
   && microdnf upgrade -y \
     gnupg2 \
+    libarchive \
     libpng \
     openssl-libs \
   && microdnf clean all \

@@ -1,13 +1,17 @@
 # Changelog
 
 
-## Unreleased
+## 1.0.3 (2026-04-01)
 
 ### Fix
 
 * More vulnerabilities found in the base image. [Ben Dalling]
 
 ### Build
+
+* OSV Scanner not used at the moment. [Ben Dalling]
+
+* Resolve CVE-2026-4111. [Ben Dalling]
 
 * Bump aquasecurity/trivy-action from 0.34.1 to 0.35.0. [dependabot[bot]]
 

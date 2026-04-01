@@ -1,7 +1,9 @@
 
 # The following vulnerabilities are found in the base image (confluentinc/cp-kafka-connect:8.2.0).
-GHSA-72hv-8253-57qq
+CVE-2025-67030
 CVE-2026-1605
+CVE-2026-25646
 CVE-2026-25679
 CVE-2026-27137
-CVE-2026-27142
+CVE-2026-33870
+CVE-2026-33871
