@@ -5,6 +5,33 @@
 
 ### Fix
 
+* More vulnerabilities found in the base image. [Ben Dalling]
+
+### Build
+
+* OSV Scanner not used at the moment. [Ben Dalling]
+
+* Resolve CVE-2026-4111. [Ben Dalling]
+
+* Bump aquasecurity/trivy-action from 0.34.1 to 0.35.0. [dependabot[bot]]
+
+  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.34.1 to 0.35.0.
+  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
+  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.34.1...0.35.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: aquasecurity/trivy-action
+    dependency-version: 0.35.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+
+## 1.0.2 (2026-03-11)
+
+### Fix
+
 * CVE-2025-68973, CVE-2025-61729, CVE-2025-12383 and CVE-2025-12183 are no longer present in the image. [Ben Dalling]
 
 ### Build
