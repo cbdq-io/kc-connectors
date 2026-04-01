@@ -9,6 +9,10 @@
 
 ### Build
 
+* OSV Scanner not used at the moment. [Ben Dalling]
+
+* Resolve CVE-2026-4111. [Ben Dalling]
+
 * Bump aquasecurity/trivy-action from 0.34.1 to 0.35.0. [dependabot[bot]]
 
   Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.34.1 to 0.35.0.
