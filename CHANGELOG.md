@@ -1,6 +1,17 @@
 # Changelog
 
 
+## Unreleased
+
+### Fix
+
+* Resolve CVE-2026-1519. [Ben Dalling]
+
+### Build
+
+* Update the vulnerability list of the base image. [Ben Dalling]
+
+
 ## 1.0.3 (2026-04-01)
 
 ### Fix
