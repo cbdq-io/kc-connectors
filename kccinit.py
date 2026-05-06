@@ -26,7 +26,12 @@ import types
 import requests
 from prometheus_client import start_http_server, Counter
 
-logging.basicConfig()
+logging.basicConfig(
+    format=os.environ.get(
+        'LOG_FORMAT',
+        '%(levelname)s [%(filename)s:%(lineno)d] %(message)s'
+    )
+)
 logger = logging.getLogger('kccinit')
 logger.setLevel(os.environ.get('LOG_LEVEL', 'WARN'))
 parser = argparse.ArgumentParser()
