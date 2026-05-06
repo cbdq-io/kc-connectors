@@ -67,12 +67,26 @@ class SidecarMode:
             'The number of task restarts made.'
         )
         self.connector_states = {}
+        sleep_time = 1
+        is_connection_broken = False
 
         while True:
-            status_details = self.get_status_details(endpoint)
-            failed_tasks_count = self.restart_any_failed_tasks(status_details)
-            self.error_occurences = self.report_status(failed_tasks_count)
-            time.sleep(60)
+            try:
+                status_details = self.get_status_details(endpoint)
+                failed_tasks_count = self.restart_any_failed_tasks(status_details)
+                self.error_occurences = self.report_status(failed_tasks_count)
+
+                if is_connection_broken:
+                    logger.info(f'Connection to <{self.endpoint}> has recovered.')
+                    is_connection_broken = False
+
+                sleep_time = 60
+            except Exception as ex:
+                logger.error(ex)
+                sleep_time = 5
+                is_connection_broken = True
+
+            time.sleep(sleep_time)
 
     def get_status_details(self, endpoint: str) -> dict:
         """
