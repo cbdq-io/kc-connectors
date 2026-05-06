@@ -1,6 +1,33 @@
 # Changelog
 
 
+## Unreleased
+
+### Fix
+
+* Add CVE-2026-4786, CVE-2026-4878 and CVE-2026-6100 to the list of base image vulnerabilities. [Ben Dalling]
+
+* Allow the user to configure the log format of kccinit. [Ben Dalling]
+
+* Ensure sidecar mode is more robust with connection interruptions. [Ben Dalling]
+
+### Build
+
+* Bump aquasecurity/trivy-action from 0.35.0 to 0.36.0. [dependabot[bot]]
+
+  Bumps [aquasecurity/trivy-action](https://github.com/aquasecurity/trivy-action) from 0.35.0 to 0.36.0.
+  - [Release notes](https://github.com/aquasecurity/trivy-action/releases)
+  - [Commits](https://github.com/aquasecurity/trivy-action/compare/0.35.0...v0.36.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: aquasecurity/trivy-action
+    dependency-version: 0.36.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+
 ## 1.0.4 (2026-04-23)
 
 ### Fix
