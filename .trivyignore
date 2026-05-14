@@ -1,5 +1,15 @@
 
 # The following vulnerabilities are found in the base image (confluentinc/cp-kafka-connect:8.2.0).
+#
+#    trivy image --format json confluentinc/cp-kafka-connect:8.2.0 \
+#    | jq -r '
+#    .Results[]
+#    | select(.Vulnerabilities != null)
+#    | .Vulnerabilities[]
+#    | .VulnerabilityID
+#    ' \
+#    | sort -u
+#
 CVE-2025-67030
 CVE-2026-1605
 CVE-2026-2332
@@ -11,8 +21,25 @@ CVE-2026-32280
 CVE-2026-32281
 CVE-2026-32283
 CVE-2026-33810
+CVE-2026-33811
+CVE-2026-33814
 CVE-2026-33870
 CVE-2026-33871
+CVE-2026-39820
+CVE-2026-39836
 CVE-2026-4111
+CVE-2026-42499
+CVE-2026-42577
+CVE-2026-42579
+CVE-2026-42583
+CVE-2026-42584
+CVE-2026-42587
 CVE-2026-4424
 CVE-2026-4519
+CVE-2026-4786
+CVE-2026-4878
+CVE-2026-6100
+
+# Fixed in urllib3 2.7.0, but not supported in Python 3.9 which is present on the base image.
+CVE-2026-44431
+CVE-2026-44432
