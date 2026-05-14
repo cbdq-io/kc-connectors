@@ -5,6 +5,12 @@
 
 ### Fix
 
+* Resolve CVE-2026-39979 & CVE-2026-40164. [Ben Dalling]
+
+* Add CVE-2026-44431 and CVE-2026-44432 to the allowed vulnerabilities. [Ben Dalling]
+
+* Update list of vulnerabilities in the base image. [Ben Dalling]
+
 * Add CVE-2026-4786, CVE-2026-4878 and CVE-2026-6100 to the list of base image vulnerabilities. [Ben Dalling]
 
 * Allow the user to configure the log format of kccinit. [Ben Dalling]
