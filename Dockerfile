@@ -10,6 +10,7 @@ RUN microdnf clean all \
   && microdnf upgrade -y \
     bind-utils \
     gnupg2 \
+    jq \
     libarchive \
     libpng \
     openssl-libs \
