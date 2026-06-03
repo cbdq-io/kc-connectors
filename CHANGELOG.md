@@ -3,6 +3,25 @@
 
 ## Unreleased
 
+### Build
+
+* Bump the base confluentinc/cp-kafka-connect tag from 8.2.0 to 8.2.1. [Ben Dalling]
+
+* Bump ghcr.io/devcontainers/features/docker-in-docker. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/docker-in-docker from 2.17.0 to 3.0.1.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/docker-in-docker
+    dependency-version: 3.0.1
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+
+## 1.0.5 (2026-05-14)
+
 ### Fix
 
 * Resolve CVE-2026-39979 & CVE-2026-40164. [Ben Dalling]
