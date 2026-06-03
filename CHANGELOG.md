@@ -1,9 +1,11 @@
 # Changelog
 
 
-## Unreleased
+## 1.0.6 (2026-06-03)
 
 ### Build
+
+* Bump the base confluentinc/cp-kafka-connect tag from 8.2.0 to 8.2.1. [Ben Dalling]
 
 * Bump ghcr.io/devcontainers/features/docker-in-docker. [dependabot[bot]]
 
