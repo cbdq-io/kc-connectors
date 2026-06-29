@@ -17,7 +17,7 @@
     <url>https://github.com/cbdq-io/kc-connectors</url>
 
     <properties>
-        <servicebus.version>7.17.16</servicebus.version>
+        <servicebus.version>7.17.18</servicebus.version>
     </properties>
 
     <build>
