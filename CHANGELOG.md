@@ -13,6 +13,17 @@
   updated-dependencies:
   - dependency-name: ghcr.io/devcontainers/features/docker-in-docker
     dependency-version: 4.0.0
+* Bump actions/checkout from 6 to 7. [dependabot[bot]]
+
+  Bumps [actions/checkout](https://github.com/actions/checkout) from 6 to 7.
+  - [Release notes](https://github.com/actions/checkout/releases)
+  - [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/actions/checkout/compare/v6...v7)
+
+  ---
+  updated-dependencies:
+  - dependency-name: actions/checkout
+    dependency-version: '7'
     dependency-type: direct:production
     update-type: version-update:semver-major
   ...
@@ -1013,5 +1024,3 @@
     dependency-type: direct:production
     update-type: version-update:semver-major
   ...
-
-
