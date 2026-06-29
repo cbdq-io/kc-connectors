@@ -3,16 +3,18 @@
 
 ## Unreleased
 
+### Fix
+
+* More allowed vulnerabilities. [Ben Dalling]
+
+* Update Git Flow workflow. [Ben Dalling]
+
+* Bump azure-messaging-servicebus from 7.17.16 to 7.17.18. [Ben Dalling]
+
+* Bump base image tag for confluentinc/cp-kafka-connect from 8.2.1 to 8.2.2. [Ben Dalling]
+
 ### Build
 
-* Bump ghcr.io/devcontainers/features/docker-in-docker. [dependabot[bot]]
-
-  Bumps ghcr.io/devcontainers/features/docker-in-docker from 3.1.0 to 4.0.0.
-
-  ---
-  updated-dependencies:
-  - dependency-name: ghcr.io/devcontainers/features/docker-in-docker
-    dependency-version: 4.0.0
 * Bump actions/checkout from 6 to 7. [dependabot[bot]]
 
   Bumps [actions/checkout](https://github.com/actions/checkout) from 6 to 7.
@@ -24,6 +26,18 @@
   updated-dependencies:
   - dependency-name: actions/checkout
     dependency-version: '7'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+* Bump ghcr.io/devcontainers/features/docker-in-docker. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/docker-in-docker from 3.1.0 to 4.0.0.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/docker-in-docker
+    dependency-version: 4.0.0
     dependency-type: direct:production
     update-type: version-update:semver-major
   ...
@@ -1024,3 +1038,5 @@
     dependency-type: direct:production
     update-type: version-update:semver-major
   ...
+
+
