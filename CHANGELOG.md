@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Unreleased
+
+### Fix
+
+* Resolved CVE-2026-42579, CVE-2026-42583, CVE-2026-42584 & CVE-2026-42587. [Ben Dalling]
+
+
 ## 1.0.7 (2026-06-29)
 
 ### Fix
