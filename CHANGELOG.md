@@ -5,6 +5,18 @@
 
 ### Build
 
+* Bump ghcr.io/devcontainers/features/java. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/java from 1.8.0 to 1.8.1.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/java
+    dependency-version: 1.8.1
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump actions/setup-python from 6 to 7. [dependabot[bot]]
 
   Bumps [actions/setup-python](https://github.com/actions/setup-python) from 6 to 7.
