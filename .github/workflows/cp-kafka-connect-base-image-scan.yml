@@ -15,6 +15,11 @@ jobs:
       IMAGE: confluentinc/cp-kafka-connect:8.2.2
 
     steps:
+      - name: Remove Trivy Ignore File
+        # Temp removal of the file so that we get all vulnerabilities in the
+        # repository (including the acknowledged ones).
+        run: rm -f .trivyignore
+
       - name: Scan Image
         uses: aquasecurity/trivy-action@v0.36.0
         with:
