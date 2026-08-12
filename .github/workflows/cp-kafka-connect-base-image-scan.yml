@@ -1,5 +1,5 @@
 ---
-name: Airflow Base Image Scan
+name: Confluent Kafka Connect Base Image Scan
 
 on:
   workflow_dispatch:
