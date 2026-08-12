@@ -1,0 +1,41 @@
+---
+name: Confluent Kafka Connect Base Image Scan
+
+on:
+  workflow_dispatch:
+
+jobs:
+  trivy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    env:
+      IMAGE: confluentinc/cp-kafka-connect:8.2.2
+
+    steps:
+      - name: Remove Trivy Ignore File
+        # Temp removal of the file so that we get all vulnerabilities in the
+        # repository (including the acknowledged ones).
+        run: rm -f .trivyignore
+
+      - name: Scan Image
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ env.IMAGE }}
+          format: json
+          severity: CRITICAL,HIGH,MEDIUM
+          ignore-unfixed: true
+          exit-code: 0
+          output: trivy.json
+
+      - name: Show vulnerabilities only
+        run: |
+          cat trivy.json \
+            | jq -r '
+              .Results[]
+              | select(.Vulnerabilities != null)
+              | .Vulnerabilities[]
+              | .VulnerabilityID' \
+            | sort -u
