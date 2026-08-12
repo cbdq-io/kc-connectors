@@ -3,6 +3,14 @@
 
 ## Unreleased
 
+### Fix
+
+* Update vulnerabilities that are in the base image. [Ben Dalling]
+
+* Refactor Dockerfile for newer version of Hadolint. [Ben Dalling]
+
+* Refactor the periodic Trivy scan. [Ben Dalling]
+
 ### Build
 
 * Bump ghcr.io/devcontainers/features/java. [dependabot[bot]]
