@@ -5,6 +5,49 @@
 
 ### Fix
 
+* Update vulnerabilities that are in the base image. [Ben Dalling]
+
+* Refactor Dockerfile for newer version of Hadolint. [Ben Dalling]
+
+* Refactor the periodic Trivy scan. [Ben Dalling]
+
+### Build
+
+* Bump ghcr.io/devcontainers/features/java. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/java from 1.8.0 to 1.8.1.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/java
+    dependency-version: 1.8.1
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump actions/setup-python from 6 to 7. [dependabot[bot]]
+
+  Bumps [actions/setup-python](https://github.com/actions/setup-python) from 6 to 7.
+  - [Release notes](https://github.com/actions/setup-python/releases)
+  - [Commits](https://github.com/actions/setup-python/compare/v6...v7)
+
+  ---
+  updated-dependencies:
+  - dependency-name: actions/setup-python
+    dependency-version: '7'
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+### Continuous Integration
+
+* Add workflow for identifying vulnerabilities in the base image. [Ben Dalling]
+
+
+## 1.0.8 (2026-07-21)
+
+### Fix
+
 * Resolved CVE-2026-42579, CVE-2026-42583, CVE-2026-42584 & CVE-2026-42587. [Ben Dalling]
 
 
