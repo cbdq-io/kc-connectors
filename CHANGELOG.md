@@ -31,6 +31,10 @@
     update-type: version-update:semver-major
   ...
 
+### Continuous Integration
+
+* Add workflow for identifying vulnerabilities in the base image. [Ben Dalling]
+
 
 ## 1.0.8 (2026-07-21)
 
