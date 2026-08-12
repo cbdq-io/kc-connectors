@@ -1,7 +1,15 @@
 # Changelog
 
 
-## Unreleased
+## 1.0.9 (2026-08-12)
+
+### Fix
+
+* Update vulnerabilities that are in the base image. [Ben Dalling]
+
+* Refactor Dockerfile for newer version of Hadolint. [Ben Dalling]
+
+* Refactor the periodic Trivy scan. [Ben Dalling]
 
 ### Build
 
