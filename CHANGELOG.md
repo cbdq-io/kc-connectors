@@ -1,6 +1,17 @@
 # Changelog
 
 
+## Unreleased
+
+### Fix
+
+* Bump confluentinc/cp-kafka-connect from 8.2.2 to 8.2.3. [Ben Dalling]
+
+* Scan the 8.2.3 base image. [Ben Dalling]
+
+* Skip GitFlow and changelog workflows for dependabot PRs. [Ben Dalling]
+
+
 ## 1.0.9 (2026-08-12)
 
 ### Fix
