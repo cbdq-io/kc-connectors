@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Bump azure-messaging-servicebus from 7.17.19 to 7.17.20. [Ben Dalling]
+
 * Update vulnerabilities that are in the base image. [Ben Dalling]
 
 * Bump confluentinc/cp-kafka-connect from 8.2.2 to 8.2.3. [Ben Dalling]
