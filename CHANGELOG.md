@@ -15,6 +15,18 @@
 
 ### Build
 
+* Bump ghcr.io/devcontainers/features/java. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/java from 1.8.1 to 1.8.2.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/java
+    dependency-version: 1.8.2
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump cbdq-io/gitflow-action from 1.0.6 to 1.0.7. [dependabot[bot]]
 
   Bumps [cbdq-io/gitflow-action](https://github.com/cbdq-io/gitflow-action) from 1.0.6 to 1.0.7.
