@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Update vulnerabilities that are in the base image. [Ben Dalling]
+
 * Bump confluentinc/cp-kafka-connect from 8.2.2 to 8.2.3. [Ben Dalling]
 
 * Scan the 8.2.3 base image. [Ben Dalling]
