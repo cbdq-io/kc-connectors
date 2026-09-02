@@ -5,6 +5,50 @@
 
 ### Fix
 
+* Bump azure-messaging-servicebus from 7.17.19 to 7.17.20. [Ben Dalling]
+
+* Update vulnerabilities that are in the base image. [Ben Dalling]
+
+* Bump confluentinc/cp-kafka-connect from 8.2.2 to 8.2.3. [Ben Dalling]
+
+* Scan the 8.2.3 base image. [Ben Dalling]
+
+* Skip GitFlow and changelog workflows for dependabot PRs. [Ben Dalling]
+
+### Build
+
+* Bump ghcr.io/devcontainers/features/java. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/java from 1.8.1 to 1.8.2.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/java
+    dependency-version: 1.8.2
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump cbdq-io/gitflow-action from 1.0.6 to 1.0.7. [dependabot[bot]]
+
+  Bumps [cbdq-io/gitflow-action](https://github.com/cbdq-io/gitflow-action) from 1.0.6 to 1.0.7.
+  - [Release notes](https://github.com/cbdq-io/gitflow-action/releases)
+  - [Changelog](https://github.com/cbdq-io/gitflow-action/blob/develop/CHANGELOG.md)
+  - [Commits](https://github.com/cbdq-io/gitflow-action/compare/1.0.6...1.0.7)
+
+  ---
+  updated-dependencies:
+  - dependency-name: cbdq-io/gitflow-action
+    dependency-version: 1.0.7
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+
+## 1.0.9 (2026-08-12)
+
+### Fix
+
 * Update vulnerabilities that are in the base image. [Ben Dalling]
 
 * Refactor Dockerfile for newer version of Hadolint. [Ben Dalling]

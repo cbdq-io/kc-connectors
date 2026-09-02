@@ -12,7 +12,7 @@ jobs:
       contents: read
 
     env:
-      IMAGE: confluentinc/cp-kafka-connect:8.2.2
+      IMAGE: confluentinc/cp-kafka-connect:8.2.3
 
     steps:
       - name: Remove Trivy Ignore File
