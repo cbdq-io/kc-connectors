@@ -1,9 +1,11 @@
 # Changelog
 
 
-## Unreleased
+## 1.0.10 (2026-09-02)
 
 ### Fix
+
+* Bump azure-messaging-servicebus from 7.17.19 to 7.17.20. [Ben Dalling]
 
 * Update vulnerabilities that are in the base image. [Ben Dalling]
 
