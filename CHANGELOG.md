@@ -1,6 +1,15 @@
 # Changelog
 
 
+## Unreleased
+
+### Fix
+
+* Vulnerabilities CVE-2026-44431 and CVE-2026-44432 have been resolved. [Ben Dalling]
+
+* Bump confluentinc/cp-kafka-connect from 8.2.3 8.3.1. [Ben Dalling]
+
+
 ## 1.0.10 (2026-09-02)
 
 ### Fix
