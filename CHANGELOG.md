@@ -5,6 +5,10 @@
 
 ### Fix
 
+* Optimise Dockerfile. [Ben Dalling]
+
+* Add QEMU to the CD workflows. [Ben Dalling]
+
 * Vulnerabilities CVE-2026-44431 and CVE-2026-44432 have been resolved. [Ben Dalling]
 
 * Bump confluentinc/cp-kafka-connect from 8.2.3 8.3.1. [Ben Dalling]
