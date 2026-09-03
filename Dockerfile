@@ -17,13 +17,18 @@ RUN dnf install -y \
     && dnf clean all \
       --installroot=/microdir \
     && rm -rf /microdir/var/cache/dnf \
-    &&  python3.14 -m pip install \
+    && python3.14 -m pip install \
       --no-cache-dir \
       --target=/microdir/usr/lib/python3.14/site-packages \
       prometheus-client \
       requests \
     && ln -s python3.14 /microdir/usr/bin/python3 \
-    && ln -s python3.14 /microdir/usr/bin/python
+    && ln -s python3.14 /microdir/usr/bin/python \
+    && rm -f \
+      /microdir/etc/passwd \
+      /microdir/etc/group \
+      /microdir/etc/shadow \
+      /microdir/etc/gshadow
 
 
 FROM confluentinc/cp-kafka-connect:8.3.1
@@ -32,18 +37,7 @@ LABEL org.opencontainers.image.description="A Kafka Connect Sink Connector for A
 
 USER 0
 
-# UBI's installroot creates standard account files. Do not overwrite
-# the appuser account supplied by the Confluent image.
-RUN mkdir -p /tmp/base-accounts \
-    && cp /etc/passwd /tmp/base-accounts/passwd \
-    && cp /etc/group /tmp/base-accounts/group
-
 COPY --from=packages /microdir/ /
-
-RUN cp /tmp/base-accounts/passwd /etc/passwd \
-    && cp /tmp/base-accounts/group /etc/group \
-    && rm -rf /tmp/base-accounts
-
 COPY --chmod=0755 --chown=root:root kccinit.py /usr/local/bin/kccinit.py
 COPY --chmod=0755 --chown=root:root kcstatus /usr/local/bin/kcstatus
 
