@@ -35,7 +35,7 @@
         <mockito.version>5.8.0</mockito.version>
         <cucumber.version>7.27.0</cucumber.version>
 
-        <prometheus.version>1.4.1</prometheus.version>
+        <prometheus.version>1.8.0</prometheus.version>
         <slf4j.version>2.0.17</slf4j.version>
 
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
