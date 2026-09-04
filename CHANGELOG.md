@@ -15,6 +15,34 @@
 
 * Bump confluentinc/cp-kafka-connect from 8.2.3 8.3.1. [Ben Dalling]
 
+### Build
+
+* Bump prometheus.version from 1.4.1 to 1.8.0. [dependabot[bot]]
+
+  Bumps `prometheus.version` from 1.4.1 to 1.8.0.
+
+  Updates `io.prometheus:prometheus-metrics-core` from 1.4.1 to 1.8.0
+
+  Updates `io.prometheus:prometheus-metrics-instrumentation-jvm` from 1.4.1 to 1.8.0
+
+  Updates `io.prometheus:prometheus-metrics-exporter-httpserver` from 1.4.1 to 1.8.0
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.prometheus:prometheus-metrics-core
+    dependency-version: 1.8.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.prometheus:prometheus-metrics-instrumentation-jvm
+    dependency-version: 1.8.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.prometheus:prometheus-metrics-exporter-httpserver
+    dependency-version: 1.8.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
 
 ## 1.0.10 (2026-09-02)
 
