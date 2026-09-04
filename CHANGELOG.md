@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Have dependabot check Maven. [Ben Dalling]
+
 * Optimise Dockerfile. [Ben Dalling]
 
 * Add QEMU to the CD workflows. [Ben Dalling]
