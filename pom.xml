@@ -33,7 +33,7 @@
 
         <junit.jupiter.version>5.10.1</junit.jupiter.version>
         <mockito.version>5.8.0</mockito.version>
-        <cucumber.version>7.27.0</cucumber.version>
+        <cucumber.version>7.34.7</cucumber.version>
 
         <prometheus.version>1.4.1</prometheus.version>
         <slf4j.version>2.0.17</slf4j.version>
