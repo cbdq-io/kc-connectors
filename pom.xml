@@ -12,6 +12,16 @@
 
     <name>Azure Service Bus Connectors</name>
     <description>Parent project for Azure Service Bus Kafka Connectors</description>
+    <url>https://github.com/cbdq-io/kc-connectors</url>
+
+    <scm child.scm.url.inherit.append.path="false">
+        <url>https://github.com/cbdq-io/kc-connectors</url>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/cbdq-io/kc-connectors/issues</url>
+    </issueManagement>
 
     <modules>
         <module>azure-servicebus-sink-connector</module>
