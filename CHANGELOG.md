@@ -17,6 +17,20 @@
 
 ### Build
 
+* Bump org.junit.jupiter:junit-jupiter from 5.10.1 to 6.1.3. [dependabot[bot]]
+
+  Bumps [org.junit.jupiter:junit-jupiter](https://github.com/junit-team/junit-framework) from 5.10.1 to 6.1.3.
+  - [Release notes](https://github.com/junit-team/junit-framework/releases)
+  - [Commits](https://github.com/junit-team/junit-framework/compare/r5.10.1...r6.1.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.junit.jupiter:junit-jupiter
+    dependency-version: 6.1.3
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
 * Bump cucumber.version from 7.27.0 to 7.34.7. [dependabot[bot]]
 
   Bumps `cucumber.version` from 7.27.0 to 7.34.7.
