@@ -17,6 +17,18 @@
 
 ### Build
 
+* Bump org.slf4j:slf4j-api from 2.0.17 to 2.0.18. [dependabot[bot]]
+
+  Bumps org.slf4j:slf4j-api from 2.0.17 to 2.0.18.
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.slf4j:slf4j-api
+    dependency-version: 2.0.18
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump prometheus.version from 1.4.1 to 1.8.0. [dependabot[bot]]
 
   Bumps `prometheus.version` from 1.4.1 to 1.8.0.
