@@ -17,6 +17,41 @@
 
 ### Build
 
+* Bump cucumber.version from 7.27.0 to 7.34.7. [dependabot[bot]]
+
+  Bumps `cucumber.version` from 7.27.0 to 7.34.7.
+
+  Updates `io.cucumber:cucumber-java` from 7.27.0 to 7.34.7
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.27.0...v7.34.7)
+
+  Updates `io.cucumber:cucumber-core` from 7.27.0 to 7.34.7
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.27.0...v7.34.7)
+
+  Updates `io.cucumber:cucumber-junit-platform-engine` from 7.27.0 to 7.34.7
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.27.0...v7.34.7)
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.cucumber:cucumber-java
+    dependency-version: 7.34.7
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.cucumber:cucumber-core
+    dependency-version: 7.34.7
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.cucumber:cucumber-junit-platform-engine
+    dependency-version: 7.34.7
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
 * Bump ghcr.io/devcontainers/features/java. [dependabot[bot]]
 
   Bumps ghcr.io/devcontainers/features/java from 1.8.2 to 1.8.3.
