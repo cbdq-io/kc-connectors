@@ -17,6 +17,20 @@
 
 ### Build
 
+* Bump org.apache.maven.plugins:maven-surefire-plugin. [dependabot[bot]]
+
+  Bumps [org.apache.maven.plugins:maven-surefire-plugin](https://github.com/apache/maven-surefire) from 3.2.5 to 3.6.0.
+  - [Release notes](https://github.com/apache/maven-surefire/releases)
+  - [Commits](https://github.com/apache/maven-surefire/compare/surefire-3.2.5...surefire-3.6.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.maven.plugins:maven-surefire-plugin
+    dependency-version: 3.6.0
+    dependency-type: direct:development
+    update-type: version-update:semver-minor
+  ...
+
 * Bump org.junit.jupiter:junit-jupiter from 5.10.1 to 6.1.3. [dependabot[bot]]
 
   Bumps [org.junit.jupiter:junit-jupiter](https://github.com/junit-team/junit-framework) from 5.10.1 to 6.1.3.
