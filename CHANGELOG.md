@@ -17,6 +17,18 @@
 
 ### Build
 
+* Bump ghcr.io/devcontainers/features/java. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/java from 1.8.2 to 1.8.3.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/java
+    dependency-version: 1.8.3
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump org.slf4j:slf4j-api from 2.0.17 to 2.0.18. [dependabot[bot]]
 
   Bumps org.slf4j:slf4j-api from 2.0.17 to 2.0.18.
