@@ -39,7 +39,7 @@
         <slf4j.version>2.0.18</slf4j.version>
 
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-        <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
+        <maven.resources.plugin.version>3.5.0</maven.resources.plugin.version>
         <maven.shade.plugin.version>3.2.4</maven.shade.plugin.version>
         <apache.commons.text.version>1.15.0</apache.commons.text.version>
 
