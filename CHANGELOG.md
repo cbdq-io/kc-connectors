@@ -17,6 +17,18 @@
 
 ### Build
 
+* Bump org.apache.kafka:connect-api from 3.9.1 to 4.3.1. [dependabot[bot]]
+
+  Bumps org.apache.kafka:connect-api from 3.9.1 to 4.3.1.
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.kafka:connect-api
+    dependency-version: 4.3.1
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
 * Bump org.apache.maven.plugins:maven-shade-plugin. [dependabot[bot]]
 
   Bumps [org.apache.maven.plugins:maven-shade-plugin](https://github.com/apache/maven-shade-plugin) from 3.2.4 to 3.6.2.
