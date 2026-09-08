@@ -17,6 +17,20 @@
 
 ### Build
 
+* Bump org.apache.maven.plugins:maven-shade-plugin. [dependabot[bot]]
+
+  Bumps [org.apache.maven.plugins:maven-shade-plugin](https://github.com/apache/maven-shade-plugin) from 3.2.4 to 3.6.2.
+  - [Release notes](https://github.com/apache/maven-shade-plugin/releases)
+  - [Commits](https://github.com/apache/maven-shade-plugin/compare/maven-shade-plugin-3.2.4...maven-shade-plugin-3.6.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.maven.plugins:maven-shade-plugin
+    dependency-version: 3.6.2
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
 * Bump org.mockito:mockito-junit-jupiter. [dependabot[bot]]
 
   Bumps [org.mockito:mockito-junit-jupiter](https://github.com/mockito/mockito) from 5.8.0 to 5.23.0.
