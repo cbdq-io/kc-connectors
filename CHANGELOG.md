@@ -17,6 +17,21 @@
 
 ### Build
 
+* Bump cbdq-io/gitflow-action from 1.0.7 to 1.0.8. [dependabot[bot]]
+
+  Bumps [cbdq-io/gitflow-action](https://github.com/cbdq-io/gitflow-action) from 1.0.7 to 1.0.8.
+  - [Release notes](https://github.com/cbdq-io/gitflow-action/releases)
+  - [Changelog](https://github.com/cbdq-io/gitflow-action/blob/develop/CHANGELOG.md)
+  - [Commits](https://github.com/cbdq-io/gitflow-action/compare/1.0.7...1.0.8)
+
+  ---
+  updated-dependencies:
+  - dependency-name: cbdq-io/gitflow-action
+    dependency-version: 1.0.8
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump org.apache.maven.plugins:maven-surefire-plugin. [dependabot[bot]]
 
   Bumps [org.apache.maven.plugins:maven-surefire-plugin](https://github.com/apache/maven-surefire) from 3.2.5 to 3.6.0.
