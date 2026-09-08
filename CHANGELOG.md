@@ -17,6 +17,20 @@
 
 ### Build
 
+* Bump org.apache.maven.plugins:maven-resources-plugin. [dependabot[bot]]
+
+  Bumps [org.apache.maven.plugins:maven-resources-plugin](https://github.com/apache/maven-resources-plugin) from 3.3.1 to 3.5.0.
+  - [Release notes](https://github.com/apache/maven-resources-plugin/releases)
+  - [Commits](https://github.com/apache/maven-resources-plugin/compare/maven-resources-plugin-3.3.1...maven-resources-plugin-3.5.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.maven.plugins:maven-resources-plugin
+    dependency-version: 3.5.0
+    dependency-type: direct:development
+    update-type: version-update:semver-minor
+  ...
+
 * Bump cbdq-io/gitflow-action from 1.0.7 to 1.0.8. [dependabot[bot]]
 
   Bumps [cbdq-io/gitflow-action](https://github.com/cbdq-io/gitflow-action) from 1.0.7 to 1.0.8.
