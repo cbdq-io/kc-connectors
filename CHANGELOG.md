@@ -17,6 +17,18 @@
 
 ### Build
 
+* Bump org.slf4j:slf4j-api from 2.0.18 to 2.0.19. [dependabot[bot]]
+
+  Bumps org.slf4j:slf4j-api from 2.0.18 to 2.0.19.
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.slf4j:slf4j-api
+    dependency-version: 2.0.19
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump org.apache.maven.plugins:maven-resources-plugin. [dependabot[bot]]
 
   Bumps [org.apache.maven.plugins:maven-resources-plugin](https://github.com/apache/maven-resources-plugin) from 3.3.1 to 3.5.0.
