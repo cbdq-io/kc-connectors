@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Update vulnerability list found in base image as of 2026-09-15. [Ben Dalling]
+
 * Have dependabot check Maven. [Ben Dalling]
 
 * Optimise Dockerfile. [Ben Dalling]
