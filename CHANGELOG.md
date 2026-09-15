@@ -19,6 +19,20 @@
 
 ### Build
 
+* Bump org.apache.maven.plugins:maven-compiler-plugin. [dependabot[bot]]
+
+  Bumps [org.apache.maven.plugins:maven-compiler-plugin](https://github.com/apache/maven-compiler-plugin) from 3.8.1 to 3.16.0.
+  - [Release notes](https://github.com/apache/maven-compiler-plugin/releases)
+  - [Commits](https://github.com/apache/maven-compiler-plugin/compare/maven-compiler-plugin-3.8.1...maven-compiler-plugin-3.16.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.maven.plugins:maven-compiler-plugin
+    dependency-version: 3.16.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
 * Bump cucumber.version from 7.34.7 to 7.34.8. [dependabot[bot]]
 
   Bumps `cucumber.version` from 7.34.7 to 7.34.8.
