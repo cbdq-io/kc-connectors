@@ -19,6 +19,41 @@
 
 ### Build
 
+* Bump cucumber.version from 7.34.7 to 7.34.8. [dependabot[bot]]
+
+  Bumps `cucumber.version` from 7.34.7 to 7.34.8.
+
+  Updates `io.cucumber:cucumber-java` from 7.34.7 to 7.34.8
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.34.7...v7.34.8)
+
+  Updates `io.cucumber:cucumber-core` from 7.34.7 to 7.34.8
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.34.7...v7.34.8)
+
+  Updates `io.cucumber:cucumber-junit-platform-engine` from 7.34.7 to 7.34.8
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.34.7...v7.34.8)
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.cucumber:cucumber-core
+    dependency-version: 7.34.8
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  - dependency-name: io.cucumber:cucumber-java
+    dependency-version: 7.34.8
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  - dependency-name: io.cucumber:cucumber-junit-platform-engine
+    dependency-version: 7.34.8
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump org.apache.kafka:connect-api from 3.9.1 to 4.3.1. [dependabot[bot]]
 
   Bumps org.apache.kafka:connect-api from 3.9.1 to 4.3.1.
