@@ -19,6 +19,32 @@
 
 ### Build
 
+* Bump prometheus.version from 1.8.0 to 1.9.0. [dependabot[bot]]
+
+  Bumps `prometheus.version` from 1.8.0 to 1.9.0.
+
+  Updates `io.prometheus:prometheus-metrics-core` from 1.8.0 to 1.9.0
+
+  Updates `io.prometheus:prometheus-metrics-instrumentation-jvm` from 1.8.0 to 1.9.0
+
+  Updates `io.prometheus:prometheus-metrics-exporter-httpserver` from 1.8.0 to 1.9.0
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.prometheus:prometheus-metrics-core
+    dependency-version: 1.9.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.prometheus:prometheus-metrics-instrumentation-jvm
+    dependency-version: 1.9.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.prometheus:prometheus-metrics-exporter-httpserver
+    dependency-version: 1.9.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
 * Bump ghcr.io/devcontainers/features/docker-in-docker. [dependabot[bot]]
 
   Bumps ghcr.io/devcontainers/features/docker-in-docker from 4.1.0 to 4.1.1.
