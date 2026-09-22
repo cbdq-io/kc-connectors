@@ -19,6 +19,18 @@
 
 ### Build
 
+* Bump ghcr.io/devcontainers/features/docker-in-docker. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/docker-in-docker from 4.1.0 to 4.1.1.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/docker-in-docker
+    dependency-version: 4.1.1
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump org.apache.maven.plugins:maven-compiler-plugin. [dependabot[bot]]
 
   Bumps [org.apache.maven.plugins:maven-compiler-plugin](https://github.com/apache/maven-compiler-plugin) from 3.8.1 to 3.16.0.
