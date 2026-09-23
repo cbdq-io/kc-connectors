@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Bump the cp-kafka-connect base image from 8.3.1 to 8.3.2. [Ben Dalling]
+
 * Update vulnerability list found in base image as of 2026-09-15. [Ben Dalling]
 
 * Have dependabot check Maven. [Ben Dalling]
