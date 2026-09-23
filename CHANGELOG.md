@@ -5,6 +5,308 @@
 
 ### Fix
 
+* Bump the cp-kafka-connect base image from 8.3.1 to 8.3.2. [Ben Dalling]
+
+* Update vulnerability list found in base image as of 2026-09-15. [Ben Dalling]
+
+* Have dependabot check Maven. [Ben Dalling]
+
+* Optimise Dockerfile. [Ben Dalling]
+
+* Add QEMU to the CD workflows. [Ben Dalling]
+
+* Vulnerabilities CVE-2026-44431 and CVE-2026-44432 have been resolved. [Ben Dalling]
+
+* Bump confluentinc/cp-kafka-connect from 8.2.3 8.3.1. [Ben Dalling]
+
+### Build
+
+* Bump prometheus.version from 1.8.0 to 1.9.0. [dependabot[bot]]
+
+  Bumps `prometheus.version` from 1.8.0 to 1.9.0.
+
+  Updates `io.prometheus:prometheus-metrics-core` from 1.8.0 to 1.9.0
+
+  Updates `io.prometheus:prometheus-metrics-instrumentation-jvm` from 1.8.0 to 1.9.0
+
+  Updates `io.prometheus:prometheus-metrics-exporter-httpserver` from 1.8.0 to 1.9.0
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.prometheus:prometheus-metrics-core
+    dependency-version: 1.9.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.prometheus:prometheus-metrics-instrumentation-jvm
+    dependency-version: 1.9.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.prometheus:prometheus-metrics-exporter-httpserver
+    dependency-version: 1.9.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+* Bump ghcr.io/devcontainers/features/docker-in-docker. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/docker-in-docker from 4.1.0 to 4.1.1.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/docker-in-docker
+    dependency-version: 4.1.1
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump org.apache.maven.plugins:maven-compiler-plugin. [dependabot[bot]]
+
+  Bumps [org.apache.maven.plugins:maven-compiler-plugin](https://github.com/apache/maven-compiler-plugin) from 3.8.1 to 3.16.0.
+  - [Release notes](https://github.com/apache/maven-compiler-plugin/releases)
+  - [Commits](https://github.com/apache/maven-compiler-plugin/compare/maven-compiler-plugin-3.8.1...maven-compiler-plugin-3.16.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.maven.plugins:maven-compiler-plugin
+    dependency-version: 3.16.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+* Bump cucumber.version from 7.34.7 to 7.34.8. [dependabot[bot]]
+
+  Bumps `cucumber.version` from 7.34.7 to 7.34.8.
+
+  Updates `io.cucumber:cucumber-java` from 7.34.7 to 7.34.8
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.34.7...v7.34.8)
+
+  Updates `io.cucumber:cucumber-core` from 7.34.7 to 7.34.8
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.34.7...v7.34.8)
+
+  Updates `io.cucumber:cucumber-junit-platform-engine` from 7.34.7 to 7.34.8
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.34.7...v7.34.8)
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.cucumber:cucumber-core
+    dependency-version: 7.34.8
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  - dependency-name: io.cucumber:cucumber-java
+    dependency-version: 7.34.8
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  - dependency-name: io.cucumber:cucumber-junit-platform-engine
+    dependency-version: 7.34.8
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump org.apache.kafka:connect-api from 3.9.1 to 4.3.1. [dependabot[bot]]
+
+  Bumps org.apache.kafka:connect-api from 3.9.1 to 4.3.1.
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.kafka:connect-api
+    dependency-version: 4.3.1
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+* Bump org.apache.maven.plugins:maven-shade-plugin. [dependabot[bot]]
+
+  Bumps [org.apache.maven.plugins:maven-shade-plugin](https://github.com/apache/maven-shade-plugin) from 3.2.4 to 3.6.2.
+  - [Release notes](https://github.com/apache/maven-shade-plugin/releases)
+  - [Commits](https://github.com/apache/maven-shade-plugin/compare/maven-shade-plugin-3.2.4...maven-shade-plugin-3.6.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.maven.plugins:maven-shade-plugin
+    dependency-version: 3.6.2
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+* Bump org.mockito:mockito-junit-jupiter. [dependabot[bot]]
+
+  Bumps [org.mockito:mockito-junit-jupiter](https://github.com/mockito/mockito) from 5.8.0 to 5.23.0.
+  - [Release notes](https://github.com/mockito/mockito/releases)
+  - [Commits](https://github.com/mockito/mockito/compare/v5.8.0...v5.23.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.mockito:mockito-junit-jupiter
+    dependency-version: 5.23.0
+    dependency-type: direct:development
+    update-type: version-update:semver-minor
+  ...
+
+* Bump org.slf4j:slf4j-api from 2.0.18 to 2.0.19. [dependabot[bot]]
+
+  Bumps org.slf4j:slf4j-api from 2.0.18 to 2.0.19.
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.slf4j:slf4j-api
+    dependency-version: 2.0.19
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump org.apache.maven.plugins:maven-resources-plugin. [dependabot[bot]]
+
+  Bumps [org.apache.maven.plugins:maven-resources-plugin](https://github.com/apache/maven-resources-plugin) from 3.3.1 to 3.5.0.
+  - [Release notes](https://github.com/apache/maven-resources-plugin/releases)
+  - [Commits](https://github.com/apache/maven-resources-plugin/compare/maven-resources-plugin-3.3.1...maven-resources-plugin-3.5.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.maven.plugins:maven-resources-plugin
+    dependency-version: 3.5.0
+    dependency-type: direct:development
+    update-type: version-update:semver-minor
+  ...
+
+* Bump cbdq-io/gitflow-action from 1.0.7 to 1.0.8. [dependabot[bot]]
+
+  Bumps [cbdq-io/gitflow-action](https://github.com/cbdq-io/gitflow-action) from 1.0.7 to 1.0.8.
+  - [Release notes](https://github.com/cbdq-io/gitflow-action/releases)
+  - [Changelog](https://github.com/cbdq-io/gitflow-action/blob/develop/CHANGELOG.md)
+  - [Commits](https://github.com/cbdq-io/gitflow-action/compare/1.0.7...1.0.8)
+
+  ---
+  updated-dependencies:
+  - dependency-name: cbdq-io/gitflow-action
+    dependency-version: 1.0.8
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump org.apache.maven.plugins:maven-surefire-plugin. [dependabot[bot]]
+
+  Bumps [org.apache.maven.plugins:maven-surefire-plugin](https://github.com/apache/maven-surefire) from 3.2.5 to 3.6.0.
+  - [Release notes](https://github.com/apache/maven-surefire/releases)
+  - [Commits](https://github.com/apache/maven-surefire/compare/surefire-3.2.5...surefire-3.6.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.maven.plugins:maven-surefire-plugin
+    dependency-version: 3.6.0
+    dependency-type: direct:development
+    update-type: version-update:semver-minor
+  ...
+
+* Bump org.junit.jupiter:junit-jupiter from 5.10.1 to 6.1.3. [dependabot[bot]]
+
+  Bumps [org.junit.jupiter:junit-jupiter](https://github.com/junit-team/junit-framework) from 5.10.1 to 6.1.3.
+  - [Release notes](https://github.com/junit-team/junit-framework/releases)
+  - [Commits](https://github.com/junit-team/junit-framework/compare/r5.10.1...r6.1.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.junit.jupiter:junit-jupiter
+    dependency-version: 6.1.3
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+* Bump cucumber.version from 7.27.0 to 7.34.7. [dependabot[bot]]
+
+  Bumps `cucumber.version` from 7.27.0 to 7.34.7.
+
+  Updates `io.cucumber:cucumber-java` from 7.27.0 to 7.34.7
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.27.0...v7.34.7)
+
+  Updates `io.cucumber:cucumber-core` from 7.27.0 to 7.34.7
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.27.0...v7.34.7)
+
+  Updates `io.cucumber:cucumber-junit-platform-engine` from 7.27.0 to 7.34.7
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.27.0...v7.34.7)
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.cucumber:cucumber-java
+    dependency-version: 7.34.7
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.cucumber:cucumber-core
+    dependency-version: 7.34.7
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.cucumber:cucumber-junit-platform-engine
+    dependency-version: 7.34.7
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+* Bump ghcr.io/devcontainers/features/java. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/java from 1.8.2 to 1.8.3.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/java
+    dependency-version: 1.8.3
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump org.slf4j:slf4j-api from 2.0.17 to 2.0.18. [dependabot[bot]]
+
+  Bumps org.slf4j:slf4j-api from 2.0.17 to 2.0.18.
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.slf4j:slf4j-api
+    dependency-version: 2.0.18
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump prometheus.version from 1.4.1 to 1.8.0. [dependabot[bot]]
+
+  Bumps `prometheus.version` from 1.4.1 to 1.8.0.
+
+  Updates `io.prometheus:prometheus-metrics-core` from 1.4.1 to 1.8.0
+
+  Updates `io.prometheus:prometheus-metrics-instrumentation-jvm` from 1.4.1 to 1.8.0
+
+  Updates `io.prometheus:prometheus-metrics-exporter-httpserver` from 1.4.1 to 1.8.0
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.prometheus:prometheus-metrics-core
+    dependency-version: 1.8.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.prometheus:prometheus-metrics-instrumentation-jvm
+    dependency-version: 1.8.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.prometheus:prometheus-metrics-exporter-httpserver
+    dependency-version: 1.8.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+
+## 1.0.10 (2026-09-02)
+
+### Fix
+
 * Bump azure-messaging-servicebus from 7.17.19 to 7.17.20. [Ben Dalling]
 
 * Update vulnerabilities that are in the base image. [Ben Dalling]
