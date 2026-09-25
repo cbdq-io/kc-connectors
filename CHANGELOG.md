@@ -5,6 +5,15 @@
 
 ### Fix
 
+* Update vulnerabilities in base image (2026-09-25) [Ben Dalling]
+
+* Ensure "su" is available on the image. [Ben Dalling]
+
+
+## 1.0.11 (2026-09-23)
+
+### Fix
+
 * Bump the cp-kafka-connect base image from 8.3.1 to 8.3.2. [Ben Dalling]
 
 * Update vulnerability list found in base image as of 2026-09-15. [Ben Dalling]
