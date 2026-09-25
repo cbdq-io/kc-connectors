@@ -14,6 +14,7 @@ RUN dnf install -y \
       curl \
       jq \
       python3.14 \
+      util-linux \
     && dnf clean all \
       --installroot=/microdir \
     && rm -rf /microdir/var/cache/dnf \
