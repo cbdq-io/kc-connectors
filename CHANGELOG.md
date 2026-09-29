@@ -1,6 +1,15 @@
 # Changelog
 
 
+## 1.0.12 (2026-09-25)
+
+### Fix
+
+* Update vulnerabilities in base image (2026-09-25) [Ben Dalling]
+
+* Ensure "su" is available on the image. [Ben Dalling]
+
+
 ## 1.0.11 (2026-09-23)
 
 ### Fix
