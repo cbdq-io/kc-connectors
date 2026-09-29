@@ -5,6 +5,41 @@
 
 ### Build
 
+* Bump cucumber.version from 7.34.8 to 8.0.2. [dependabot[bot]]
+
+  Bumps `cucumber.version` from 7.34.8 to 8.0.2.
+
+  Updates `io.cucumber:cucumber-java` from 7.34.8 to 8.0.2
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.34.8...v8.0.2)
+
+  Updates `io.cucumber:cucumber-core` from 7.34.8 to 8.0.2
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.34.8...v8.0.2)
+
+  Updates `io.cucumber:cucumber-junit-platform-engine` from 7.34.8 to 8.0.2
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.34.8...v8.0.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.cucumber:cucumber-core
+    dependency-version: 8.0.2
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  - dependency-name: io.cucumber:cucumber-java
+    dependency-version: 8.0.2
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  - dependency-name: io.cucumber:cucumber-junit-platform-engine
+    dependency-version: 8.0.2
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
 * Bump org.slf4j:slf4j-api from 2.0.19 to 2.0.20. [dependabot[bot]]
 
   Bumps org.slf4j:slf4j-api from 2.0.19 to 2.0.20.
