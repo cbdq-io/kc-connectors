@@ -5,6 +5,18 @@
 
 ### Build
 
+* Bump org.slf4j:slf4j-api from 2.0.19 to 2.0.20. [dependabot[bot]]
+
+  Bumps org.slf4j:slf4j-api from 2.0.19 to 2.0.20.
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.slf4j:slf4j-api
+    dependency-version: 2.0.20
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump com.azure:azure-messaging-servicebus. [dependabot[bot]]
 
   Bumps [com.azure:azure-messaging-servicebus](https://github.com/Azure/azure-sdk-for-java) from 7.17.20 to 7.18.0.
