@@ -1,6 +1,25 @@
 # Changelog
 
 
+## Unreleased
+
+### Build
+
+* Bump org.mockito:mockito-junit-jupiter. [dependabot[bot]]
+
+  Bumps [org.mockito:mockito-junit-jupiter](https://github.com/mockito/mockito) from 5.23.0 to 5.24.0.
+  - [Release notes](https://github.com/mockito/mockito/releases)
+  - [Commits](https://github.com/mockito/mockito/compare/v5.23.0...v5.24.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.mockito:mockito-junit-jupiter
+    dependency-version: 5.24.0
+    dependency-type: direct:development
+    update-type: version-update:semver-minor
+  ...
+
+
 ## 1.0.12 (2026-09-25)
 
 ### Fix
