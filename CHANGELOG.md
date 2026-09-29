@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fix
+
+* Have versions configured in the parent pom.xml file. [Ben Dalling]
+
 ### Build
 
 * Bump cucumber.version from 7.34.8 to 8.0.2. [dependabot[bot]]
