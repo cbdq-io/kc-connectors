@@ -5,6 +5,20 @@
 
 ### Build
 
+* Bump com.azure:azure-messaging-servicebus. [dependabot[bot]]
+
+  Bumps [com.azure:azure-messaging-servicebus](https://github.com/Azure/azure-sdk-for-java) from 7.17.20 to 7.18.0.
+  - [Release notes](https://github.com/Azure/azure-sdk-for-java/releases)
+  - [Commits](https://github.com/Azure/azure-sdk-for-java/compare/com.azure+azure-messaging-servicebus_7.17.20...com.azure+azure-messaging-servicebus_7.18.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: com.azure:azure-messaging-servicebus
+    dependency-version: 7.18.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
 * Bump org.mockito:mockito-junit-jupiter. [dependabot[bot]]
 
   Bumps [org.mockito:mockito-junit-jupiter](https://github.com/mockito/mockito) from 5.23.0 to 5.24.0.
