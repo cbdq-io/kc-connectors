@@ -9,6 +9,18 @@
 
 ### Build
 
+* Bump ghcr.io/devcontainers/features/docker-in-docker. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/docker-in-docker from 4.1.1 to 4.1.2.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/docker-in-docker
+    dependency-version: 4.1.2
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump cucumber.version from 7.34.8 to 8.0.2. [dependabot[bot]]
 
   Bumps `cucumber.version` from 7.34.8 to 8.0.2.
