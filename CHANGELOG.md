@@ -9,6 +9,50 @@
 
 ### Build
 
+* Bump cucumber.version from 8.0.2 to 8.0.4. [dependabot[bot]]
+
+  Bumps `cucumber.version` from 8.0.2 to 8.0.4.
+
+  Updates `io.cucumber:cucumber-bom` from 8.0.2 to 8.0.4
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v8.0.2...v8.0.4)
+
+  Updates `io.cucumber:cucumber-java` from 8.0.2 to 8.0.4
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v8.0.2...v8.0.4)
+
+  Updates `io.cucumber:cucumber-core` from 8.0.2 to 8.0.4
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v8.0.2...v8.0.4)
+
+  Updates `io.cucumber:cucumber-junit-platform-engine` from 8.0.2 to 8.0.4
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v8.0.2...v8.0.4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.cucumber:cucumber-bom
+    dependency-version: 8.0.4
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  - dependency-name: io.cucumber:cucumber-core
+    dependency-version: 8.0.4
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  - dependency-name: io.cucumber:cucumber-java
+    dependency-version: 8.0.4
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  - dependency-name: io.cucumber:cucumber-junit-platform-engine
+    dependency-version: 8.0.4
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump ghcr.io/devcontainers/features/docker-in-docker. [dependabot[bot]]
 
   Bumps ghcr.io/devcontainers/features/docker-in-docker from 4.1.1 to 4.1.2.
