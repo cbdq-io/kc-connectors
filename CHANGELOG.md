@@ -5,6 +5,53 @@
 
 ### Fix
 
+* Replacement for BAD release 1.0.13. [Ben Dalling]
+
+### Build
+
+* Bump com.azure:azure-messaging-servicebus. [dependabot[bot]]
+
+  Bumps [com.azure:azure-messaging-servicebus](https://github.com/Azure/azure-sdk-for-java) from 7.18.0 to 7.18.1.
+  - [Release notes](https://github.com/Azure/azure-sdk-for-java/releases)
+  - [Commits](https://github.com/Azure/azure-sdk-for-java/compare/com.azure+azure-messaging-servicebus_7.18.0...com.azure+azure-messaging-servicebus_7.18.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: com.azure:azure-messaging-servicebus
+    dependency-version: 7.18.1
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump org.apache.kafka:connect-api from 4.3.1 to 4.4.0. [dependabot[bot]]
+
+  Bumps org.apache.kafka:connect-api from 4.3.1 to 4.4.0.
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.kafka:connect-api
+    dependency-version: 4.4.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+* Bump ghcr.io/devcontainers/features/docker-in-docker. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/docker-in-docker from 4.1.2 to 4.1.3.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/docker-in-docker
+    dependency-version: 4.1.3
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+
+## 1.0.13 (2026-10-14)
+
+### Fix
+
 * Have versions configured in the parent pom.xml file. [Ben Dalling]
 
 ### Build
