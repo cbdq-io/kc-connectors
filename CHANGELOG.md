@@ -5,6 +5,146 @@
 
 ### Fix
 
+* Have versions configured in the parent pom.xml file. [Ben Dalling]
+
+### Build
+
+* Bump cucumber.version from 8.0.2 to 8.0.4. [dependabot[bot]]
+
+  Bumps `cucumber.version` from 8.0.2 to 8.0.4.
+
+  Updates `io.cucumber:cucumber-bom` from 8.0.2 to 8.0.4
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v8.0.2...v8.0.4)
+
+  Updates `io.cucumber:cucumber-java` from 8.0.2 to 8.0.4
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v8.0.2...v8.0.4)
+
+  Updates `io.cucumber:cucumber-core` from 8.0.2 to 8.0.4
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v8.0.2...v8.0.4)
+
+  Updates `io.cucumber:cucumber-junit-platform-engine` from 8.0.2 to 8.0.4
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v8.0.2...v8.0.4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.cucumber:cucumber-bom
+    dependency-version: 8.0.4
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  - dependency-name: io.cucumber:cucumber-core
+    dependency-version: 8.0.4
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  - dependency-name: io.cucumber:cucumber-java
+    dependency-version: 8.0.4
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  - dependency-name: io.cucumber:cucumber-junit-platform-engine
+    dependency-version: 8.0.4
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump ghcr.io/devcontainers/features/docker-in-docker. [dependabot[bot]]
+
+  Bumps ghcr.io/devcontainers/features/docker-in-docker from 4.1.1 to 4.1.2.
+
+  ---
+  updated-dependencies:
+  - dependency-name: ghcr.io/devcontainers/features/docker-in-docker
+    dependency-version: 4.1.2
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump cucumber.version from 7.34.8 to 8.0.2. [dependabot[bot]]
+
+  Bumps `cucumber.version` from 7.34.8 to 8.0.2.
+
+  Updates `io.cucumber:cucumber-java` from 7.34.8 to 8.0.2
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.34.8...v8.0.2)
+
+  Updates `io.cucumber:cucumber-core` from 7.34.8 to 8.0.2
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.34.8...v8.0.2)
+
+  Updates `io.cucumber:cucumber-junit-platform-engine` from 7.34.8 to 8.0.2
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v7.34.8...v8.0.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.cucumber:cucumber-core
+    dependency-version: 8.0.2
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  - dependency-name: io.cucumber:cucumber-java
+    dependency-version: 8.0.2
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  - dependency-name: io.cucumber:cucumber-junit-platform-engine
+    dependency-version: 8.0.2
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+
+* Bump org.slf4j:slf4j-api from 2.0.19 to 2.0.20. [dependabot[bot]]
+
+  Bumps org.slf4j:slf4j-api from 2.0.19 to 2.0.20.
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.slf4j:slf4j-api
+    dependency-version: 2.0.20
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+* Bump com.azure:azure-messaging-servicebus. [dependabot[bot]]
+
+  Bumps [com.azure:azure-messaging-servicebus](https://github.com/Azure/azure-sdk-for-java) from 7.17.20 to 7.18.0.
+  - [Release notes](https://github.com/Azure/azure-sdk-for-java/releases)
+  - [Commits](https://github.com/Azure/azure-sdk-for-java/compare/com.azure+azure-messaging-servicebus_7.17.20...com.azure+azure-messaging-servicebus_7.18.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: com.azure:azure-messaging-servicebus
+    dependency-version: 7.18.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+* Bump org.mockito:mockito-junit-jupiter. [dependabot[bot]]
+
+  Bumps [org.mockito:mockito-junit-jupiter](https://github.com/mockito/mockito) from 5.23.0 to 5.24.0.
+  - [Release notes](https://github.com/mockito/mockito/releases)
+  - [Commits](https://github.com/mockito/mockito/compare/v5.23.0...v5.24.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.mockito:mockito-junit-jupiter
+    dependency-version: 5.24.0
+    dependency-type: direct:development
+    update-type: version-update:semver-minor
+  ...
+
+
+## 1.0.12 (2026-09-25)
+
+### Fix
+
 * Update vulnerabilities in base image (2026-09-25) [Ben Dalling]
 
 * Ensure "su" is available on the image. [Ben Dalling]
