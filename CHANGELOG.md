@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fix
+
+* Replacement for BAD release 1.0.13. [Ben Dalling]
+
 ### Build
 
 * Bump com.azure:azure-messaging-servicebus. [dependabot[bot]]
