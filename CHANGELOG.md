@@ -5,6 +5,20 @@
 
 ### Build
 
+* Bump com.azure:azure-messaging-servicebus. [dependabot[bot]]
+
+  Bumps [com.azure:azure-messaging-servicebus](https://github.com/Azure/azure-sdk-for-java) from 7.18.0 to 7.18.1.
+  - [Release notes](https://github.com/Azure/azure-sdk-for-java/releases)
+  - [Commits](https://github.com/Azure/azure-sdk-for-java/compare/com.azure+azure-messaging-servicebus_7.18.0...com.azure+azure-messaging-servicebus_7.18.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: com.azure:azure-messaging-servicebus
+    dependency-version: 7.18.1
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump org.apache.kafka:connect-api from 4.3.1 to 4.4.0. [dependabot[bot]]
 
   Bumps org.apache.kafka:connect-api from 4.3.1 to 4.4.0.
