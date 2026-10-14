@@ -1,7 +1,11 @@
 # Changelog
 
 
-## Unreleased
+## 1.0.14 (2026-10-14)
+
+### Fix
+
+* Replacement for BAD release 1.0.13. [Ben Dalling]
 
 ### Build
 
