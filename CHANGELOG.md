@@ -5,6 +5,18 @@
 
 ### Build
 
+* Bump org.apache.kafka:connect-api from 4.3.1 to 4.4.0. [dependabot[bot]]
+
+  Bumps org.apache.kafka:connect-api from 4.3.1 to 4.4.0.
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.kafka:connect-api
+    dependency-version: 4.4.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
 * Bump ghcr.io/devcontainers/features/docker-in-docker. [dependabot[bot]]
 
   Bumps ghcr.io/devcontainers/features/docker-in-docker from 4.1.2 to 4.1.3.
