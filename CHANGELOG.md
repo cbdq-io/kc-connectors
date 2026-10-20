@@ -1,6 +1,37 @@
 # Changelog
 
 
+## Unreleased
+
+### Build
+
+* Bump prometheus.version from 1.9.0 to 1.10.0. [dependabot[bot]]
+
+  Bumps `prometheus.version` from 1.9.0 to 1.10.0.
+
+  Updates `io.prometheus:prometheus-metrics-core` from 1.9.0 to 1.10.0
+
+  Updates `io.prometheus:prometheus-metrics-instrumentation-jvm` from 1.9.0 to 1.10.0
+
+  Updates `io.prometheus:prometheus-metrics-exporter-httpserver` from 1.9.0 to 1.10.0
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.prometheus:prometheus-metrics-core
+    dependency-version: 1.10.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.prometheus:prometheus-metrics-instrumentation-jvm
+    dependency-version: 1.10.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.prometheus:prometheus-metrics-exporter-httpserver
+    dependency-version: 1.10.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+
 ## 1.0.14 (2026-10-14)
 
 ### Fix
