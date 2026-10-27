@@ -5,6 +5,20 @@
 
 ### Build
 
+* Bump org.apache.maven.plugins:maven-surefire-plugin. [dependabot[bot]]
+
+  Bumps [org.apache.maven.plugins:maven-surefire-plugin](https://github.com/apache/maven-surefire) from 3.6.0 to 3.6.1.
+  - [Release notes](https://github.com/apache/maven-surefire/releases)
+  - [Commits](https://github.com/apache/maven-surefire/compare/surefire-3.6.0...surefire-3.6.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.maven.plugins:maven-surefire-plugin
+    dependency-version: 3.6.1
+    dependency-type: direct:development
+    update-type: version-update:semver-patch
+  ...
+
 * Bump prometheus.version from 1.9.0 to 1.10.0. [dependabot[bot]]
 
   Bumps `prometheus.version` from 1.9.0 to 1.10.0.
