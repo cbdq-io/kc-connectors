@@ -3,6 +3,16 @@
 
 ## Unreleased
 
+### Fix
+
+* Bump azure-messaging-servicebus from 7.18.1 to 7.19.1. [Ben Dalling]
+
+* Migrate to .trivyignore.yaml. [Ben Dalling]
+
+* Bump confluentinc/cp-kafka-connect tag from 8.3.2 to 8.4.0. [Ben Dalling]
+
+* Handle larger payloads better. [Ben Dalling]
+
 ### Build
 
 * Bump org.apache.maven.plugins:maven-surefire-plugin. [dependabot[bot]]
