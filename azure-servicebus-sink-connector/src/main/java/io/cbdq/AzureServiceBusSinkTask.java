@@ -166,6 +166,17 @@ public class AzureServiceBusSinkTask extends SinkTask {
         }
     }
 
+    private boolean tryAddMessage(ServiceBusMessageBatch batch, ServiceBusMessage message) {
+        try {
+            return batch.tryAddMessage(message);
+        } catch (ServiceBusException ex) {
+            if (ServiceBusFailureReason.MESSAGE_SIZE_EXCEEDED.equals(ex.getReason())) {
+                return false;
+            }
+            throw ex;
+        }
+    }
+
     private void sendMessagesToServiceBusTopic(String sourceTopic, List<SinkRecord> envelopes) {
         ServiceBusSenderClient sender = serviceBusSenders.get(sourceTopic);
         log.debug("Attempting to send {} messages from Kafka topic '{}'.", envelopes.size(), sourceTopic);
@@ -183,18 +194,18 @@ public class AzureServiceBusSinkTask extends SinkTask {
         for (SinkRecord envelope : envelopes) {
             ServiceBusMessage message = createMessageFromEnvelope(envelope);
 
-            if (currentBatch.tryAddMessage(message)) {
+            if (tryAddMessage(currentBatch, message)) {
                 currentMessages.add(message);
                 continue;
             }
 
-            // The batch is full, so we create a new batch and send the batch.
+            // The message does not fit in the current batch, so send the batch and create a new one.
             sender = sendBatchToTopic(sourceTopic, sender, currentBatch, currentMessages);
             currentBatch = sender.createMessageBatch();
             currentMessages = new ArrayList<>();
 
-            // Add that message that we couldn't before.
-            if (!currentBatch.tryAddMessage(message)) {
+            // Retry the message against an empty batch; if it still does not fit, send it individually.
+            if (!tryAddMessage(currentBatch, message)) {
                 int bodyBytes = message.getBody().toBytes().length;
                 log.debug("Message is too large ({} bytes) for an empty batch.", bodyBytes);
                 sender.sendMessage(message);
