@@ -5,6 +5,61 @@
 
 ### Fix
 
+* Bump azure-messaging-servicebus from 7.18.1 to 7.19.1. [Ben Dalling]
+
+* Migrate to .trivyignore.yaml. [Ben Dalling]
+
+* Bump confluentinc/cp-kafka-connect tag from 8.3.2 to 8.4.0. [Ben Dalling]
+
+* Handle larger payloads better. [Ben Dalling]
+
+### Build
+
+* Bump org.apache.maven.plugins:maven-surefire-plugin. [dependabot[bot]]
+
+  Bumps [org.apache.maven.plugins:maven-surefire-plugin](https://github.com/apache/maven-surefire) from 3.6.0 to 3.6.1.
+  - [Release notes](https://github.com/apache/maven-surefire/releases)
+  - [Commits](https://github.com/apache/maven-surefire/compare/surefire-3.6.0...surefire-3.6.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: org.apache.maven.plugins:maven-surefire-plugin
+    dependency-version: 3.6.1
+    dependency-type: direct:development
+    update-type: version-update:semver-patch
+  ...
+
+* Bump prometheus.version from 1.9.0 to 1.10.0. [dependabot[bot]]
+
+  Bumps `prometheus.version` from 1.9.0 to 1.10.0.
+
+  Updates `io.prometheus:prometheus-metrics-core` from 1.9.0 to 1.10.0
+
+  Updates `io.prometheus:prometheus-metrics-instrumentation-jvm` from 1.9.0 to 1.10.0
+
+  Updates `io.prometheus:prometheus-metrics-exporter-httpserver` from 1.9.0 to 1.10.0
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.prometheus:prometheus-metrics-core
+    dependency-version: 1.10.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.prometheus:prometheus-metrics-instrumentation-jvm
+    dependency-version: 1.10.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.prometheus:prometheus-metrics-exporter-httpserver
+    dependency-version: 1.10.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
+
+## 1.0.14 (2026-10-14)
+
+### Fix
+
 * Replacement for BAD release 1.0.13. [Ben Dalling]
 
 ### Build
