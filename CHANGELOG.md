@@ -3,6 +3,16 @@
 
 ## Unreleased
 
+### Fix
+
+* Correct issues identified by Trivy. [Ben Dalling]
+
+* Pin actions to SHA. [Ben Dalling]
+
+* Update confluentinc/cp-kafka-connect from 8.4.0 to 8.4.1. [Ben Dalling]
+
+* Split Trivy into separate CI test. [Ben Dalling]
+
 ### Build
 
 * Bump ghcr.io/devcontainers/features/python. [dependabot[bot]]
@@ -16,6 +26,10 @@
     dependency-type: direct:production
     update-type: version-update:semver-patch
   ...
+
+### Other
+
+* Fix(ci) tighten up GitHub workflow security. [Ben Dalling]
 
 
 ## 1.0.15 (2026-11-09)
