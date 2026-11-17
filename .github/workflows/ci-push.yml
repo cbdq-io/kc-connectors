@@ -10,7 +10,7 @@ on:
 permissions: read-all
 
 jobs:
-  build:
+  CI:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,8 +36,26 @@ jobs:
       - name: Test
         run: make test
 
+  Trivy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Build
+        run: make build
+
+      - name: Manual Trivy Setup
+        uses: aquasecurity/setup-trivy@v0.3.1
+        with:
+          cache: true
+          version: v0.75.0
+
       - name: Run Trivy scan
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: kc-connectors:latest
+          scanners: vuln
           trivy-config: trivy.yaml
+          skip-setup-trivy: true
