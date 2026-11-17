@@ -32,7 +32,7 @@ RUN dnf install -y \
       /microdir/etc/gshadow
 
 
-FROM confluentinc/cp-kafka-connect:8.4.0
+FROM confluentinc/cp-kafka-connect:8.4.1
 
 LABEL org.opencontainers.image.description="A Kafka Connect Sink Connector for Azure Service Bus."
 
