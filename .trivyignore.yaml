@@ -1,130 +1,114 @@
 ---
 vulnerabilities:
   - id: CVE-2026-102010
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-102554
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-102633
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-103995
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
-  - id: CVE-2026-106450
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
-  - id: CVE-2026-106451
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
-  - id: CVE-2026-108106
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-109089
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-109090
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
-  - id: CVE-2026-111497
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
-  - id: CVE-2026-111943
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
-  - id: CVE-2026-114406
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-114583
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-114690
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-114691
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-115557
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
-  - id: CVE-2026-116590
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-11979
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-12345
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-13595
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-16118
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-19032
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-19445
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-19553
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-34743
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-42772
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-53613
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-53615
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-54872
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-54873
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-54875
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-59171
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-66046
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-6653
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-68497
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-72897
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-74860
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-75804
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-75805
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-75806
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-77214
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-77696
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-83557
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-84784
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-86138
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-86140
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-86142
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-86143
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-86144
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-8674
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-86805
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-88806
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-88807
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-89092
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-89407
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-89425
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-91776
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-91777
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
-  - id: CVE-2026-93451
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-93543
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-93990
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-94286
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-95619
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-95818
-    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.0
+    statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
