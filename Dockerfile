@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/ubi:9.8 AS packages
+FROM registry.access.redhat.com/ubi9/ubi:9.9 AS packages
 
 # hadolint ignore=DL3013,DL3041
 RUN dnf install -y \
