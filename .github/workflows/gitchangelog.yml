@@ -22,6 +22,7 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
+          token: ${{ secrets.BOT_TOKEN }}
 
       - name: Update Change Log
         run: git pull && make changelog
