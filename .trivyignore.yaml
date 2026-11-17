@@ -1,5 +1,44 @@
 ---
 vulnerabilities:
+  - id: CVE-2026-107364
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-107708
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-107778
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-107884
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-111423
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-112314
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-112315
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-112316
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-112317
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-112318
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-112319
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-112320
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-112321
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-112322
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-112323
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-118380
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-119079
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-71199
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+  - id: CVE-2026-71200
+    statement: present in upstream image registry.access.redhat.com/ubi9/ubi:9.9
+
   - id: CVE-2026-102010
     statement: present in upstream image confluentinc/cp-kafka-connect:8.4.1
   - id: CVE-2026-102554
