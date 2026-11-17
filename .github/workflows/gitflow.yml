@@ -34,7 +34,7 @@ jobs:
         run: echo "RELEASE_CANDIDATE_TAG=$( make tag )" >> $GITHUB_OUTPUT
 
       - name: Git Flow Action
-        uses: cbdq-io/gitflow-action@a93d6e6b70bc562ca784fd3b0adcc49ca9fc0de7 # 1.0.8
+        uses: cbdq-io/gitflow-action@e6fa3ba04787e367cb196ed0ba72fae5e98f1e70 # 1.1.1
         env:
           # Setting this environment variable means we can debug by re-running
           # workflows and ticking "Enable debug logging".
