@@ -25,14 +25,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
 
       - name: Retrieve Release Candidate Name
         id: version
         run: echo "RELEASE_CANDIDATE_TAG=$( make tag )" >> $GITHUB_OUTPUT
 
       - name: Git Flow Action
-        uses: cbdq-io/gitflow-action@1.0.8
+        uses: cbdq-io/gitflow-action@e6fa3ba04787e367cb196ed0ba72fae5e98f1e70 # 1.1.1
         env:
           # Setting this environment variable means we can debug by re-running
           # workflows and ticking "Enable debug logging".

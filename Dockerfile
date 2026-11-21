@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/ubi:9.8 AS packages
+FROM registry.access.redhat.com/ubi9/ubi:9.9 AS packages
 
 # hadolint ignore=DL3013,DL3041
 RUN dnf install -y \
@@ -32,7 +32,7 @@ RUN dnf install -y \
       /microdir/etc/gshadow
 
 
-FROM confluentinc/cp-kafka-connect:8.4.0
+FROM confluentinc/cp-kafka-connect:8.4.1
 
 LABEL org.opencontainers.image.description="A Kafka Connect Sink Connector for Azure Service Bus."
 
