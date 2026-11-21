@@ -1,9 +1,11 @@
 # Changelog
 
 
-## Unreleased
+## 1.0.16 (2026-11-21)
 
 ### Fix
+
+* Java4Shell (CVE-2026-114938) [Ben Dalling]
 
 * Correct issues identified by Trivy. [Ben Dalling]
 
