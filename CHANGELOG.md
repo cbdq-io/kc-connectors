@@ -5,6 +5,50 @@
 
 ### Build
 
+* Bump cucumber.version from 8.0.4 to 8.1.0. [dependabot[bot]]
+
+  Bumps `cucumber.version` from 8.0.4 to 8.1.0.
+
+  Updates `io.cucumber:cucumber-bom` from 8.0.4 to 8.1.0
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v8.0.4...v8.1.0)
+
+  Updates `io.cucumber:cucumber-java` from 8.0.4 to 8.1.0
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v8.0.4...v8.1.0)
+
+  Updates `io.cucumber:cucumber-core` from 8.0.4 to 8.1.0
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v8.0.4...v8.1.0)
+
+  Updates `io.cucumber:cucumber-junit-platform-engine` from 8.0.4 to 8.1.0
+  - [Release notes](https://github.com/cucumber/cucumber-jvm/releases)
+  - [Changelog](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/cucumber/cucumber-jvm/compare/v8.0.4...v8.1.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: io.cucumber:cucumber-bom
+    dependency-version: 8.1.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.cucumber:cucumber-java
+    dependency-version: 8.1.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.cucumber:cucumber-core
+    dependency-version: 8.1.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  - dependency-name: io.cucumber:cucumber-junit-platform-engine
+    dependency-version: 8.1.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
 * Bump cbdq-io/gitflow-action from 1.1.1 to 1.1.2. [dependabot[bot]]
 
   Bumps [cbdq-io/gitflow-action](https://github.com/cbdq-io/gitflow-action) from 1.1.1 to 1.1.2.
