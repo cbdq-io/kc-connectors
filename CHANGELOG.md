@@ -5,6 +5,21 @@
 
 ### Build
 
+* Bump at.yawk.lz4:lz4-java from 1.11.4 to 1.14.1. [dependabot[bot]]
+
+  Bumps [at.yawk.lz4:lz4-java](https://github.com/yawkat/lz4-java) from 1.11.4 to 1.14.1.
+  - [Release notes](https://github.com/yawkat/lz4-java/releases)
+  - [Changelog](https://github.com/yawkat/lz4-java/blob/main/CHANGES.md)
+  - [Commits](https://github.com/yawkat/lz4-java/compare/v1.11.4...v1.14.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: at.yawk.lz4:lz4-java
+    dependency-version: 1.14.1
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+
 * Bump cucumber.version from 8.0.4 to 8.1.0. [dependabot[bot]]
 
   Bumps `cucumber.version` from 8.0.4 to 8.1.0.
