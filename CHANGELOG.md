@@ -5,6 +5,21 @@
 
 ### Build
 
+* Bump cbdq-io/gitflow-action from 1.1.1 to 1.1.2. [dependabot[bot]]
+
+  Bumps [cbdq-io/gitflow-action](https://github.com/cbdq-io/gitflow-action) from 1.1.1 to 1.1.2.
+  - [Release notes](https://github.com/cbdq-io/gitflow-action/releases)
+  - [Changelog](https://github.com/cbdq-io/gitflow-action/blob/develop/CHANGELOG.md)
+  - [Commits](https://github.com/cbdq-io/gitflow-action/compare/e6fa3ba04787e367cb196ed0ba72fae5e98f1e70...7e21d7dbea57f3e79ed0f47d7bcf78617fd066fa)
+
+  ---
+  updated-dependencies:
+  - dependency-name: cbdq-io/gitflow-action
+    dependency-version: 1.1.2
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
 * Bump github/codeql-action/upload-sarif. [dependabot[bot]]
 
   Bumps [github/codeql-action/upload-sarif](https://github.com/github/codeql-action) from 4.39.3 to 4.39.4.
