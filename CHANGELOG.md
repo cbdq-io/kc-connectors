@@ -1,6 +1,26 @@
 # Changelog
 
 
+## Unreleased
+
+### Build
+
+* Bump github/codeql-action/upload-sarif. [dependabot[bot]]
+
+  Bumps [github/codeql-action/upload-sarif](https://github.com/github/codeql-action) from 4.39.3 to 4.39.4.
+  - [Release notes](https://github.com/github/codeql-action/releases)
+  - [Changelog](https://github.com/github/codeql-action/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/github/codeql-action/compare/33d7b85da1a04171e211befe2c739303b9a4c066...1bd86f2fdb4b86187fa4059f16f31a3202acc9ea)
+
+  ---
+  updated-dependencies:
+  - dependency-name: github/codeql-action/upload-sarif
+    dependency-version: 4.39.4
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+
+
 ## 1.0.16 (2026-11-21)
 
 ### Fix
